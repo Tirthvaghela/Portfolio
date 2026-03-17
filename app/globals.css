@@ -24,6 +24,10 @@ body {
 
 section { scroll-margin-top: 80px; }
 
+@media (max-width: 768px) {
+  section { padding-top: 64px !important; padding-bottom: 64px !important; }
+}
+
 .outline-text {
   -webkit-text-stroke: 2px #111111;
   color: transparent;

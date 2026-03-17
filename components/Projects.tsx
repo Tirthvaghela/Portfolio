@@ -58,7 +58,8 @@ export default function Projects() {
                 onMouseEnter={() => setHovered(project.id)}
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => setSelected(project)}
-                style={{ display: "grid", gridTemplateColumns: "56px 1fr 52px", gap: 24, alignItems: "center", padding: "28px 16px", borderTop: "1.5px solid #ebebeb", borderBottom: i === filtered.length - 1 ? "1.5px solid #ebebeb" : "none", background: isHovered ? "#eef2ff" : "#f8f8f6", transition: "background 0.2s", borderRadius: 4, cursor: "pointer" }}
+                className="project-row"
+                style={{ background: isHovered ? "#eef2ff" : "#f8f8f6", transition: "background 0.2s", borderRadius: 4, cursor: "pointer", borderTop: "1.5px solid #ebebeb", borderBottom: i === filtered.length - 1 ? "1.5px solid #ebebeb" : "none" }}
               >
                 <div style={{ fontSize: 12, fontWeight: 700, color: "#ccc", letterSpacing: "1px", userSelect: "none" }}>
                   {String(i + 1).padStart(2, "0")}
@@ -93,6 +94,14 @@ export default function Projects() {
       </div>
 
       <ProjectModal project={selected} onClose={() => setSelected(null)} />
+
+      <style>{`
+        .project-row { display: grid; grid-template-columns: 56px 1fr 52px; gap: 24px; align-items: center; padding: 28px 16px; }
+        @media (max-width: 600px) {
+          .project-row { grid-template-columns: 1fr 36px; gap: 12px; padding: 20px 12px; }
+          .project-row > div:first-child { display: none; }
+        }
+      `}</style>
     </section>
   );
 }

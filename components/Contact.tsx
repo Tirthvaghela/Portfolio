@@ -54,7 +54,7 @@ export default function Contact() {
       </FadeIn>
 
       <FadeIn delay={0.1}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 80, alignItems: "start" }}>
+        <div className="contact-grid">
         <div>
           <p style={{ fontSize: 15, color: "#666", lineHeight: 1.8, marginBottom: 40 }}>
             Have a project in mind or want to collaborate? I&apos;d love to hear from you.
@@ -93,7 +93,7 @@ export default function Contact() {
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="contact-form-row">
             <div>
               <label style={{ fontSize: 11, color: "#aaa", letterSpacing: "1px", textTransform: "uppercase", display: "block", marginBottom: 8 }}>Name</label>
               <input type="text" required placeholder="John Doe" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inputStyle} onFocus={(e) => (e.target.style.borderColor = "#111")} onBlur={(e) => (e.target.style.borderColor = "#e8e8e8")} />
@@ -122,9 +122,11 @@ export default function Contact() {
       </FadeIn>
 
       <style>{`
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+        .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         @media (max-width: 768px) {
-          section > div:last-child { grid-template-columns: 1fr !important; gap: 40px !important; }
-          form > div:first-child { grid-template-columns: 1fr !important; }
+          .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+          .contact-form-row { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>

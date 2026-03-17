@@ -9,7 +9,7 @@ export default function Footer() {
           </div>
           <p style={{ fontSize: 13, color: "#666" }}>Full-Stack Developer · Ahmedabad, India</p>
         </div>
-        <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
           {["About", "Skills", "Projects", "Experience", "Contact"].map((l) => (
             <button key={l}
               onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}

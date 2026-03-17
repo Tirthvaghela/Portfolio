@@ -5,7 +5,7 @@ import FadeIn from "./FadeIn";
 export default function About() {
   return (
     <section style={{ background: "#f8f8f6", padding: "100px 6%", borderTop: "1px solid #ebebeb" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+      <div className="about-grid">
         <FadeIn direction="left">
           <div>
             <p style={{ fontSize: 13, color: "#2563eb", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", marginBottom: 16 }}>
@@ -35,7 +35,7 @@ export default function About() {
         </FadeIn>
 
         <FadeIn direction="right" delay={0.15}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div className="about-stats">
             {[
               { num: "8", label: "Projects Completed", color: "#111" },
               { num: "5", label: "Tech Stacks Mastered", color: "#2563eb" },
@@ -58,8 +58,11 @@ export default function About() {
       </div>
 
       <style>{`
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media (max-width: 768px) {
-          section > div { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .about-grid { grid-template-columns: 1fr; gap: 40px; }
+          .about-stats { gap: 12px; }
         }
       `}</style>
     </section>

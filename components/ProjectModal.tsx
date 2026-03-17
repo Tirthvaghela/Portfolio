@@ -72,7 +72,7 @@ export default function ProjectModal({ project, onClose }: Props) {
             {/* Color bar */}
             <div style={{ height: 5, background: `linear-gradient(90deg, ${project.color}, ${project.color}60)`, borderRadius: "8px 8px 0 0" }} />
 
-            <div style={{ padding: "36px 40px 40px" }}>
+            <div style={{ padding: "clamp(20px, 5vw, 40px)" }}>
               {/* Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
                 <div>

@@ -17,7 +17,7 @@ export default function Experience() {
         </div>
       </FadeIn>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60 }}>
+      <div className="exp-grid">
         <FadeIn direction="left" delay={0.1}>
           <div>
             <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 32 }}>Work Experience</h3>
@@ -73,9 +73,8 @@ export default function Experience() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          section > div:last-child { grid-template-columns: 1fr !important; }
-        }
+        .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        @media (max-width: 768px) { .exp-grid { grid-template-columns: 1fr; gap: 40px; } }
       `}</style>
     </section>
   );
