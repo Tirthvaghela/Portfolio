@@ -43,11 +43,11 @@ export default function About() {
               { num: "3", label: "Years of Learning", color: "#2563eb" },
             ].map(({ num, label, color }) => (
               <div key={label}
-                style={{ border: "1.5px solid #e8e8e8", borderRadius: 6, padding: "32px 24px", textAlign: "center", transition: "border-color 0.2s, transform 0.2s" }}
+                className="stat-card"
                 onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#2563eb"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#e8e8e8"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
               >
-                <div style={{ fontSize: 52, fontWeight: 900, color, letterSpacing: "-2px", lineHeight: 1 }}>
+                <div className="stat-num" style={{ color }}>
                   {num}<span style={{ color: "#2563eb", fontSize: 36 }}>+</span>
                 </div>
                 <div style={{ fontSize: 13, color: "#888", marginTop: 8, lineHeight: 1.4 }}>{label}</div>
@@ -60,9 +60,13 @@ export default function About() {
       <style>{`
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .stat-card { border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+        .stat-num { font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
         @media (max-width: 768px) {
           .about-grid { grid-template-columns: 1fr; gap: 40px; }
           .about-stats { gap: 12px; }
+          .stat-card { padding: 20px 12px; }
+          .stat-num { font-size: 36px; }
         }
       `}</style>
     </section>
