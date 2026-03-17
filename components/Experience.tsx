@@ -60,10 +60,10 @@ export default function Experience() {
                 </div>
               </div>
             ))}
-            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 24 }}>Training / Courses</h3>
+            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 24, marginTop: 16 }}>Training / Courses</h3>
             <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
               <div style={{ background: "#2563eb", borderRadius: 2 }} />
-              <div>
+              <div style={{ paddingBottom: 16 }}>
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>Master MongoDB Database Design</h4>
                 <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Compass + Mongosh + PyMongo — Udemy</p>
               </div>
@@ -74,7 +74,10 @@ export default function Experience() {
 
       <style>{`
         .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        @media (max-width: 768px) { .exp-grid { grid-template-columns: 1fr; gap: 40px; } }
+        @media (max-width: 768px) {
+          .exp-grid { grid-template-columns: 1fr; gap: 48px; }
+          .exp-grid > div > div > h3 { margin-top: 0; }
+        }
       `}</style>
     </section>
   );
