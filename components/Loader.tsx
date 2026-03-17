@@ -34,7 +34,7 @@ export default function Loader() {
           </motion.div>
 
           {/* Progress bar */}
-          <div style={{ width: 120, height: 2, background: "#f0f0f0", borderRadius: 2, overflow: "hidden" }}>
+          <div style={{ width: "clamp(80px, 20vw, 120px)", height: 2, background: "#f0f0f0", borderRadius: 2, overflow: "hidden" }}>
             <motion.div
               initial={{ width: "0%" }}
               animate={{ width: "100%", transition: { duration: 1.6, delay: 0.3, ease: "easeInOut" } }}
