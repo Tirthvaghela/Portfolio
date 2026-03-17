@@ -1,0 +1,82 @@
+"use client";
+import { experience, education } from "@/app/data";
+import FadeIn from "./FadeIn";
+
+export default function Experience() {
+  return (
+    <section id="experience" style={{ background: "#fff", padding: "100px 6%" }}>
+      <FadeIn>
+        <div style={{ marginBottom: 64 }}>
+          <p style={{ fontSize: 13, color: "#2563eb", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", marginBottom: 12 }}>
+            My journey
+          </p>
+          <h2 style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1, color: "#111" }}>
+            Experience &amp;<br />
+            <span style={{ WebkitTextStroke: "2px #111", color: "transparent" }}>Education</span>
+          </h2>
+        </div>
+      </FadeIn>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60 }}>
+        <FadeIn direction="left" delay={0.1}>
+          <div>
+            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 32 }}>Work Experience</h3>
+            {experience.map((exp, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
+                <div style={{ background: "#2563eb", borderRadius: 2 }} />
+                <div style={{ paddingBottom: 40 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                    <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>{exp.role}</h4>
+                    <span style={{ fontSize: 12, color: "#888", background: "#fff", padding: "4px 12px", border: "1px solid #e8e8e8", borderRadius: 2 }}>{exp.period}</span>
+                  </div>
+                  <p style={{ fontSize: 14, color: "#2563eb", fontWeight: 700, marginBottom: 4 }}>{exp.company}</p>
+                  <p style={{ fontSize: 12, color: "#aaa", marginBottom: 16 }}>{exp.type}</p>
+                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                    {exp.points.map((pt, j) => (
+                      <li key={j} style={{ display: "flex", gap: 10, fontSize: 14, color: "#555", lineHeight: 1.7 }}>
+                        <span style={{ color: "#2563eb", flexShrink: 0, marginTop: 3, fontSize: 10 }}>●</span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        <FadeIn direction="right" delay={0.2}>
+          <div>
+            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 32 }}>Education</h3>
+            {education.map((edu, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
+                <div style={{ background: "#111", borderRadius: 2 }} />
+                <div style={{ paddingBottom: 40 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                    <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>{edu.institution}</h4>
+                    <span style={{ fontSize: 12, color: "#888", background: "#fff", padding: "4px 12px", border: "1px solid #e8e8e8", borderRadius: 2 }}>{edu.period}</span>
+                  </div>
+                  <p style={{ fontSize: 15, color: "#555", lineHeight: 1.7, marginTop: 8 }}>{edu.degree}</p>
+                </div>
+              </div>
+            ))}
+            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 24 }}>Training / Courses</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
+              <div style={{ background: "#2563eb", borderRadius: 2 }} />
+              <div>
+                <h4 style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>Master MongoDB Database Design</h4>
+                <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Compass + Mongosh + PyMongo — Udemy</p>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          section > div:last-child { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}

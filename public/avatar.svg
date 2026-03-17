@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600" fill="none">
+  <rect width="500" height="600" fill="#eef2ff" rx="12"/>
+
+  <!-- Desk -->
+  <rect x="60" y="420" width="380" height="14" rx="7" fill="#cbd5e1"/>
+  <rect x="100" y="434" width="20" height="80" rx="4" fill="#94a3b8"/>
+  <rect x="380" y="434" width="20" height="80" rx="4" fill="#94a3b8"/>
+
+  <!-- Monitor stand -->
+  <rect x="228" y="370" width="44" height="52" rx="4" fill="#94a3b8"/>
+  <rect x="200" y="415" width="100" height="10" rx="5" fill="#64748b"/>
+
+  <!-- Monitor -->
+  <rect x="100" y="180" width="300" height="195" rx="12" fill="#0f172a"/>
+  <rect x="112" y="192" width="276" height="171" rx="8" fill="#1e293b"/>
+
+  <!-- Code lines on screen -->
+  <rect x="128" y="210" width="80" height="8" rx="4" fill="#2563eb" opacity="0.9"/>
+  <rect x="128" y="228" width="140" height="8" rx="4" fill="#4ade80" opacity="0.8"/>
+  <rect x="128" y="246" width="60" height="8" rx="4" fill="#f472b6" opacity="0.8"/>
+  <rect x="148" y="264" width="110" height="8" rx="4" fill="#facc15" opacity="0.8"/>
+  <rect x="148" y="282" width="90" height="8" rx="4" fill="#4ade80" opacity="0.8"/>
+  <rect x="128" y="300" width="70" height="8" rx="4" fill="#2563eb" opacity="0.9"/>
+  <rect x="128" y="318" width="120" height="8" rx="4" fill="#94a3b8" opacity="0.6"/>
+  <rect x="128" y="336" width="50" height="8" rx="4" fill="#f472b6" opacity="0.8"/>
+
+  <!-- Cursor blink -->
+  <rect x="182" y="336" width="3" height="14" rx="1" fill="white" opacity="0.9"/>
+
+  <!-- Keyboard -->
+  <rect x="130" y="430" width="240" height="16" rx="5" fill="#cbd5e1"/>
+  <rect x="138" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="162" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="186" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="210" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="234" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="258" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="282" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="306" y="434" width="18" height="6" rx="2" fill="#94a3b8"/>
+  <rect x="160" y="442" width="180" height="6" rx="2" fill="#94a3b8"/>
+
+  <!-- Coffee mug -->
+  <rect x="390" y="395" width="36" height="30" rx="5" fill="white" stroke="#cbd5e1" stroke-width="2"/>
+  <path d="M 426 403 Q 440 403 440 413 Q 440 423 426 423" stroke="#cbd5e1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <rect x="396" y="401" width="24" height="8" rx="2" fill="#7c3aed" opacity="0.3"/>
+  <!-- Steam -->
+  <path d="M 400 392 Q 402 386 400 380" stroke="#94a3b8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 408 390 Q 410 383 408 377" stroke="#94a3b8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 416 392 Q 418 386 416 380" stroke="#94a3b8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Plant pot -->
+  <rect x="44" y="400" width="34" height="24" rx="3" fill="#f97316" opacity="0.8"/>
+  <path d="M 61 400 Q 61 380 50 365" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="50" cy="363" rx="10" ry="7" fill="#22c55e"/>
+  <path d="M 61 395 Q 61 375 72 360" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <ellipse cx="72" cy="358" rx="10" ry="7" fill="#22c55e"/>
+  <path d="M 61 388 Q 55 370 55 355" stroke="#16a34a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="55" cy="353" rx="8" ry="6" fill="#16a34a"/>
+
+  <!-- TV label -->
+  <text x="250" y="570" font-family="sans-serif" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="700" letter-spacing="6" opacity="0.6">TV.</text>
+</svg>
