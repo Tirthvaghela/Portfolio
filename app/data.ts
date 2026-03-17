@@ -4,7 +4,7 @@ export const personalInfo = {
   subtitle: "MSc IT Student @ GLS University",
   email: "vaghelatirth719@gmail.com",
   location: "Ahmedabad, Gujarat, India",
-  github: "https://github.com/Tirthvaghela/thius",
+  github: "https://github.com/Tirthvaghela",
   linkedin: "https://www.linkedin.com/in/tirthvaghela/",
   summary:
     "Motivated MSc IT student at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",

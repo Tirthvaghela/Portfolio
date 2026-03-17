@@ -39,7 +39,7 @@ export default function Hero() {
         <div className="hero-left">
           <h1 style={{ fontWeight: 900, color: "#111", marginBottom: 8, lineHeight: 1 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 2 }}>
-              <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "#111" }}>Hi</span>
+              <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "#111" }}>Hi, </span>
               <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "#999" }}>I am</span>
             </div>
             <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 0.88, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent" }}>Tirth</div>
@@ -62,7 +62,7 @@ export default function Hero() {
 
           <div style={{ display: "flex", gap: 10 }}>
             {[
-              { icon: <Github size={17} />, href: "https://github.com/Tirthvaghela/thius", label: "GitHub" },
+              { icon: <Github size={17} />, href: "https://github.com/Tirthvaghela", label: "GitHub" },
               { icon: <Linkedin size={17} />, href: "https://www.linkedin.com/in/tirthvaghela/", label: "LinkedIn" },
               { icon: <Mail size={17} />, href: "mailto:vaghelatirth719@gmail.com", label: "Email" },
             ].map(({ icon, href, label }) => (

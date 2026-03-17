@@ -78,7 +78,7 @@ export default function Contact() {
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             {[
-              { icon: <Github size={18} />, href: "https://github.com/Tirthvaghela/thius", label: "GitHub" },
+              { icon: <Github size={18} />, href: "https://github.com/Tirthvaghela", label: "GitHub" },
               { icon: <Linkedin size={18} />, href: "https://www.linkedin.com/in/tirthvaghela/", label: "LinkedIn" },
             ].map(({ icon, href, label }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
