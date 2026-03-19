@@ -8,12 +8,30 @@ export const metadata: Metadata = {
   title: "Tirth Vaghela | Full-Stack Developer",
   description:
     "Portfolio of Tirth Vaghela – Full-Stack Developer specializing in React, Next.js, Django, Flask, and AI/ML integrations.",
-  keywords: ["Tirth Vaghela", "Full-Stack Developer", "React", "Next.js", "Django", "AI", "Portfolio"],
+  keywords: ["Tirth Vaghela", "Full-Stack Developer", "React", "Next.js", "Django", "Flask", "AI", "ML", "Portfolio"],
   authors: [{ name: "Tirth Vaghela" }],
+  metadataBase: new URL("https://tirth-portfolio-htko.vercel.app"),
   openGraph: {
     title: "Tirth Vaghela | Full-Stack Developer",
-    description: "Full-Stack Developer building modern web apps and AI-powered systems.",
+    description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
+    url: "https://tirth-portfolio-htko.vercel.app",
+    siteName: "Tirth Vaghela Portfolio",
+    images: [
+      {
+        url: "/avatar.svg",
+        width: 1200,
+        height: 630,
+        alt: "Tirth Vaghela – Full-Stack Developer",
+      },
+    ],
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tirth Vaghela | Full-Stack Developer",
+    description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems.",
+    images: ["/avatar.svg"],
   },
 };
 

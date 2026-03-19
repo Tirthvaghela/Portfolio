@@ -114,9 +114,9 @@ export default function Hero() {
         .social-icon { width: 40px; height: 40px; border-radius: 3px; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; transition: all 0.2s; }
         .social-icon:hover { border-color: #2563eb; color: #2563eb; }
         @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; }
+          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; overflow: hidden; }
           .hero-left { padding-right: 0; }
-          .hero-right { padding-left: 0; }
+          .hero-right { display: none; }
           .hero-typewriter { white-space: normal; }
         }
       `}</style>
