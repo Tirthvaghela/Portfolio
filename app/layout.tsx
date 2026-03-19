@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Tirth Vaghela Portfolio",
     images: [
       {
-        url: "/avatar.svg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Tirth Vaghela – Full-Stack Developer",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tirth Vaghela | Full-Stack Developer",
     description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems.",
-    images: ["/avatar.svg"],
+    images: ["/opengraph-image"],
   },
 };
 
