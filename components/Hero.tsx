@@ -104,7 +104,7 @@ export default function Hero() {
         .hero-section { min-height: 100vh; background: linear-gradient(160deg, #f8f8f6 0%, #eef2ff 60%, #f8f8f6 100%); position: relative; overflow: hidden; padding-top: 72px; }
         .hero-dots { position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle, #2563eb18 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); }
         .hero-grid { position: relative; z-index: 1; width: 100%; padding: 40px 5% 80px; display: grid; grid-template-columns: 55% 45%; align-items: center; min-height: calc(100vh - 72px); }
-        .hero-left { padding-right: 4%; }
+        .hero-left { padding-right: 4%; min-width: 0; }
         .hero-right { display: flex; flex-direction: column; align-items: center; padding-left: 2%; }
         .hero-typewriter { font-size: clamp(22px, 4.5vw, 64px); font-weight: 600; letter-spacing: -1px; color: #2563eb; line-height: 1; margin-bottom: 24px; min-height: 1.1em; overflow: hidden; white-space: nowrap; }
         .btn-primary { background: #111; color: #fff; padding: 13px 28px; border-radius: 3px; font-weight: 700; font-size: 14px; border: 2px solid #111; cursor: pointer; letter-spacing: 0.4px; transition: all 0.2s; }
@@ -114,10 +114,10 @@ export default function Hero() {
         .social-icon { width: 40px; height: 40px; border-radius: 3px; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; transition: all 0.2s; }
         .social-icon:hover { border-color: #2563eb; color: #2563eb; }
         @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; overflow: hidden; }
-          .hero-left { padding-right: 0; }
+          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 0; }
+          .hero-left { padding-right: 0; width: 100%; }
           .hero-right { display: none; }
-          .hero-typewriter { white-space: normal; }
+          .hero-typewriter { white-space: normal; overflow: visible; font-size: clamp(22px, 7vw, 40px); }
         }
       `}</style>
     </section>

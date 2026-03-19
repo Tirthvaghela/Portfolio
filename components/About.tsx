@@ -48,7 +48,7 @@ export default function About() {
                 onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#e8e8e8"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
               >
                 <div className="stat-num" style={{ color }}>
-                  {num}<span style={{ color: "#2563eb", fontSize: 36 }}>+</span>
+                  {num}<span className="stat-plus">+</span>
                 </div>
                 <div style={{ fontSize: 13, color: "#888", marginTop: 8, lineHeight: 1.4 }}>{label}</div>
               </div>
@@ -60,13 +60,15 @@ export default function About() {
       <style>{`
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .stat-card { border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+        .stat-card { border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; overflow: hidden; }
         .stat-num { font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
+        .stat-plus { color: #2563eb; font-size: 36px; }
         @media (max-width: 768px) {
           .about-grid { grid-template-columns: 1fr; gap: 40px; }
           .about-stats { gap: 12px; }
-          .stat-card { padding: 20px 12px; }
-          .stat-num { font-size: 36px; }
+          .stat-card { padding: 24px 16px; }
+          .stat-num { font-size: 38px; }
+          .stat-plus { font-size: 26px; }
         }
       `}</style>
     </section>
