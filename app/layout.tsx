@@ -10,15 +10,14 @@ export const metadata: Metadata = {
     "Portfolio of Tirth Vaghela – Full-Stack Developer specializing in React, Next.js, Django, Flask, and AI/ML integrations.",
   keywords: ["Tirth Vaghela", "Full-Stack Developer", "React", "Next.js", "Django", "Flask", "AI", "ML", "Portfolio"],
   authors: [{ name: "Tirth Vaghela" }],
-  metadataBase: new URL("https://tirth-portfolio-htko.vercel.app"),
+  metadataBase: new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
   openGraph: {
     title: "Tirth Vaghela | Full-Stack Developer",
     description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
-    url: "https://tirth-portfolio-htko.vercel.app",
     siteName: "Tirth Vaghela Portfolio",
     images: [
       {
-        url: "https://i.ibb.co/Kcwf5mKb/Screenshot-2026-03-19-194705.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Tirth Vaghela – Full-Stack Developer",
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tirth Vaghela | Full-Stack Developer",
     description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems.",
-    images: ["https://i.ibb.co/Kcwf5mKb/Screenshot-2026-03-19-194705.png"],
+    images: ["/opengraph-image"],
   },
 };
 
