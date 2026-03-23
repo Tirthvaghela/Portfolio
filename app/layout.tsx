@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
   openGraph: {
     title: "Tirth Vaghela | Full-Stack Developer",
-    description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
+    description: "IMSC IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
     siteName: "Tirth Vaghela Portfolio",
     images: [
       {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tirth Vaghela | Full-Stack Developer",
-    description: "MSc IT student at GLS University. Building modern web apps and AI-powered systems.",
+    description: "IMSC IT student at GLS University. Building modern web apps and AI-powered systems.",
     images: ["/opengraph-image"],
   },
 };

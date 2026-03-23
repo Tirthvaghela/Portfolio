@@ -52,7 +52,7 @@ export default function Hero() {
           </div>
 
           <p style={{ fontSize: 14, color: "#777", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
-            MSc IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
+            IMSC IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>

@@ -16,7 +16,7 @@ export default function About() {
               <span style={{ WebkitTextStroke: "2px #111", color: "transparent" }}>Me.</span>
             </h2>
             <p style={{ fontSize: 15, color: "#555", lineHeight: 1.9, marginBottom: 32 }}>
-              Motivated MSc IT student at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Completed multiple internships and hands-on projects including authentication systems and AI-based platforms.
+              Motivated IMSC IT student at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Completed multiple internships and hands-on projects including authentication systems and AI-based platforms.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
