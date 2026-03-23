@@ -37,7 +37,7 @@ export const experience = [
 export const education = [
   {
     institution: "GLS University",
-    degree: "Integrated Master of Science in Information Technology (IIMSC IT)",
+    degree: "Integrated Master of Science in Information Technology (IMSC IT)",
     period: "2022 – 2027",
   },
 ];
