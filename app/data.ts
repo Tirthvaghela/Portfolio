@@ -1,13 +1,13 @@
 export const personalInfo = {
   name: "Tirth Vaghela",
   title: "Full-Stack Developer",
-  subtitle: "MSc IT Student @ GLS University",
+  subtitle: "IMSC IT Student @ GLS University",
   email: "vaghelatirth719@gmail.com",
   location: "Ahmedabad, Gujarat, India",
   github: "https://github.com/Tirthvaghela",
   linkedin: "https://www.linkedin.com/in/tirthvaghela/",
   summary:
-    "Motivated MSc IT student at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",
+    "Motivated IMSC IT student at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",
 };
 
 export const skills = {
@@ -26,10 +26,10 @@ export const experience = [
     type: "Remote",
     period: "02/2026",
     points: [
-      "Built responsive web interfaces using HTML, CSS, JavaScript, and modern frontend practices.",
-      "Assisted in developing backend functionality and integrating APIs for dynamic web applications.",
-      "Implemented secure user authentication systems and improved application performance.",
-      "Gained hands-on experience with real-world development workflows and version control tools.",
+      "Task 1 — Built a production-ready enterprise authentication system using Django REST Framework and React with JWT, 2FA (TOTP), session management, audit logging, and role-based access control.",
+      "Task 2 — Developed a full-featured MERN stack Employee Management System with JWT auth, profile picture upload, advanced search/filtering, CSV/PDF export, and a professional Electrox Design System UI.",
+      "Task 3 — Created a PHP + MySQL e-commerce platform (Local Pantry) with product catalog, shopping cart, wishlist, order tracking, admin dashboard, and inventory analytics.",
+      "Task 4 — Built Vois, a full-stack social media platform using React, FastAPI, and MongoDB with JWT auth, post/like/comment system, follow system, trending analytics, and responsive glassmorphism UI.",
     ],
   },
 ];
@@ -37,7 +37,7 @@ export const experience = [
 export const education = [
   {
     institution: "GLS University",
-    degree: "Integrated Master of Science in Information Technology (IMSc IT)",
+    degree: "Integrated Master of Science in Information Technology (IIMSC IT)",
     period: "2022 – 2027",
   },
 ];
