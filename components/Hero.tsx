@@ -74,7 +74,7 @@ export default function Hero() {
         {/* RIGHT */}
         <div className="hero-right">
           <div style={{ position: "relative", width: "100%", maxWidth: 300 }}>
-            <div style={{ position: "absolute", top: 12, left: 12, right: -12, bottom: -12, border: "2px solid #2563eb", borderRadius: 6, zIndex: 0 }} />
+            <div className="hero-card-border" />
             <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#eef2ff", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
               <img src="/avatar.svg" alt="Developer illustration" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
@@ -113,11 +113,14 @@ export default function Hero() {
         .btn-outline:hover { background: #111; color: #fff; }
         .social-icon { width: 40px; height: 40px; border-radius: 3px; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; transition: all 0.2s; }
         .social-icon:hover { border-color: #2563eb; color: #2563eb; }
+        .hero-card-border { position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid #2563eb; border-radius: 6px; z-index: 0; }
         @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 0; }
+          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; }
           .hero-left { padding-right: 0; width: 100%; }
-          .hero-right { display: none; }
+          .hero-right { padding-left: 0; align-items: center; }
+          .hero-right > div:first-child { max-width: 220px; }
           .hero-typewriter { white-space: normal; overflow: visible; font-size: clamp(22px, 7vw, 40px); }
+          .hero-card-border { right: -6px; bottom: -6px; }
         }
       `}</style>
     </section>
