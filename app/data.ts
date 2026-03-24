@@ -7,7 +7,7 @@ export const personalInfo = {
   github: "https://github.com/Tirthvaghela",
   linkedin: "https://www.linkedin.com/in/tirthvaghela/",
   summary:
-    "Motivated IMSC IT student at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",
+    "Motivated MSc IT student (Semester 8) at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",
 };
 
 export const skills = {

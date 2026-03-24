@@ -49,9 +49,9 @@ export default function Experience() {
           <div>
             <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 32 }}>Education</h3>
             {education.map((edu, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
-                <div style={{ background: "#111", borderRadius: 2 }} />
-                <div style={{ paddingBottom: 40 }}>
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginBottom: 32 }}>
+                <div style={{ background: "#111", borderRadius: 2, maxHeight: 120 }} />
+                <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                     <div>
                       <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>{edu.institution}</h4>
