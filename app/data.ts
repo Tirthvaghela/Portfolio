@@ -56,7 +56,7 @@ export const projects = [
       "Designed dynamic signal timing algorithm based on traffic density across multiple lanes.",
       "Integrated emergency vehicle detection to prioritize ambulance lanes automatically.",
     ],
-    github: "https://github.com/Tirthvaghela/Urban-Signal",
+    github: "https://github.com/Tirthvaghela/Urban_Signal",
     category: "AI / ML",
     color: "#6366f1",
   },
