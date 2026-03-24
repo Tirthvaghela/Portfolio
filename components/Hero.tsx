@@ -58,6 +58,7 @@ export default function Hero() {
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
             <button onClick={() => scrollTo("projects")} className="btn-primary">View Projects</button>
             <button onClick={() => scrollTo("contact")} className="btn-outline">Contact Me</button>
+            <a href="/resume.pdf" download className="btn-resume">Download CV</a>
           </div>
 
           <div style={{ display: "flex", gap: 10 }}>
@@ -111,6 +112,8 @@ export default function Hero() {
         .btn-primary:hover { background: #2563eb; border-color: #2563eb; }
         .btn-outline { background: transparent; color: #111; padding: 13px 28px; border-radius: 3px; font-weight: 700; font-size: 14px; border: 2px solid #111; cursor: pointer; letter-spacing: 0.4px; transition: all 0.2s; }
         .btn-outline:hover { background: #111; color: #fff; }
+        .btn-resume { background: transparent; color: #2563eb; padding: 13px 28px; border-radius: 3px; font-weight: 700; font-size: 14px; border: 2px solid #2563eb; cursor: pointer; letter-spacing: 0.4px; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
+        .btn-resume:hover { background: #2563eb; color: #fff; }
         .social-icon { width: 40px; height: 40px; border-radius: 3px; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; transition: all 0.2s; }
         .social-icon:hover { border-color: #2563eb; color: #2563eb; }
         .hero-card-border { position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid #2563eb; border-radius: 6px; z-index: 0; }

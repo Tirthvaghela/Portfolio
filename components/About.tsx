@@ -20,14 +20,17 @@ export default function About() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
-                { icon: <MapPin size={16} />, label: "Location", value: "Ahmedabad, Gujarat, India" },
-                { icon: <Mail size={16} />, label: "Email", value: "vaghelatirth719@gmail.com" },
-                { icon: <GraduationCap size={16} />, label: "University", value: "GLS University, 2022–2027" },
-              ].map(({ icon, label, value }) => (
+                { icon: <MapPin size={16} />, label: "Location", value: "Ahmedabad, Gujarat, India", href: null },
+                { icon: <Mail size={16} />, label: "Email", value: "vaghelatirth719@gmail.com", href: "mailto:vaghelatirth719@gmail.com" },
+                { icon: <GraduationCap size={16} />, label: "University", value: "GLS University, 2022–2027", href: null },
+              ].map(({ icon, label, value, href }) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <div style={{ color: "#2563eb", flexShrink: 0 }}>{icon}</div>
                   <span style={{ fontSize: 13, color: "#888", minWidth: 80 }}>{label}:</span>
-                  <span style={{ fontSize: 14, color: "#111", fontWeight: 500 }}>{value}</span>
+                  {href
+                    ? <a href={href} style={{ fontSize: 14, color: "#111", fontWeight: 500, textDecoration: "none" }} onMouseEnter={(e) => (e.currentTarget.style.color = "#2563eb")} onMouseLeave={(e) => (e.currentTarget.style.color = "#111")}>{value}</a>
+                    : <span style={{ fontSize: 14, color: "#111", fontWeight: 500 }}>{value}</span>
+                  }
                 </div>
               ))}
             </div>

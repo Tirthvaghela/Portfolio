@@ -10,6 +10,7 @@ interface Project {
   tech: string[];
   description: string;
   points: string[];
+  github?: string;
   category: string;
   color: string;
 }
@@ -132,15 +133,29 @@ export default function ProjectModal({ project, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Close button */}
-              <button
-                onClick={onClose}
-                style={{ background: "#111", color: "#fff", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "background 0.2s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "#111")}
-              >
-                Close <ArrowUpRight size={15} />
-              </button>
+              {/* Action buttons */}
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ background: "#111", color: "#fff", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "background 0.2s" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "#111")}
+                  >
+                    View on GitHub <ArrowUpRight size={15} />
+                  </a>
+                )}
+                <button
+                  onClick={onClose}
+                  style={{ background: "transparent", color: "#111", border: "1.5px solid #e0e0e0", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "all 0.2s" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#111"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e0e0e0"; }}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </motion.div>
           </div>
