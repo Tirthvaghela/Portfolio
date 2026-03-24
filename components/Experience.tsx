@@ -31,10 +31,10 @@ export default function Experience() {
                   </div>
                   <p style={{ fontSize: 14, color: "#2563eb", fontWeight: 700, marginBottom: 4 }}>{exp.company}</p>
                   <p style={{ fontSize: 12, color: "#aaa", marginBottom: 16 }}>{exp.type}</p>
-                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 16 }}>
                     {exp.points.map((pt, j) => (
-                      <li key={j} style={{ display: "flex", gap: 10, fontSize: 14, color: "#555", lineHeight: 1.7 }}>
-                        <span style={{ color: "#2563eb", flexShrink: 0, marginTop: 3, fontSize: 10 }}>●</span>
+                      <li key={j} style={{ display: "flex", gap: 10, fontSize: 14, color: "#555", lineHeight: 1.8, paddingBottom: 16, borderBottom: "1px solid #f0f0f0" }}>
+                        <span style={{ color: "#2563eb", flexShrink: 0, marginTop: 4, fontSize: 10 }}>●</span>
                         {pt}
                       </li>
                     ))}
