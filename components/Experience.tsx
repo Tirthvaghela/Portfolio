@@ -68,6 +68,14 @@ export default function Experience() {
                 <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Compass + Mongosh + PyMongo — Udemy</p>
               </div>
             </div>
+            <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginTop: 20 }}>
+              <div style={{ background: "#2563eb", borderRadius: 2 }} />
+              <div style={{ paddingBottom: 16 }}>
+                <h4 style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>Claude Code in Action</h4>
+                <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Anthropic — March 2026</p>
+                <a href="https://verify.skilljar.com/c/a4m7t9ktauru" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none" }}>View Certificate ↗</a>
+              </div>
+            </div>
           </div>
         </FadeIn>
       </div>
