@@ -113,7 +113,7 @@ export const projects = [
   },
   {
     id: 5,
-    title: "Electrox",
+    title: "Electrox-Mobile",
     subtitle: "Mobile Digital Voting Platform",
     tech: ["Flutter", "Node.js", "Express", "MongoDB", "JWT"],
     description:
@@ -124,7 +124,7 @@ export const projects = [
       "Implemented election lifecycle management including vote casting, result tracking, and audit logging.",
       "Integrated email notifications, deep linking, and real-time updates for election activities.",
     ],
-    github: "https://github.com/Tirthvaghela/Electrox",
+    github: "https://github.com/Tirthvaghela/Electrox-Mobile",
     category: "Mobile",
     color: "#3b82f6",
   },
