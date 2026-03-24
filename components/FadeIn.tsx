@@ -12,16 +12,14 @@ export default function FadeIn({ children, delay = 0, direction = "up" }: FadeIn
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  // Use only vertical translation to avoid horizontal overflow on mobile
+  const yOffset = direction === "none" ? 0 : 30;
+
   const variants = {
-    hidden: {
-      opacity: 0,
-      y: direction === "up" ? 40 : 0,
-      x: direction === "left" ? -40 : direction === "right" ? 40 : 0,
-    },
+    hidden: { opacity: 0, y: yOffset },
     visible: {
       opacity: 1,
       y: 0,
-      x: 0,
       transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
     },
   };
