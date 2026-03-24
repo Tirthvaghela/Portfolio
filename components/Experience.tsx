@@ -53,10 +53,16 @@ export default function Experience() {
                 <div style={{ background: "#111", borderRadius: 2 }} />
                 <div style={{ paddingBottom: 40 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-                    <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>{edu.institution}</h4>
-                    <span style={{ fontSize: 12, color: "#888", background: "#fff", padding: "4px 12px", border: "1px solid #e8e8e8", borderRadius: 2 }}>{edu.period}</span>
+                    <div>
+                      <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>{edu.institution}</h4>
+                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: edu.status === "Pursuing" ? "#2563eb" : "#16a34a", background: edu.status === "Pursuing" ? "#eff6ff" : "#f0fdf4", padding: "3px 10px", borderRadius: 2, display: "inline-block", marginTop: 6 }}>
+                        {edu.status}
+                      </span>
+                    </div>
+                    <span style={{ fontSize: 12, color: "#888", background: "#fff", padding: "4px 12px", border: "1px solid #e8e8e8", borderRadius: 2, whiteSpace: "nowrap" }}>{edu.period}</span>
                   </div>
-                  <p style={{ fontSize: 15, color: "#555", lineHeight: 1.7, marginTop: 8 }}>{edu.degree}</p>
+                  <p style={{ fontSize: 15, color: "#333", fontWeight: 600, lineHeight: 1.5, marginTop: 10 }}>{edu.degree}</p>
+                  <p style={{ fontSize: 13, color: "#999", marginTop: 4 }}>{edu.note}</p>
                 </div>
               </div>
             ))}

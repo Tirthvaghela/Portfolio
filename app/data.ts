@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: "Tirth Vaghela",
   title: "Full-Stack Developer",
-  subtitle: "IMSC IT Student @ GLS University",
+  subtitle: "MSc IT Student @ GLS University",
   email: "vaghelatirth719@gmail.com",
   location: "Ahmedabad, Gujarat, India",
   github: "https://github.com/Tirthvaghela",
@@ -37,8 +37,17 @@ export const experience = [
 export const education = [
   {
     institution: "GLS University",
-    degree: "Integrated Master of Science in Information Technology (IMSC IT)",
-    period: "2022 – 2027",
+    degree: "Master of Science in Information Technology (MSc IT)",
+    note: "Integrated Master's — Currently in Semester 8",
+    period: "2025 – 2027",
+    status: "Pursuing",
+  },
+  {
+    institution: "GLS University",
+    degree: "Bachelor of Science in Information Technology (BSc IT)",
+    note: "Completed as part of IMSC IT integrated program",
+    period: "2022 – 2025",
+    status: "Completed",
   },
 ];
 
