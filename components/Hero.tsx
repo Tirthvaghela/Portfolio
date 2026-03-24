@@ -42,8 +42,8 @@ export default function Hero() {
               <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "#111" }}>Hi,</span>
               <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "#999" }}> I'm</span>
             </div>
-            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 0.88, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent" }}>Tirth</div>
-            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 0.88, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent", marginBottom: 20 }}>Vaghela</div>
+            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent" }}>Tirth</div>
+            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent", marginBottom: 20 }}>Vaghela</div>
             <div style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontWeight: 500, color: "#999", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 4 }}>and I am a</div>
           </h1>
 

@@ -9,11 +9,11 @@ export default function Footer() {
           </div>
           <p style={{ fontSize: 13, color: "#666" }}>Full-Stack Developer · Ahmedabad, India</p>
         </div>
-        <div style={{ display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
           {["About", "Skills", "Projects", "Experience", "Contact"].map((l) => (
             <button key={l}
               onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}
-              style={{ background: "none", border: "none", color: "#666", cursor: "pointer", fontSize: 13, transition: "color 0.2s" }}
+              style={{ background: "none", border: "none", color: "#666", cursor: "pointer", fontSize: 13, transition: "color 0.2s", whiteSpace: "nowrap" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#666")}
             >
