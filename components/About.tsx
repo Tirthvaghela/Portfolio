@@ -1,8 +1,63 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import { MapPin, Mail, GraduationCap } from "lucide-react";
 import FadeIn from "./FadeIn";
 
+function useCountUp(target: number, duration: number, start: boolean) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(target);
+    };
+    requestAnimationFrame(step);
+  }, [start, target, duration]);
+  return count;
+}
+
+const stats = [
+  { num: 8, label: "Projects Completed", color: "#111" },
+  { num: 5, label: "Tech Stacks Mastered", color: "#2563eb" },
+  { num: 1, label: "Internship", color: "#111" },
+  { num: 3, label: "Years of Learning", color: "#2563eb" },
+];
+
+function StatCard({ num, label, color, started }: { num: number; label: string; color: string; started: boolean }) {
+  const count = useCountUp(num, 1800, started);
+  return (
+    <div
+      className="stat-card"
+      onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#2563eb"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#e8e8e8"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
+    >
+      <div className="stat-num" style={{ color }}>
+        {count}<span className="stat-plus">+</span>
+      </div>
+      <div style={{ fontSize: 13, color: "#888", marginTop: 8, lineHeight: 1.4 }}>{label}</div>
+    </div>
+  );
+}
+
 export default function About() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect(); } },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section style={{ background: "#f8f8f6", padding: "100px 6%", borderTop: "1px solid #ebebeb" }}>
       <div className="about-grid">
@@ -38,23 +93,9 @@ export default function About() {
         </FadeIn>
 
         <FadeIn direction="right" delay={0.15}>
-          <div className="about-stats">
-            {[
-              { num: "8", label: "Projects Completed", color: "#111" },
-              { num: "5", label: "Tech Stacks Mastered", color: "#2563eb" },
-              { num: "1", label: "Internship", color: "#111" },
-              { num: "3", label: "Years of Learning", color: "#2563eb" },
-            ].map(({ num, label, color }) => (
-              <div key={label}
-                className="stat-card"
-                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#2563eb"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#e8e8e8"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
-              >
-                <div className="stat-num" style={{ color }}>
-                  {num}<span className="stat-plus">+</span>
-                </div>
-                <div style={{ fontSize: 13, color: "#888", marginTop: 8, lineHeight: 1.4 }}>{label}</div>
-              </div>
+          <div ref={statsRef} className="about-stats">
+            {stats.map(({ num, label, color }) => (
+              <StatCard key={label} num={num} label={label} color={color} started={started} />
             ))}
           </div>
         </FadeIn>
