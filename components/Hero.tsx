@@ -51,12 +51,6 @@ export default function Hero() {
             {displayed}<span style={{ color: "#2563eb", animation: "blink 1s step-end infinite" }}>|</span>
           </div>
 
-          {/* Currently working on */}
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 100, padding: "6px 14px", marginBottom: 20 }}>
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#16a34a", display: "inline-block", boxShadow: "0 0 0 3px #bbf7d0", animation: "pulse-green 2s infinite" }} />
-            <span style={{ fontSize: 12, color: "#15803d", fontWeight: 600 }}>Currently building: Wedding Face Finder</span>
-          </div>
-
           <p style={{ fontSize: 14, color: "#777", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
             MSc IT student (Sem 8) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
           </p>
