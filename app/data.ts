@@ -50,7 +50,6 @@ export const education = [
     status: "Completed",
     cgpa: "7.64",
     distinction: "First Class with Distinction",
-    courses: ["Artificial Intelligence", "Machine Learning", "Software Engineering", "Web Security", "Information Security"],
     degreeFile: "/bsc(it)-degree.pdf",
   },
 ];

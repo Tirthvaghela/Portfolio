@@ -39,19 +39,15 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
-                  <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
-                    <a href="/Certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", border: "1.5px solid #2563eb", padding: "7px 16px", borderRadius: 3, textDecoration: "none", transition: "all 0.2s", display: "inline-flex", alignItems: "center", gap: 6 }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "#2563eb"; e.currentTarget.style.color = "#fff"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#2563eb"; }}
-                    >
-                      View Certificate ↗
-                    </a>
-                    <a href="/lor.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, fontWeight: 700, color: "#111", border: "1.5px solid #111", padding: "7px 16px", borderRadius: 3, textDecoration: "none", transition: "all 0.2s", display: "inline-flex", alignItems: "center", gap: 6 }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#111"; }}
-                    >
-                      View LOR ↗
-                    </a>
+                  <div style={{ display: "flex", gap: 16, marginTop: 20, flexWrap: "wrap" }}>
+                    <a href="/Certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", textDecoration: "none", fontWeight: 600 }}
+                      onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                      onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                    >View Certificate ↗</a>
+                    <a href="/lor.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", textDecoration: "none", fontWeight: 600 }}
+                      onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                      onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                    >View LOR ↗</a>
                   </div>
                 </div>
               </div>
@@ -64,7 +60,7 @@ export default function Experience() {
             <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 32 }}>Education</h3>
             {education.map((edu, i) => (
               <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginBottom: 32 }}>
-                <div style={{ background: "#2563eb", borderRadius: 2, maxHeight: 120 }} />
+                <div style={{ background: "#2563eb", borderRadius: 2 }} />
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                     <div>
@@ -87,25 +83,13 @@ export default function Experience() {
                       </span>
                     </div>
                   )}
-                  {"courses" in edu && (
-                    <div style={{ marginTop: 12 }}>
-                      <p style={{ fontSize: 11, color: "#bbb", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 8 }}>Key Subjects</p>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                        {(edu as {courses: string[]}).courses.map((c) => (
-                          <span key={c} style={{ fontSize: 11, color: "#666", background: "#f5f5f5", border: "1px solid #ebebeb", padding: "3px 10px", borderRadius: 2 }}>{c}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                   {"degreeFile" in edu && (
-                    <div style={{ marginTop: 14 }}>
+                    <div style={{ marginTop: 10 }}>
                       <a href={(edu as {degreeFile: string}).degreeFile} target="_blank" rel="noopener noreferrer"
-                        style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", border: "1.5px solid #2563eb", padding: "7px 16px", borderRadius: 3, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, transition: "all 0.2s" }}
-                        onMouseEnter={(e) => { e.currentTarget.style.background = "#2563eb"; e.currentTarget.style.color = "#fff"; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#2563eb"; }}
-                      >
-                        View Degree ↗
-                      </a>
+                        style={{ fontSize: 12, color: "#2563eb", textDecoration: "none", fontWeight: 600 }}
+                        onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                        onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                      >View Degree ↗</a>
                     </div>
                   )}
                 </div>
