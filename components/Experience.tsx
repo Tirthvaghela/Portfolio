@@ -77,6 +77,37 @@ export default function Experience() {
                   </div>
                   <p style={{ fontSize: 15, color: "#333", fontWeight: 600, lineHeight: 1.5, marginTop: 10 }}>{edu.degree}</p>
                   <p style={{ fontSize: 13, color: "#999", marginTop: 4 }}>{edu.note}</p>
+                  {"cgpa" in edu && (
+                    <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: "#111", background: "#f5f5f5", border: "1px solid #e8e8e8", padding: "4px 12px", borderRadius: 2 }}>
+                        CGPA: {(edu as {cgpa: string}).cgpa}
+                      </span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: "#16a34a", background: "#f0fdf4", border: "1px solid #bbf7d0", padding: "4px 12px", borderRadius: 2 }}>
+                        {(edu as {distinction: string}).distinction}
+                      </span>
+                    </div>
+                  )}
+                  {"courses" in edu && (
+                    <div style={{ marginTop: 12 }}>
+                      <p style={{ fontSize: 11, color: "#bbb", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 8 }}>Key Subjects</p>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                        {(edu as {courses: string[]}).courses.map((c) => (
+                          <span key={c} style={{ fontSize: 11, color: "#666", background: "#f5f5f5", border: "1px solid #ebebeb", padding: "3px 10px", borderRadius: 2 }}>{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {"degreeFile" in edu && (
+                    <div style={{ marginTop: 14 }}>
+                      <a href={(edu as {degreeFile: string}).degreeFile} target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", border: "1.5px solid #2563eb", padding: "7px 16px", borderRadius: 3, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, transition: "all 0.2s" }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = "#2563eb"; e.currentTarget.style.color = "#fff"; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#2563eb"; }}
+                      >
+                        View Degree ↗
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
