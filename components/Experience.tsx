@@ -50,7 +50,7 @@ export default function Experience() {
             <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "#bbb", marginBottom: 32 }}>Education</h3>
             {education.map((edu, i) => (
               <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginBottom: 32 }}>
-                <div style={{ background: "#111", borderRadius: 2, maxHeight: 120 }} />
+                <div style={{ background: "#2563eb", borderRadius: 2, maxHeight: 120 }} />
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                     <div>
