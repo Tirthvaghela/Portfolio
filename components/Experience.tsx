@@ -39,6 +39,20 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
+                  <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+                    <a href="/Certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", border: "1.5px solid #2563eb", padding: "7px 16px", borderRadius: 3, textDecoration: "none", transition: "all 0.2s", display: "inline-flex", alignItems: "center", gap: 6 }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#2563eb"; e.currentTarget.style.color = "#fff"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#2563eb"; }}
+                    >
+                      View Certificate ↗
+                    </a>
+                    <a href="/lor.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, fontWeight: 700, color: "#111", border: "1.5px solid #111", padding: "7px 16px", borderRadius: 3, textDecoration: "none", transition: "all 0.2s", display: "inline-flex", alignItems: "center", gap: 6 }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#111"; }}
+                    >
+                      View LOR ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
