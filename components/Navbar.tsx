@@ -8,10 +8,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("About");
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Scroll progress
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
 
       // Determine active section
       const offsets = links.map((l) => {
@@ -19,12 +24,8 @@ export default function Navbar() {
         if (!el) return { id: l, top: Infinity };
         return { id: l, top: el.getBoundingClientRect().top };
       });
-
-      // Find the last section whose top is above the middle of the viewport
       const inView = offsets.filter((o) => o.top <= 120);
-      if (inView.length > 0) {
-        setActive(inView[inView.length - 1].id);
-      }
+      if (inView.length > 0) setActive(inView[inView.length - 1].id);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -44,6 +45,8 @@ export default function Navbar() {
       borderBottom: scrolled ? "1px solid #f0f0f0" : "none",
       transition: "all 0.3s",
     }}>
+      {/* Scroll progress bar */}
+      <div style={{ position: "absolute", top: 0, left: 0, height: 2, width: `${progress}%`, background: "#2563eb", transition: "width 0.1s linear", zIndex: 51 }} />
       <div style={{ padding: "0 6%", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
         <span
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

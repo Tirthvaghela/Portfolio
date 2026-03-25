@@ -16,7 +16,7 @@ export const skills = {
   "Backend": ["Django", "Flask", "Node.js", "FastAPI", "REST APIs"],
   "Databases": ["MySQL", "MongoDB", "SQLite"],
   "AI / ML": ["YOLOv4", "YOLOv8", "OpenCV", "DeepFace", "ArcFace"],
-  "Tools": ["Git", "GitHub", "VS Code", "Kiro", "Vercel"],
+  "Tools": ["Git", "GitHub", "VS Code", "Vercel", "Postman"],
 };
 
 export const experience = [

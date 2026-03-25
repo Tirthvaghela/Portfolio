@@ -51,6 +51,12 @@ export default function Hero() {
             {displayed}<span style={{ color: "#2563eb", animation: "blink 1s step-end infinite" }}>|</span>
           </div>
 
+          {/* Currently working on */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 100, padding: "6px 14px", marginBottom: 20 }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#16a34a", display: "inline-block", boxShadow: "0 0 0 3px #bbf7d0", animation: "pulse-green 2s infinite" }} />
+            <span style={{ fontSize: 12, color: "#15803d", fontWeight: 600 }}>Currently building: Wedding Face Finder</span>
+          </div>
+
           <p style={{ fontSize: 14, color: "#777", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
             MSc IT student (Sem 8) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
           </p>
@@ -101,6 +107,7 @@ export default function Hero() {
 
       <style>{`
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes pulse-green { 0%, 100% { box-shadow: 0 0 0 3px #bbf7d0; } 50% { box-shadow: 0 0 0 6px #dcfce7; } }
         .hero-section { min-height: 100vh; background: linear-gradient(160deg, #f8f8f6 0%, #eef2ff 60%, #f8f8f6 100%); position: relative; overflow: hidden; padding-top: 72px; }
         .hero-dots { position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle, #2563eb18 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); }
         .hero-grid { position: relative; z-index: 1; width: 100%; padding: 40px 5% 80px; display: grid; grid-template-columns: 55% 45%; align-items: center; min-height: calc(100vh - 72px); }
