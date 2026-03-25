@@ -22,7 +22,7 @@ export default function Footer() {
           ))}
         </div>
         <p className="footer-copy">
-          © {new Date().getFullYear()} Tirth Vaghela · "Code is not just syntax, it's a solution."
+          © {new Date().getFullYear()} Tirth Vaghela · "Dream it. Code it. Deploy it."
         </p>
       </div>
       <style>{`
