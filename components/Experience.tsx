@@ -101,7 +101,7 @@ export default function Experience() {
               <div style={{ paddingBottom: 16 }}>
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>Master MongoDB Database Design</h4>
                 <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Compass + Mongosh + PyMongo — Udemy · Feb 2026</p>
-                <a href="https://ude.my/UC-388999aa-8ab3-436b-be34-365e8ff02b38" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none" }}>View Certificate ↗</a>
+                <a href="https://ude.my/UC-388999aa-8ab3-436b-be34-365e8ff02b38" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none" , fontWeight: 600}}>View Certificate ↗</a>
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginTop: 20 }}>
@@ -109,7 +109,7 @@ export default function Experience() {
               <div style={{ paddingBottom: 16 }}>
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>Claude Code in Action</h4>
                 <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Anthropic — March 2026</p>
-                <a href="https://verify.skilljar.com/c/a4m7t9ktauru" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none" }}>View Certificate ↗</a>
+                <a href="https://verify.skilljar.com/c/a4m7t9ktauru" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none" , fontWeight: 600}}>View Certificate ↗</a>
               </div>
             </div>
           </div>
