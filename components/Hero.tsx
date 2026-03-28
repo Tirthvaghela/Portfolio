@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Github, Linkedin, Mail } from "lucide-react";
+import Spline from "@splinetool/react-spline";
 
 const roles = ["Full-Stack Developer", "AI/ML Engineer", "React Developer", "Python Developer"];
 
@@ -81,10 +82,10 @@ export default function Hero() {
 
         {/* RIGHT */}
         <div className="hero-right">
-          <div style={{ position: "relative", width: "100%", maxWidth: 300 }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: 340 }}>
             <div className="hero-card-border" />
-            <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#eef2ff", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
-              <img src="/avatar.svg" alt="Developer illustration" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            <div style={{ width: "100%", aspectRatio: "1/1", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#0a0a0a" }}>
+              <Spline scene="https://prod.spline.design/I-NqfFNNErm3CMp5/scene.splinecode" style={{ width: "100%", height: "100%" }} />
             </div>
             <div style={{ position: "absolute", bottom: 20, right: -8, background: "#111", color: "#fff", padding: "14px 18px", borderRadius: 3, fontSize: 13, zIndex: 2, letterSpacing: "0.5px", lineHeight: 1.6, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
               Full-Stack<br /><span style={{ color: "#2563eb" }}>Developer</span>

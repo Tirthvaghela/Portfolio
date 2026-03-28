@@ -77,7 +77,7 @@ export default function About() {
               {[
                 { icon: <MapPin size={16} />, label: "Location", value: "Ahmedabad, Gujarat, India", href: null },
                 { icon: <Mail size={16} />, label: "Email", value: "vaghelatirth719@gmail.com", href: "mailto:vaghelatirth719@gmail.com" },
-                { icon: <GraduationCap size={16} />, label: "University", value: "GLS University, 2022–2027", href: null },
+                { icon: <GraduationCap size={16} />, label: "University", value: "GLS University, 2022–2027", href: "https://www.glsuniversity.ac.in" },
               ].map(({ icon, label, value, href }) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <div style={{ color: "#2563eb", flexShrink: 0 }}>{icon}</div>

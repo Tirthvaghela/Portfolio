@@ -64,7 +64,12 @@ export default function Experience() {
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                     <div>
-                      <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>{edu.institution}</h4>
+                      <h4 style={{ fontSize: 20, fontWeight: 800, color: "#111", letterSpacing: "-0.5px" }}>
+                        <a href="https://www.glsuniversity.ac.in" target="_blank" rel="noopener noreferrer" style={{ color: "#111", textDecoration: "none" }}
+                          onMouseEnter={(e) => (e.currentTarget.style.color = "#2563eb")}
+                          onMouseLeave={(e) => (e.currentTarget.style.color = "#111")}
+                        >{edu.institution} ↗</a>
+                      </h4>
                       <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: edu.status === "Pursuing" ? "#2563eb" : "#16a34a", background: edu.status === "Pursuing" ? "#eff6ff" : "#f0fdf4", padding: "3px 10px", borderRadius: 2, display: "inline-block", marginTop: 6 }}>
                         {edu.status}
                       </span>
