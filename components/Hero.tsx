@@ -77,12 +77,6 @@ export default function Hero() {
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-icon">{icon}</a>
             ))}
           </div>
-          {visitors !== null && (
-            <div style={{ marginTop: 16, display: "inline-flex", alignItems: "center", gap: 6 }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2563eb", display: "inline-block" }} />
-              <span style={{ fontSize: 12, color: "#aaa" }}>{visitors.toLocaleString()} developers visited</span>
-            </div>
-          )}
         </div>
 
         {/* RIGHT */}
@@ -103,6 +97,12 @@ export default function Hero() {
                 <div style={{ fontSize: 10, color: "#999", marginTop: 4, letterSpacing: "0.5px", textTransform: "uppercase" }}>{label}</div>
               </div>
             ))}
+            {visitors !== null && (
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 28, fontWeight: 900, color: "#111", letterSpacing: "-1px", lineHeight: 1 }}>{visitors}<span style={{ color: "#2563eb" }}>+</span></div>
+                <div style={{ fontSize: 10, color: "#999", marginTop: 4, letterSpacing: "0.5px", textTransform: "uppercase" }}>Visitors</div>
+              </div>
+            )}
           </div>
         </div>
 
