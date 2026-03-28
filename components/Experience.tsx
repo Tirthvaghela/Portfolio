@@ -83,15 +83,6 @@ export default function Experience() {
                       </span>
                     </div>
                   )}
-                  {"degreeFile" in edu && (
-                    <div style={{ marginTop: 10 }}>
-                      <a href={(edu as {degreeFile: string}).degreeFile} target="_blank" rel="noopener noreferrer"
-                        style={{ fontSize: 12, color: "#2563eb", textDecoration: "none", fontWeight: 600 }}
-                        onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                        onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
-                      >View Degree ↗</a>
-                    </div>
-                  )}
                 </div>
               </div>
             ))}

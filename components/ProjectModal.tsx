@@ -11,6 +11,7 @@ interface Project {
   description: string;
   points: string[];
   github?: string;
+  collaborator?: { name: string; linkedin: string };
   category: string;
   color: string;
 }
@@ -118,6 +119,20 @@ export default function ProjectModal({ project, onClose }: Props) {
                   ))}
                 </ul>
               </div>
+
+              {/* Collaborator */}
+              {project.collaborator && (
+                <div style={{ marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: 12, color: "#aaa", letterSpacing: "1px", textTransform: "uppercase" }}>Built with</span>
+                  <a href={project.collaborator.linkedin} target="_blank" rel="noopener noreferrer"
+                    style={{ fontSize: 13, fontWeight: 700, color: "#2563eb", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
+                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                  >
+                    {project.collaborator.name} ↗
+                  </a>
+                </div>
+              )}
 
               {/* Tech stack */}
               <div style={{ marginBottom: 32 }}>
