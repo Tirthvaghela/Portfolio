@@ -17,9 +17,9 @@ export default function Hero() {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    fetch("https://api.countapi.xyz/hit/tirthvaghela.in/visits")
+    fetch("https://api.counterapi.dev/v1/tirthvaghela-portfolio/visits/up")
       .then((r) => r.json())
-      .then((d) => setVisitors(d.value))
+      .then((d) => setVisitors(d.count))
       .catch(() => {});
   }, []);
 
