@@ -98,6 +98,13 @@ export default function About() {
               <StatCard key={label} num={num} label={label} color={color} started={started} />
             ))}
           </div>
+          <div style={{ marginTop: 24 }}>
+            <img
+              src="https://github-readme-stats.vercel.app/api?username=Tirthvaghela&show_icons=true&hide_border=true&bg_color=f8f8f6&title_color=111111&text_color=555555&icon_color=2563eb&hide=contribs"
+              alt="GitHub Stats"
+              style={{ width: "100%", borderRadius: 6, border: "1.5px solid #e8e8e8" }}
+            />
+          </div>
         </FadeIn>
       </div>
 
