@@ -13,7 +13,15 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [visitors, setVisitors] = useState<number | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.countapi.xyz/hit/tirthvaghela.in/visits")
+      .then((r) => r.json())
+      .then((d) => setVisitors(d.value))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -69,6 +77,12 @@ export default function Hero() {
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-icon">{icon}</a>
             ))}
           </div>
+          {visitors !== null && (
+            <div style={{ marginTop: 16, display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#2563eb", display: "inline-block" }} />
+              <span style={{ fontSize: 12, color: "#aaa" }}>{visitors.toLocaleString()} developers visited</span>
+            </div>
+          )}
         </div>
 
         {/* RIGHT */}

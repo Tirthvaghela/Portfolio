@@ -12,6 +12,7 @@ interface Project {
   points: string[];
   github?: string;
   collaborator?: { name: string; linkedin: string };
+  buildDays?: number;
   category: string;
   color: string;
 }
@@ -87,6 +88,12 @@ export default function ProjectModal({ project, onClose }: Props) {
                     {project.title}
                   </h2>
                   <p style={{ fontSize: 14, color: project.color, fontWeight: 600 }}>{project.subtitle}</p>
+                  {project.buildDays && (
+                    <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6, background: "#f5f5f5", border: "1px solid #e8e8e8", borderRadius: 100, padding: "4px 12px" }}>
+                      <span style={{ fontSize: 11, color: "#888" }}>⏱</span>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: "#555" }}>Built in ~{project.buildDays} days</span>
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={onClose}
