@@ -1,28 +1,28 @@
 "use client";
 export default function Footer() {
   return (
-    <footer style={{ background: "#111", color: "#fff", padding: "48px 6%" }}>
+    <footer style={{ background: "var(--footer-bg)", padding: "48px 6%" }}>
       <div className="footer-inner">
         <div className="footer-brand">
-          <div style={{ fontSize: 28, fontWeight: 900, letterSpacing: "-1px", marginBottom: 4 }}>
-            TV<span style={{ color: "#2563eb" }}>.</span>
+          <div style={{ fontSize: 28, fontWeight: 900, letterSpacing: "-1px", marginBottom: 4, color: "#fff" }}>
+            TV<span style={{ color: "var(--accent)" }}>.</span>
           </div>
-          <p style={{ fontSize: 13, color: "#666" }}>Full-Stack Developer · Ahmedabad, India</p>
+          <p style={{ fontSize: 13, color: "var(--footer-text, #888)" }}>Full-Stack Developer · Ahmedabad, India</p>
         </div>
         <div className="footer-links">
           {["About", "Skills", "Projects", "Experience", "Contact"].map((l) => (
             <button key={l}
               onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}
-              style={{ background: "none", border: "none", color: "#666", cursor: "pointer", fontSize: 13, transition: "color 0.2s", whiteSpace: "nowrap" }}
+              style={{ background: "none", border: "none", color: "var(--footer-text, #888)", cursor: "pointer", fontSize: 13, transition: "color 0.2s", whiteSpace: "nowrap" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#666")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--footer-text, #888)")}
             >
               {l}
             </button>
           ))}
         </div>
         <p className="footer-copy">
-          © {new Date().getFullYear()} Tirth Vaghela · "Dream it. Code it. Deploy it."
+          © {new Date().getFullYear()} Tirth Vaghela · &quot;Dream it. Code it. Deploy it.&quot;
         </p>
       </div>
       <style>{`
