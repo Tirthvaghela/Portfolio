@@ -215,3 +215,16 @@ section { scroll-margin-top: 80px; }
 [data-theme="dark"] span[style*="color: #111"][style*="font-weight: 500"] {
   color: var(--text) !important;
 }
+
+/* Hire Me button dark mode hover */
+[data-theme="dark"] nav a[style*="background: var(--text)"] {
+  background: var(--text) !important;
+  color: var(--bg) !important;
+}
+[data-theme="dark"] nav a[style*="background: var(--text)"]:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+/* Open to opportunities badge text always black */
+.open-to-work-text { color: #111 !important; }

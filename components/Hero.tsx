@@ -48,11 +48,11 @@ export default function Hero() {
           <h1 style={{ fontWeight: 900, color: "var(--text)", marginBottom: 8, lineHeight: 1 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 2 }}>
               <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "var(--text)" }}>Hi,</span>
-              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "var(--text-faint)" }}> I'm</span>
+              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "var(--text-muted)" }}> I'm</span>
             </div>
             <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Tirth</div>
             <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent", marginBottom: 20 }}>Vaghela</div>
-            <div style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontWeight: 500, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 4 }}>and I am a</div>
+            <div style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontWeight: 500, color: "var(--text)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 4 }}>and I am a</div>
           </h1>
 
           <div className="hero-typewriter">
@@ -61,7 +61,7 @@ export default function Hero() {
 
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 100, padding: "6px 14px", marginBottom: 20 }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#16a34a", display: "inline-block", animation: "pulse-green 2s infinite" }} />
-            <span style={{ fontSize: 12, color: "#15803d", fontWeight: 600 }}>Open to opportunities</span>
+            <span style={{ fontSize: 12, color: "#111", fontWeight: 600 }}>Open to opportunities</span>
           </div>
 
           <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
@@ -137,7 +137,7 @@ export default function Hero() {
         .social-icon:hover { border-color: #2563eb; color: #2563eb; }
         .hero-card-border { position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid #2563eb; border-radius: 6px; z-index: 0; }
         .hero-stat-num { font-size: 28px; font-weight: 900; color: var(--text); letter-spacing: -1px; line-height: 1; }
-        .hero-stat-label { font-size: 10px; color: var(--text-faint); margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .hero-stat-label { font-size: 10px; color: var(--text); margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.6; }
         @media (max-width: 768px) {
           .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; }
           .hero-left { padding-right: 0; width: 100%; }
