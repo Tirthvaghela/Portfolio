@@ -45,14 +45,14 @@ export default function Hero() {
 
         {/* LEFT */}
         <div className="hero-left">
-          <h1 style={{ fontWeight: 900, color: "#111", marginBottom: 8, lineHeight: 1 }}>
+          <h1 style={{ fontWeight: 900, color: "var(--text)", marginBottom: 8, lineHeight: 1 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 2 }}>
-              <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "#111" }}>Hi,</span>
-              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "#999" }}> I'm</span>
+              <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "var(--text)" }}>Hi,</span>
+              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "var(--text-faint)" }}> I'm</span>
             </div>
-            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent" }}>Tirth</div>
-            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px #111", color: "transparent", marginBottom: 20 }}>Vaghela</div>
-            <div style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontWeight: 500, color: "#999", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 4 }}>and I am a</div>
+            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Tirth</div>
+            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent", marginBottom: 20 }}>Vaghela</div>
+            <div style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontWeight: 500, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 4 }}>and I am a</div>
           </h1>
 
           <div className="hero-typewriter">
@@ -64,7 +64,7 @@ export default function Hero() {
             <span style={{ fontSize: 12, color: "#15803d", fontWeight: 600 }}>Open to opportunities</span>
           </div>
 
-          <p style={{ fontSize: 14, color: "#777", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
+          <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
             MSc IT student (Sem 8) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
           </p>
 
@@ -88,24 +88,24 @@ export default function Hero() {
         <div className="hero-right">
           <div style={{ position: "relative", width: "100%", maxWidth: 300 }}>
             <div className="hero-card-border" />
-            <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "var(--avatar-bg)", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }} className="avatar-card">
+            <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }} className="avatar-card">
               <img src="/avatar.svg" alt="Developer illustration" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
-            <div style={{ position: "absolute", bottom: 20, right: -8, background: "#111", color: "#fff", padding: "14px 18px", borderRadius: 3, fontSize: 13, zIndex: 2, letterSpacing: "0.5px", lineHeight: 1.6, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
-              Full-Stack<br /><span style={{ color: "#2563eb" }}>Developer</span>
+            <div style={{ position: "absolute", bottom: 20, right: -8, background: "var(--text)", color: "var(--bg)", padding: "14px 18px", borderRadius: 3, fontSize: 13, zIndex: 2, letterSpacing: "0.5px", lineHeight: 1.6, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
+              Full-Stack<br /><span style={{ color: "var(--accent)" }}>Developer</span>
             </div>
           </div>
           <div style={{ display: "flex", gap: 24, marginTop: 24 }}>
             {[{ num: "8", label: "Projects" }, { num: "5", label: "Tech Stacks" }, { num: "1", label: "Internship" }].map(({ num, label }) => (
               <div key={label} style={{ textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 900, color: "#111", letterSpacing: "-1px", lineHeight: 1 }}>{num}<span style={{ color: "#2563eb" }}>+</span></div>
-                <div style={{ fontSize: 10, color: "#999", marginTop: 4, letterSpacing: "0.5px", textTransform: "uppercase" }}>{label}</div>
+                <div className="hero-stat-num">{num}<span style={{ color: "var(--accent)" }}>+</span></div>
+                <div className="hero-stat-label">{label}</div>
               </div>
             ))}
             {visitors !== null && (
               <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 900, color: "#111", letterSpacing: "-1px", lineHeight: 1 }}>{visitors}<span style={{ color: "#2563eb" }}>+</span></div>
-                <div style={{ fontSize: 10, color: "#999", marginTop: 4, letterSpacing: "0.5px", textTransform: "uppercase" }}>Visitors</div>
+                <div className="hero-stat-num">{visitors}<span style={{ color: "var(--accent)" }}>+</span></div>
+                <div className="hero-stat-label">Visitors</div>
               </div>
             )}
           </div>
@@ -136,6 +136,8 @@ export default function Hero() {
         .social-icon { width: 40px; height: 40px; border-radius: 3px; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; transition: all 0.2s; }
         .social-icon:hover { border-color: #2563eb; color: #2563eb; }
         .hero-card-border { position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid #2563eb; border-radius: 6px; z-index: 0; }
+        .hero-stat-num { font-size: 28px; font-weight: 900; color: var(--text); letter-spacing: -1px; line-height: 1; }
+        .hero-stat-label { font-size: 10px; color: var(--text-faint); margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
         @media (max-width: 768px) {
           .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; }
           .hero-left { padding-right: 0; width: 100%; }
