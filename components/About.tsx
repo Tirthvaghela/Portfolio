@@ -23,10 +23,10 @@ function useCountUp(target: number, duration: number, start: boolean) {
 }
 
 const stats = [
-  { num: 8, label: "Projects Completed", color: "#111" },
-  { num: 5, label: "Tech Stacks Mastered", color: "#2563eb" },
-  { num: 1, label: "Internship", color: "#111" },
-  { num: 3, label: "Years of Learning", color: "#2563eb" },
+  { num: 8, label: "Projects Completed", color: "var(--text)" },
+  { num: 5, label: "Tech Stacks Mastered", color: "var(--accent)" },
+  { num: 1, label: "Internship", color: "var(--text)" },
+  { num: 3, label: "Years of Learning", color: "var(--accent)" },
 ];
 
 function StatCard({ num, label, color, started }: { num: number; label: string; color: string; started: boolean }) {
@@ -34,13 +34,13 @@ function StatCard({ num, label, color, started }: { num: number; label: string; 
   return (
     <div
       className="stat-card"
-      onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#2563eb"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#e8e8e8"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "var(--accent)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
     >
       <div className="stat-num" style={{ color }}>
         {count}<span className="stat-plus">+</span>
       </div>
-      <div style={{ fontSize: 13, color: "#888", marginTop: 8, lineHeight: 1.4 }}>{label}</div>
+      <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 8, lineHeight: 1.4 }}>{label}</div>
     </div>
   );
 }
@@ -59,18 +59,18 @@ export default function About() {
   }, []);
 
   return (
-    <section style={{ background: "#f8f8f6", padding: "100px 6%", borderTop: "1px solid #ebebeb" }}>
+    <section style={{ background: "var(--bg-section)", padding: "100px 6%", borderTop: "1px solid var(--border)" }}>
       <div className="about-grid">
         <FadeIn direction="left">
           <div>
-            <p style={{ fontSize: 13, color: "#2563eb", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", marginBottom: 16 }}>
+            <p style={{ fontSize: 13, color: "var(--accent)", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", marginBottom: 16 }}>
               Personal Information
             </p>
-            <h2 style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1, color: "#111", marginBottom: 24 }}>
+            <h2 style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1, color: "var(--text)", marginBottom: 24 }}>
               About<br />
-              <span style={{ WebkitTextStroke: "2px #111", color: "transparent" }}>Me.</span>
+              <span style={{ WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Me.</span>
             </h2>
-            <p style={{ fontSize: 15, color: "#555", lineHeight: 1.9, marginBottom: 32 }}>
+            <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.9, marginBottom: 32 }}>
               Motivated MSc IT student (Semester 8) at GLS University with strong skills in full-stack web development. Completed BSc IT as part of the integrated IMSC program. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Completed multiple internships and hands-on projects including authentication systems and AI-based platforms.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -80,11 +80,11 @@ export default function About() {
                 { icon: <GraduationCap size={16} />, label: "University", value: "GLS University, 2022–2027", href: "https://www.glsuniversity.ac.in" },
               ].map(({ icon, label, value, href }) => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ color: "#2563eb", flexShrink: 0 }}>{icon}</div>
-                  <span style={{ fontSize: 13, color: "#888", minWidth: 80 }}>{label}:</span>
+                  <div style={{ color: "var(--accent)", flexShrink: 0 }}>{icon}</div>
+                  <span style={{ fontSize: 13, color: "var(--text-muted)", minWidth: 80 }}>{label}:</span>
                   {href
-                    ? <a href={href} style={{ fontSize: 14, color: "#111", fontWeight: 500, textDecoration: "none" }} onMouseEnter={(e) => (e.currentTarget.style.color = "#2563eb")} onMouseLeave={(e) => (e.currentTarget.style.color = "#111")}>{value}</a>
-                    : <span style={{ fontSize: 14, color: "#111", fontWeight: 500 }}>{value}</span>
+                    ? <a href={href} style={{ fontSize: 14, color: "var(--text)", fontWeight: 500, textDecoration: "none" }} onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")} onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text)")}>{value}</a>
+                    : <span style={{ fontSize: 14, color: "var(--text)", fontWeight: 500 }}>{value}</span>
                   }
                 </div>
               ))}
@@ -98,8 +98,8 @@ export default function About() {
               <StatCard key={label} num={num} label={label} color={color} started={started} />
             ))}
           </div>
-          <div style={{ marginTop: 24, padding: "20px 24px", border: "1.5px solid #e8e8e8", borderRadius: 6, background: "#fff" }} className="github-activity-card">
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#bbb", marginBottom: 16 }}>GitHub Activity</p>
+          <div style={{ marginTop: 24, padding: "20px 24px", border: "1.5px solid var(--border)", borderRadius: 6, background: "var(--bg-card)" }} className="github-activity-card">
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 16 }}>GitHub Activity</p>
             <img
               src={`https://ghchart.rshah.org/2563eb/Tirthvaghela`}
               alt="GitHub contribution chart"
@@ -107,7 +107,7 @@ export default function About() {
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
             />
             <a href="https://github.com/Tirthvaghela" target="_blank" rel="noopener noreferrer"
-              style={{ fontSize: 12, color: "#2563eb", textDecoration: "none", fontWeight: 600, display: "inline-block", marginTop: 12 }}
+              style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600, display: "inline-block", marginTop: 12 }}
               onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
               onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
             >View GitHub Profile ↗</a>
@@ -118,7 +118,7 @@ export default function About() {
       <style>{`
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .stat-card { border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; overflow: hidden; }
+        .stat-card { border: 1.5px solid var(--border); border-radius: 6px; padding: 32px 24px; text-align: center; transition: border-color 0.2s, transform 0.2s; overflow: hidden; background: var(--bg-card); }
         .stat-num { font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
         .stat-plus { color: #2563eb; font-size: 36px; }
         @media (max-width: 768px) {
