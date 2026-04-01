@@ -139,3 +139,79 @@ section { scroll-margin-top: 80px; }
 
 /* Skills section cards already dark — keep them */
 [data-theme="dark"] #skills section { background: transparent !important; }
+
+/* ── ADDITIONAL DARK MODE FIXES ── */
+
+/* About - location/label text */
+[data-theme="dark"] span[style] { color: var(--text-muted) !important; }
+[data-theme="dark"] .stat-num { color: var(--text) !important; }
+[data-theme="dark"] .stat-plus { color: var(--accent) !important; }
+
+/* Projects section background */
+[data-theme="dark"] #projects { background-color: var(--bg-section) !important; }
+
+/* Project rows - non-hovered */
+[data-theme="dark"] .project-row { background: var(--bg-section) !important; border-color: var(--border) !important; }
+[data-theme="dark"] .project-row:hover { background: var(--bg-alt) !important; }
+
+/* Project filter buttons */
+[data-theme="dark"] button[style*="border: 1.5px solid #e0e0e0"],
+[data-theme="dark"] button[style*="border: 2px solid #111"] {
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+  background: transparent !important;
+}
+[data-theme="dark"] button[style*="background: #111"][style*="color: #fff"] {
+  background: var(--text) !important;
+  color: var(--bg) !important;
+  border-color: var(--text) !important;
+}
+
+/* Contact icon boxes */
+[data-theme="dark"] div[style*="border: 1.5px solid #e8e8e8"][style*="width: 44px"] {
+  border-color: var(--border) !important;
+  background: var(--bg-card) !important;
+}
+
+/* Contact social icons */
+[data-theme="dark"] a[style*="border: 1.5px solid #e8e8e8"][style*="width: 44px"] {
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Experience period badges */
+[data-theme="dark"] span[style*="background: #fff"][style*="border: 1px solid #e8e8e8"] {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Experience bullet separators */
+[data-theme="dark"] li[style*="border-bottom: 1px solid #f0f0f0"] {
+  border-bottom-color: var(--border) !important;
+}
+
+/* Tech stack tags in project rows */
+[data-theme="dark"] span[style*="background: #f5f5f5"] {
+  background: var(--bg-alt) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Hero "Hi, I'm" and subtitle text */
+[data-theme="dark"] span[style*="color: #999"] { color: var(--text-faint) !important; }
+[data-theme="dark"] span[style*="color: #777"] { color: var(--text-muted) !important; }
+
+/* Hero stats labels */
+[data-theme="dark"] div[style*="color: #999"][style*="text-transform: uppercase"] {
+  color: var(--text-faint) !important;
+}
+
+/* Footer text */
+[data-theme="dark"] footer p { color: var(--text-faint) !important; }
+[data-theme="dark"] footer button { color: var(--text-faint) !important; }
+
+/* About info row values */
+[data-theme="dark"] span[style*="color: #111"][style*="font-weight: 500"] {
+  color: var(--text) !important;
+}
