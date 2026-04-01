@@ -108,6 +108,17 @@ export default function Experience() {
                 <a href="https://verify.skilljar.com/c/a4m7t9ktauru" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none" , fontWeight: 600}}>View Certificate ↗</a>
               </div>
             </div>
+            <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginTop: 20 }}>
+              <div style={{ background: "#f59e0b", borderRadius: 2 }} />
+              <div style={{ paddingBottom: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
+                  <h4 style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>Developing Front-End Apps with React</h4>
+                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#f59e0b", background: "#fef3c7", padding: "2px 8px", borderRadius: 2 }}>In Progress</span>
+                </div>
+                <p style={{ fontSize: 13, color: "#888", marginTop: 4 }}>IBM — Coursera · 4 modules</p>
+                <a href="https://www.coursera.org/learn/developing-frontend-apps-with-react" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "#2563eb", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Course ↗</a>
+              </div>
+            </div>
           </div>
         </FadeIn>
       </div>
