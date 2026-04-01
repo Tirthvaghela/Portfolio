@@ -67,7 +67,7 @@ section { scroll-margin-top: 80px; }
 [data-theme="dark"] section { background-color: var(--bg-section) !important; }
 [data-theme="dark"] #skills { background-color: #0a0a0a !important; }
 [data-theme="dark"] #experience { background-color: var(--bg-alt) !important; }
-[data-theme="dark"] #about { border-top-color: var(--border) !important; }
+[data-theme="dark"] #about { border-top-color: var(--border) !important; background-color: var(--bg-section) !important; }
 
 /* Hero */
 [data-theme="dark"] .hero-section { background: var(--hero-bg) !important; }
@@ -97,3 +97,13 @@ section { scroll-margin-top: 80px; }
 
 /* Footer */
 [data-theme="dark"] footer { background: var(--footer-bg) !important; }
+
+/* Contact inputs more visible in dark */
+[data-theme="dark"] input, [data-theme="dark"] textarea {
+  background: #1a1a1a !important;
+  border-color: #3a3a3a !important;
+  color: var(--text) !important;
+}
+[data-theme="dark"] input:focus, [data-theme="dark"] textarea:focus {
+  border-color: var(--text) !important;
+}
