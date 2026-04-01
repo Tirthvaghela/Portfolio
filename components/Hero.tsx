@@ -88,7 +88,7 @@ export default function Hero() {
         <div className="hero-right">
           <div style={{ position: "relative", width: "100%", maxWidth: 300 }}>
             <div className="hero-card-border" />
-            <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#eef2ff", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
+            <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "var(--avatar-bg)", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }} className="avatar-card">
               <img src="/avatar.svg" alt="Developer illustration" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
             <div style={{ position: "absolute", bottom: 20, right: -8, background: "#111", color: "#fff", padding: "14px 18px", borderRadius: 3, fontSize: 13, zIndex: 2, letterSpacing: "0.5px", lineHeight: 1.6, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
@@ -121,7 +121,7 @@ export default function Hero() {
       <style>{`
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         @keyframes pulse-green { 0%, 100% { box-shadow: 0 0 0 0 #86efac; } 70% { box-shadow: 0 0 0 6px transparent; } }
-        .hero-section { min-height: 100vh; background: linear-gradient(160deg, #f8f8f6 0%, #eef2ff 60%, #f8f8f6 100%); position: relative; overflow: hidden; padding-top: 72px; }
+        .hero-section { min-height: 100vh; background: var(--hero-bg); position: relative; overflow: hidden; padding-top: 72px; }
         .hero-dots { position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle, #2563eb18 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); }
         .hero-grid { position: relative; z-index: 1; width: 100%; padding: 40px 5% 80px; display: grid; grid-template-columns: 55% 45%; align-items: center; min-height: calc(100vh - 72px); }
         .hero-left { padding-right: 4%; min-width: 0; }

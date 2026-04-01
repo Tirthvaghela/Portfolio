@@ -98,7 +98,7 @@ export default function About() {
               <StatCard key={label} num={num} label={label} color={color} started={started} />
             ))}
           </div>
-          <div style={{ marginTop: 24, padding: "20px 24px", border: "1.5px solid #e8e8e8", borderRadius: 6, background: "#fff" }}>
+          <div style={{ marginTop: 24, padding: "20px 24px", border: "1.5px solid #e8e8e8", borderRadius: 6, background: "#fff" }} className="github-activity-card">
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#bbb", marginBottom: 16 }}>GitHub Activity</p>
             <img
               src={`https://ghchart.rshah.org/2563eb/Tirthvaghela`}
