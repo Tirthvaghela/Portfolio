@@ -1,14 +1,21 @@
 "use client";
 import { useState } from "react";
-import { Mail, MapPin, Github, Linkedin, ArrowUpRight, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Github, Linkedin, ArrowUpRight, CheckCircle, Copy } from "lucide-react";
 import FadeIn from "./FadeIn";
 
-// Replace YOUR_FORM_ID with your Formspree form ID from formspree.io
 const FORMSPREE_ID = "xqeygzoo";
+const EMAIL = "vaghelatirth719@gmail.com";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,17 +68,28 @@ export default function Contact() {
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
             {[
-              { icon: <Mail size={18} />, label: "Email", value: "vaghelatirth719@gmail.com", href: "mailto:vaghelatirth719@gmail.com" },
-              { icon: <MapPin size={18} />, label: "Location", value: "Ahmedabad, Gujarat, India", href: null },
-            ].map(({ icon, label, value, href }) => (
+              { icon: <Mail size={18} />, label: "Email", value: EMAIL, href: `mailto:${EMAIL}`, copyable: true },
+              { icon: <MapPin size={18} />, label: "Location", value: "Ahmedabad, Gujarat, India", href: null, copyable: false },
+            ].map(({ icon, label, value, href, copyable }) => (
               <div key={label} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
                 <div style={{ width: 44, height: 44, border: "1.5px solid #e8e8e8", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563eb", flexShrink: 0, borderRadius: 2 }}>
                   {icon}
                 </div>
                 <div>
                   <p style={{ fontSize: 11, color: "#aaa", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 2 }}>{label}</p>
-                  {href ? <a href={href} style={{ fontSize: 14, color: "#111", fontWeight: 600, textDecoration: "none" }}>{value}</a>
-                    : <p style={{ fontSize: 14, color: "#111", fontWeight: 600 }}>{value}</p>}
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    {href ? <a href={href} style={{ fontSize: 14, color: "#111", fontWeight: 600, textDecoration: "none" }}>{value}</a>
+                      : <p style={{ fontSize: 14, color: "#111", fontWeight: 600 }}>{value}</p>}
+                    {copyable && (
+                      <button onClick={copyEmail} title="Copy email"
+                        style={{ background: "none", border: "none", cursor: "pointer", color: copied ? "#16a34a" : "#aaa", padding: 2, display: "flex", alignItems: "center", transition: "color 0.2s" }}
+                        onMouseEnter={(e) => { if (!copied) e.currentTarget.style.color = "#2563eb"; }}
+                        onMouseLeave={(e) => { if (!copied) e.currentTarget.style.color = "#aaa"; }}
+                      >
+                        {copied ? <CheckCircle size={14} /> : <Copy size={14} />}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
