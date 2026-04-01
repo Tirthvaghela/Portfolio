@@ -8,6 +8,7 @@ const EMAIL = "vaghelatirth719@gmail.com";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [copied, setCopied] = useState(false);
 
@@ -17,8 +18,20 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const validate = () => {
+    const e = { name: "", email: "", message: "" };
+    if (!form.name.trim() || form.name.trim().length < 2) e.name = "Name must be at least 2 characters.";
+    else if (!/^[a-zA-Z\s]+$/.test(form.name.trim())) e.name = "Name can only contain letters.";
+    if (!form.email.trim()) e.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "Enter a valid email address.";
+    if (!form.message.trim() || form.message.trim().length < 20) e.message = "Message must be at least 20 characters.";
+    setErrors(e);
+    return !e.name && !e.email && !e.message;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setStatus("sending");
     try {
       const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
@@ -106,16 +119,22 @@ export default function Contact() {
             <div className="contact-form-row">
               <div>
                 <label style={{ fontSize: 11, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase", display: "block", marginBottom: 8 }}>Name</label>
-                <input type="text" required placeholder="John Doe" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={inputStyle} onFocus={(e) => (e.target.style.borderColor = "var(--text)")} onBlur={(e) => (e.target.style.borderColor = "var(--border)")} />
+                <input type="text" placeholder="John Doe" value={form.name} onChange={(e) => { setForm({ ...form, name: e.target.value }); setErrors({ ...errors, name: "" }); }} style={{ ...inputStyle, borderColor: errors.name ? "#ef4444" : "var(--border)" }} onFocus={(e) => (e.target.style.borderColor = errors.name ? "#ef4444" : "var(--text)")} onBlur={(e) => (e.target.style.borderColor = errors.name ? "#ef4444" : "var(--border)")} />
+                {errors.name && <p style={{ fontSize: 11, color: "#ef4444", marginTop: 4 }}>{errors.name}</p>}
               </div>
               <div>
                 <label style={{ fontSize: 11, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase", display: "block", marginBottom: 8 }}>Email</label>
-                <input type="email" required placeholder="john@example.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={inputStyle} onFocus={(e) => (e.target.style.borderColor = "var(--text)")} onBlur={(e) => (e.target.style.borderColor = "var(--border)")} />
+                <input type="email" placeholder="john@example.com" value={form.email} onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: "" }); }} style={{ ...inputStyle, borderColor: errors.email ? "#ef4444" : "var(--border)" }} onFocus={(e) => (e.target.style.borderColor = errors.email ? "#ef4444" : "var(--text)")} onBlur={(e) => (e.target.style.borderColor = errors.email ? "#ef4444" : "var(--border)")} />
+                {errors.email && <p style={{ fontSize: 11, color: "#ef4444", marginTop: 4 }}>{errors.email}</p>}
               </div>
             </div>
             <div>
               <label style={{ fontSize: 11, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase", display: "block", marginBottom: 8 }}>Message</label>
-              <textarea required rows={6} placeholder="Tell me about your project..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ ...inputStyle, resize: "vertical" }} onFocus={(e) => (e.target.style.borderColor = "var(--text)")} onBlur={(e) => (e.target.style.borderColor = "var(--border)")} />
+              <textarea rows={6} placeholder="Tell me about your project... (min 20 characters)" value={form.message} onChange={(e) => { setForm({ ...form, message: e.target.value }); setErrors({ ...errors, message: "" }); }} style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "#ef4444" : "var(--border)" }} onFocus={(e) => (e.target.style.borderColor = errors.message ? "#ef4444" : "var(--text)")} onBlur={(e) => (e.target.style.borderColor = errors.message ? "#ef4444" : "var(--border)")} />
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
+                {errors.message ? <p style={{ fontSize: 11, color: "#ef4444" }}>{errors.message}</p> : <span />}
+                <span style={{ fontSize: 11, color: form.message.length >= 20 ? "var(--accent)" : "var(--text-faint)" }}>{form.message.length}/20</span>
+              </div>
             </div>
             <button type="submit" disabled={status === "sending"}
               className="send-btn"
