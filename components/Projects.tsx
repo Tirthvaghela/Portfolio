@@ -69,7 +69,7 @@ export default function Projects() {
                     <h3 style={{ fontSize: "clamp(18px, 2.2vw, 24px)", fontWeight: 900, color: "var(--text)", letterSpacing: "-0.5px", lineHeight: 1 }}>
                       {project.title}
                     </h3>
-                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--accent)", background: "var(--accent-bg, #eff6ff)", padding: "3px 9px", borderRadius: 2 }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--accent)", background: "transparent", padding: "3px 9px", borderRadius: 2, border: "1.5px solid var(--accent)" }}>
                       {project.category}
                     </span>
                   </div>

@@ -113,9 +113,9 @@ export default function Hero() {
 
       </div>
 
-      <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, color: "#ccc", fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", zIndex: 1 }}>
-        <span>Scroll</span>
-        <div style={{ width: 1, height: 32, background: "linear-gradient(to bottom, #ccc, transparent)" }} />
+      <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, color: "var(--text-faint)", fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", zIndex: 1 }}>
+        <span style={{ color: "var(--text-muted)" }}>Scroll</span>
+        <div style={{ width: 1, height: 32, background: "linear-gradient(to bottom, var(--text-muted), transparent)" }} />
       </div>
 
       <style>{`
