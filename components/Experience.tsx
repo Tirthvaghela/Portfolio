@@ -100,7 +100,7 @@ export default function Experience() {
               <div style={{ paddingBottom: 16 }}>
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Master MongoDB Database Design</h4>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Compass + Mongosh + PyMongo — Udemy · Feb 2026</p>
-                <a href="https://ude.my/UC-388999aa-8ab3-436b-be34-365e8ff02b38" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Certificate ↗</a>
+                <a href="/mongodb-udemy.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Certificate ↗</a>
               </div>
             </div>
 
@@ -109,7 +109,7 @@ export default function Experience() {
               <div style={{ paddingBottom: 16 }}>
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Claude Code in Action</h4>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Anthropic — March 2026</p>
-                <a href="https://verify.skilljar.com/c/a4m7t9ktauru" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Certificate ↗</a>
+                <a href="/claude-code-certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Certificate ↗</a>
               </div>
             </div>
 
