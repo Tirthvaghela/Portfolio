@@ -70,6 +70,7 @@ export default function ProjectModal({ project, onClose }: Props) {
               boxShadow: "0 32px 80px rgba(0,0,0,0.4)",
               pointerEvents: "all",
             }}
+            className="project-modal"
           >
             {/* Color bar */}
             <div style={{ height: 5, background: `linear-gradient(90deg, ${project.color}, ${project.color}60)`, borderRadius: "8px 8px 0 0" }} />
