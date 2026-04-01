@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const links = ["About", "Skills", "Projects", "Experience", "Contact"];
 
@@ -9,16 +10,13 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("About");
   const [progress, setProgress] = useState(0);
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
-
-      // Scroll progress
       const total = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
-
-      // Determine active section
       const offsets = links.map((l) => {
         const el = document.getElementById(l.toLowerCase());
         if (!el) return { id: l, top: Infinity };
@@ -27,7 +25,6 @@ export default function Navbar() {
       const inView = offsets.filter((o) => o.top <= 120);
       if (inView.length > 0) setActive(inView[inView.length - 1].id);
     };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -40,81 +37,74 @@ export default function Navbar() {
   return (
     <nav style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-      background: scrolled ? "rgba(255,255,255,0.95)" : "transparent",
+      background: scrolled ? "var(--nav-bg)" : "transparent",
       backdropFilter: scrolled ? "blur(12px)" : "none",
-      borderBottom: scrolled ? "1px solid #f0f0f0" : "none",
+      borderBottom: scrolled ? "1px solid var(--border-light)" : "none",
       transition: "all 0.3s",
     }}>
       {/* Scroll progress bar */}
-      <div style={{ position: "absolute", top: 0, left: 0, height: 2, width: `${progress}%`, background: "#2563eb", transition: "width 0.1s linear", zIndex: 51 }} />
+      <div style={{ position: "absolute", top: 0, left: 0, height: 2, width: `${progress}%`, background: "var(--accent)", transition: "width 0.1s linear", zIndex: 51 }} />
+
       <div style={{ padding: "0 6%", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <span
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ cursor: "pointer", fontSize: 22, fontWeight: 900, letterSpacing: "-1px", color: "#111" }}
-        >
-          TV<span style={{ color: "#2563eb" }}>.</span>
+        <span onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          style={{ cursor: "pointer", fontSize: 22, fontWeight: 900, letterSpacing: "-1px", color: "var(--text)" }}>
+          TV<span style={{ color: "var(--accent)" }}>.</span>
         </span>
 
         {/* Desktop links */}
         <ul style={{ display: "flex", gap: 36, listStyle: "none" }} className="nav-desktop">
           {links.map((l) => (
             <li key={l} style={{ position: "relative" }}>
-              <button
-                onClick={() => handleNav(l)}
-                style={{
-                  background: "none", border: "none",
-                  color: active === l ? "#111" : "#888",
-                  cursor: "pointer", fontSize: 14,
-                  fontWeight: active === l ? 700 : 500,
-                  letterSpacing: "0.3px",
-                  transition: "color 0.2s",
-                  padding: "4px 0",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#111")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = active === l ? "#111" : "#888")}
-              >
-                {l}
-              </button>
-              {/* Active underline dot */}
+              <button onClick={() => handleNav(l)}
+                style={{ background: "none", border: "none", color: active === l ? "var(--text)" : "var(--text-faint)", cursor: "pointer", fontSize: 14, fontWeight: active === l ? 700 : 500, letterSpacing: "0.3px", transition: "color 0.2s", padding: "4px 0" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = active === l ? "var(--text)" : "var(--text-faint)")}
+              >{l}</button>
               {active === l && (
-                <span style={{
-                  position: "absolute", bottom: -2, left: "50%",
-                  transform: "translateX(-50%)",
-                  width: 4, height: 4, borderRadius: "50%",
-                  background: "#2563eb",
-                }} />
+                <span style={{ position: "absolute", bottom: -2, left: "50%", transform: "translateX(-50%)", width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }} />
               )}
             </li>
           ))}
         </ul>
 
-        <a
-          href="mailto:vaghelatirth719@gmail.com"
-          className="nav-desktop"
-          style={{ background: "#111", color: "#fff", padding: "10px 24px", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none", letterSpacing: "0.5px", transition: "background 0.2s" }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "#2563eb")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "#111")}
-        >
-          Hire Me
-        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }} className="nav-desktop">
+          <button onClick={toggle} aria-label="Toggle theme"
+            style={{ background: "none", border: "1.5px solid var(--border)", borderRadius: 6, width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text)", transition: "all 0.2s" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.color = "var(--accent)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--text)"; }}
+          >
+            {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+          </button>
+          <a href="mailto:vaghelatirth719@gmail.com"
+            style={{ background: "var(--text)", color: "var(--bg)", padding: "10px 24px", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none", letterSpacing: "0.5px", transition: "background 0.2s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--accent)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--text)")}
+          >Hire Me</a>
+        </div>
 
-        <button onClick={() => setOpen(!open)} className="nav-mobile" style={{ background: "none", border: "none", cursor: "pointer", color: "#111" }}>
+        <button onClick={() => setOpen(!open)} className="nav-mobile" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)" }}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {open && (
-        <div style={{ background: "#fff", borderTop: "1px solid #f0f0f0", padding: "16px 6%" }}>
+        <div style={{ background: "var(--bg-alt)", borderTop: "1px solid var(--border-light)", padding: "16px 6%" }}>
           {links.map((l) => (
-            <button key={l} onClick={() => handleNav(l)} style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", color: active === l ? "#2563eb" : "#333", fontWeight: active === l ? 700 : 400, cursor: "pointer", fontSize: 16, padding: "12px 0", borderBottom: "1px solid #f5f5f5" }}>
+            <button key={l} onClick={() => handleNav(l)}
+              style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", color: active === l ? "var(--accent)" : "var(--text-muted)", fontWeight: active === l ? 700 : 400, cursor: "pointer", fontSize: 16, padding: "12px 0", borderBottom: "1px solid var(--border-light)" }}>
               {l}
             </button>
           ))}
+          <button onClick={toggle}
+            style={{ marginTop: 12, background: "none", border: "1.5px solid var(--border)", borderRadius: 6, padding: "8px 16px", cursor: "pointer", color: "var(--text)", fontSize: 13, display: "flex", alignItems: "center", gap: 8 }}>
+            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
+          </button>
         </div>
       )}
 
       <style>{`
-        .nav-desktop { display: flex; }
+        .nav-desktop { display: flex; align-items: center; }
         .nav-mobile { display: none; }
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
