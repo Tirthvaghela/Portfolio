@@ -19,7 +19,6 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
   --nav-bg: rgba(255,255,255,0.95);
   --stroke: #111111;
   --hero-bg: linear-gradient(160deg, #f8f8f6 0%, #eef2ff 60%, #f8f8f6 100%);
-  --avatar-bg: #eef2ff;
 }
 
 [data-theme="dark"] {
@@ -29,7 +28,7 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
   --bg-section: #141414;
   --text: #f0f0f0;
   --text-muted: #aaaaaa;
-  --text-faint: #666666;
+  --text-faint: #555555;
   --border: #2a2a2a;
   --border-light: #222222;
   --accent: #3b82f6;
@@ -37,7 +36,6 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
   --nav-bg: rgba(15,15,15,0.95);
   --stroke: #f0f0f0;
   --hero-bg: linear-gradient(160deg, #0f0f0f 0%, #0d1a2e 60%, #0f0f0f 100%);
-  --avatar-bg: #1e2a3a;
 }
 
 body {
@@ -63,63 +61,29 @@ section { scroll-margin-top: 80px; }
 .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
 
-/* ── DARK MODE OVERRIDES ── */
+/* ── DARK MODE ── */
 
-/* Hero */
-[data-theme="dark"] .hero-section {
-  background: var(--hero-bg) !important;
-}
-[data-theme="dark"] .hero-dots {
-  background-image: radial-gradient(circle, #3b82f620 1px, transparent 1px) !important;
-}
-[data-theme="dark"] .hero-card-border { border-color: var(--accent) !important; }
-[data-theme="dark"] .hero-typewriter { color: var(--accent) !important; }
-[data-theme="dark"] .btn-primary { background: var(--accent) !important; border-color: var(--accent) !important; }
-[data-theme="dark"] .btn-outline { color: var(--text) !important; border-color: var(--text) !important; }
-[data-theme="dark"] .btn-outline:hover { background: var(--text) !important; color: var(--bg) !important; }
-[data-theme="dark"] .social-icon { border-color: var(--border) !important; color: var(--text-muted) !important; }
-
-/* All sections */
+/* Section backgrounds */
 [data-theme="dark"] section { background-color: var(--bg-section) !important; }
 [data-theme="dark"] #skills { background-color: #0a0a0a !important; }
 [data-theme="dark"] #experience { background-color: var(--bg-alt) !important; }
+[data-theme="dark"] #about { border-top-color: var(--border) !important; }
 
-/* All text */
-[data-theme="dark"] h1, [data-theme="dark"] h2,
-[data-theme="dark"] h3, [data-theme="dark"] h4 { color: var(--text) !important; }
-[data-theme="dark"] p { color: var(--text-muted) !important; }
-[data-theme="dark"] span { color: inherit; }
-[data-theme="dark"] li { color: var(--text-muted) !important; }
-[data-theme="dark"] label { color: var(--text-faint) !important; }
-[data-theme="dark"] a { color: var(--accent) !important; }
+/* Hero */
+[data-theme="dark"] .hero-section { background: var(--hero-bg) !important; }
+[data-theme="dark"] .hero-card-border { border-color: var(--accent) !important; }
+[data-theme="dark"] .social-icon { border-color: var(--border) !important; color: var(--text-muted) !important; }
+[data-theme="dark"] .btn-primary { background: var(--accent) !important; border-color: var(--accent) !important; color: #fff !important; }
+[data-theme="dark"] .btn-outline { color: var(--text) !important; border-color: var(--text) !important; background: transparent !important; }
+[data-theme="dark"] .btn-outline:hover { background: var(--text) !important; color: var(--bg) !important; }
 
-/* Outline text */
-[data-theme="dark"] [style*="-webkit-text-stroke"] {
-  -webkit-text-stroke-color: var(--text) !important;
-}
-
-/* Stat cards */
-[data-theme="dark"] .stat-card {
-  background: var(--bg-card) !important;
-  border-color: var(--border) !important;
-}
+/* About stat cards */
+[data-theme="dark"] .stat-card { background: var(--bg-card) !important; border-color: var(--border) !important; }
 [data-theme="dark"] .stat-num { color: var(--text) !important; }
 
 /* Project rows */
-[data-theme="dark"] .project-row { border-color: var(--border) !important; }
+[data-theme="dark"] .project-row { background: var(--bg-section) !important; border-color: var(--border) !important; }
 [data-theme="dark"] .project-row:hover { background: var(--bg-alt) !important; }
-
-/* Exp grid */
-[data-theme="dark"] .exp-grid { color: var(--text) !important; }
-
-/* About section border */
-[data-theme="dark"] #about { border-top-color: var(--border) !important; }
-
-/* GitHub activity card */
-[data-theme="dark"] .github-activity-card {
-  background: var(--bg-card) !important;
-  border-color: var(--border) !important;
-}
 
 /* Inputs */
 [data-theme="dark"] input, [data-theme="dark"] textarea {
@@ -133,98 +97,3 @@ section { scroll-margin-top: 80px; }
 
 /* Footer */
 [data-theme="dark"] footer { background: var(--footer-bg) !important; }
-
-/* Avatar bg */
-[data-theme="dark"] .avatar-card { background: var(--avatar-bg) !important; }
-
-/* Skills section cards already dark — keep them */
-[data-theme="dark"] #skills section { background: transparent !important; }
-
-/* ── ADDITIONAL DARK MODE FIXES ── */
-
-/* About - location/label text */
-[data-theme="dark"] span[style] { color: var(--text-muted) !important; }
-[data-theme="dark"] .stat-num { color: var(--text) !important; }
-[data-theme="dark"] .stat-plus { color: var(--accent) !important; }
-
-/* Projects section background */
-[data-theme="dark"] #projects { background-color: var(--bg-section) !important; }
-
-/* Project rows - non-hovered */
-[data-theme="dark"] .project-row { background: var(--bg-section) !important; border-color: var(--border) !important; }
-[data-theme="dark"] .project-row:hover { background: var(--bg-alt) !important; }
-
-/* Project filter buttons */
-[data-theme="dark"] button[style*="border: 1.5px solid #e0e0e0"],
-[data-theme="dark"] button[style*="border: 2px solid #111"] {
-  border-color: var(--border) !important;
-  color: var(--text-muted) !important;
-  background: transparent !important;
-}
-[data-theme="dark"] button[style*="background: #111"][style*="color: #fff"] {
-  background: var(--text) !important;
-  color: var(--bg) !important;
-  border-color: var(--text) !important;
-}
-
-/* Contact icon boxes */
-[data-theme="dark"] div[style*="border: 1.5px solid #e8e8e8"][style*="width: 44px"] {
-  border-color: var(--border) !important;
-  background: var(--bg-card) !important;
-}
-
-/* Contact social icons */
-[data-theme="dark"] a[style*="border: 1.5px solid #e8e8e8"][style*="width: 44px"] {
-  border-color: var(--border) !important;
-  color: var(--text-muted) !important;
-}
-
-/* Experience period badges */
-[data-theme="dark"] span[style*="background: #fff"][style*="border: 1px solid #e8e8e8"] {
-  background: var(--bg-card) !important;
-  border-color: var(--border) !important;
-  color: var(--text-muted) !important;
-}
-
-/* Experience bullet separators */
-[data-theme="dark"] li[style*="border-bottom: 1px solid #f0f0f0"] {
-  border-bottom-color: var(--border) !important;
-}
-
-/* Tech stack tags in project rows */
-[data-theme="dark"] span[style*="background: #f5f5f5"] {
-  background: var(--bg-alt) !important;
-  border-color: var(--border) !important;
-  color: var(--text-muted) !important;
-}
-
-/* Hero "Hi, I'm" and subtitle text */
-[data-theme="dark"] span[style*="color: #999"] { color: var(--text-faint) !important; }
-[data-theme="dark"] span[style*="color: #777"] { color: var(--text-muted) !important; }
-
-/* Hero stats labels */
-[data-theme="dark"] div[style*="color: #999"][style*="text-transform: uppercase"] {
-  color: var(--text-faint) !important;
-}
-
-/* Footer text */
-[data-theme="dark"] footer p { color: var(--text-faint) !important; }
-[data-theme="dark"] footer button { color: var(--text-faint) !important; }
-
-/* About info row values */
-[data-theme="dark"] span[style*="color: #111"][style*="font-weight: 500"] {
-  color: var(--text) !important;
-}
-
-/* Hire Me button dark mode hover */
-[data-theme="dark"] nav a[style*="background: var(--text)"] {
-  background: var(--text) !important;
-  color: var(--bg) !important;
-}
-[data-theme="dark"] nav a[style*="background: var(--text)"]:hover {
-  background: var(--accent) !important;
-  color: #fff !important;
-}
-
-/* Open to opportunities badge text always black */
-.open-to-work-text { color: #111 !important; }
