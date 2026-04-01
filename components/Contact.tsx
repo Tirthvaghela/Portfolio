@@ -54,7 +54,7 @@ export default function Contact() {
       <FadeIn delay={0.1}>
         <div className="contact-grid">
           <div>
-            <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.8, marginBottom: 40 }}>
+            <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.8, marginBottom: 32 }}>
               Have a project in mind or want to collaborate? I&apos;d love to hear from you.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
@@ -102,7 +102,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <form onSubmit={handleSubmit} className="contact-form" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div className="contact-form-row">
               <div>
                 <label style={{ fontSize: 11, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase", display: "block", marginBottom: 8 }}>Name</label>
@@ -135,6 +135,7 @@ export default function Contact() {
         .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .send-btn { background: var(--text) !important; color: var(--bg) !important; }
         .send-btn:hover:not(:disabled) { background: var(--accent) !important; color: #fff !important; }
+        .contact-form { padding-top: 0; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr; gap: 40px; }
           .contact-form-row { grid-template-columns: 1fr; }
