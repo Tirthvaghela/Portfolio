@@ -118,9 +118,8 @@ export default function Contact() {
               <textarea required rows={6} placeholder="Tell me about your project..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ ...inputStyle, resize: "vertical" }} onFocus={(e) => (e.target.style.borderColor = "var(--text)")} onBlur={(e) => (e.target.style.borderColor = "var(--border)")} />
             </div>
             <button type="submit" disabled={status === "sending"}
-              style={{ background: status === "sent" ? "#16a34a" : status === "error" ? "#dc2626" : "var(--text)", color: "var(--bg)", border: "none", padding: "16px 32px", fontSize: 14, fontWeight: 700, cursor: status === "sending" ? "not-allowed" : "pointer", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: 8, borderRadius: 2, transition: "background 0.2s", alignSelf: "flex-start", opacity: status === "sending" ? 0.7 : 1 }}
-              onMouseEnter={(e) => { if (status === "idle") e.currentTarget.style.background = "var(--accent)"; }}
-              onMouseLeave={(e) => { if (status === "idle") e.currentTarget.style.background = ""; }}
+              className="send-btn"
+              style={{ background: status === "sent" ? "#16a34a" : status === "error" ? "#dc2626" : "var(--text)", color: "var(--bg)", border: "none", padding: "16px 32px", fontSize: 14, fontWeight: 700, cursor: status === "sending" ? "not-allowed" : "pointer", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: 8, borderRadius: 2, transition: "background 0.2s, color 0.2s", alignSelf: "flex-start", opacity: status === "sending" ? 0.7 : 1 }}
             >
               {status === "sending" && "Sending..."}
               {status === "sent" && <><CheckCircle size={16} /> Sent!</>}
@@ -134,6 +133,8 @@ export default function Contact() {
       <style>{`
         .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
         .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .send-btn { background: var(--text) !important; color: var(--bg) !important; }
+        .send-btn:hover:not(:disabled) { background: var(--accent) !important; color: #fff !important; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr; gap: 40px; }
           .contact-form-row { grid-template-columns: 1fr; }
