@@ -82,14 +82,6 @@ export default function Hero() {
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-icon">{icon}</a>
             ))}
           </div>
-
-          <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 20, lineHeight: 1.6, maxWidth: 400 }}>
-            💡 <em>Every great product started with someone who refused to stop building.</em>
-            <br />
-            <span style={{ fontSize: 12, color: "var(--accent)", fontWeight: 600, marginTop: 4, display: "inline-block" }}>
-              ✦ Available for internships &amp; freelance projects
-            </span>
-          </p>
         </div>
 
         {/* RIGHT */}

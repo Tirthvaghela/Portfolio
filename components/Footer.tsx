@@ -38,7 +38,7 @@ export default function Footer() {
           </p>
           {visitors !== null && (
             <p style={{ fontSize: 11, color: "#888", marginTop: 6 }}>
-              You are visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — thanks for stopping by!
+              Visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — glad you stopped by!
             </p>
           )}
         </div>
