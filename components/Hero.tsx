@@ -82,6 +82,14 @@ export default function Hero() {
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-icon">{icon}</a>
             ))}
           </div>
+
+          <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 20, lineHeight: 1.6, maxWidth: 400 }}>
+            💡 <em>Every great product started with someone who refused to stop building.</em>
+            <br />
+            <span style={{ fontSize: 12, color: "var(--accent)", fontWeight: 600, marginTop: 4, display: "inline-block" }}>
+              ✦ Available for internships &amp; freelance projects
+            </span>
+          </p>
         </div>
 
         {/* RIGHT */}
@@ -95,9 +103,9 @@ export default function Hero() {
               Full-Stack<br /><span style={{ color: "var(--accent)" }}>Developer</span>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 24, marginTop: 24 }}>
+          <div style={{ display: "flex", gap: 24, marginTop: 24, justifyContent: "center" }}>
             {[{ num: "8", label: "Projects" }, { num: "5", label: "Tech Stacks" }, { num: "1", label: "Internship" }].map(({ num, label }) => (
-              <div key={label} style={{ textAlign: "center" }}>
+              <div key={label} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div className="hero-stat-num">{num}<span style={{ color: "var(--accent)" }}>+</span></div>
                 <div className="hero-stat-label">{label}</div>
               </div>

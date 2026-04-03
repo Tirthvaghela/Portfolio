@@ -37,7 +37,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Tirth Vaghela · &quot;Dream it. Code it. Deploy it.&quot;
           </p>
           {visitors !== null && (
-            <p style={{ fontSize: 11, color: "#444", marginTop: 6 }}>
+            <p style={{ fontSize: 11, color: "#888", marginTop: 6 }}>
               You are visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — thanks for stopping by!
             </p>
           )}
