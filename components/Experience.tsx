@@ -71,7 +71,7 @@ export default function Experience() {
                           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text)")}
                         >{edu.institution} ↗</a>
                       </h4>
-                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: edu.status === "Pursuing" ? "#2563eb" : "#16a34a", background: edu.status === "Pursuing" ? "#eff6ff" : "#f0fdf4", padding: "3px 10px", borderRadius: 2, display: "inline-block", marginTop: 6 }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: edu.status === "Pursuing" ? "#2563eb" : "#16a34a", background: "transparent", border: `1.5px solid ${edu.status === "Pursuing" ? "#2563eb" : "#16a34a"}`, padding: "3px 10px", borderRadius: 2, display: "inline-block", marginTop: 6 }}>
                         {edu.status}
                       </span>
                     </div>
@@ -81,10 +81,10 @@ export default function Experience() {
                   <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>{edu.note}</p>
                   {"cgpa" in edu && (
                     <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 8 }}>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", background: "var(--bg-section)", border: "1px solid var(--border)", padding: "4px 12px", borderRadius: 2 }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", background: "transparent", border: "1.5px solid var(--border)", padding: "4px 12px", borderRadius: 2 }}>
                         CGPA: {(edu as {cgpa: string}).cgpa}
                       </span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: "#16a34a", background: "#f0fdf4", border: "1px solid #bbf7d0", padding: "4px 12px", borderRadius: 2 }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: "#16a34a", background: "transparent", border: "1.5px solid #16a34a", padding: "4px 12px", borderRadius: 2 }}>
                         {(edu as {distinction: string}).distinction}
                       </span>
                     </div>
@@ -118,7 +118,7 @@ export default function Experience() {
               <div style={{ paddingBottom: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
                   <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Developing Front-End Apps with React</h4>
-                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#f59e0b", background: "#fef3c7", padding: "2px 8px", borderRadius: 2 }}>In Progress</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#f59e0b", background: "transparent", border: "1.5px solid #f59e0b", padding: "2px 8px", borderRadius: 2 }}>In Progress</span>
                 </div>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>IBM — Coursera · 4 modules</p>
                 <a href="https://www.coursera.org/learn/developing-frontend-apps-with-react" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Course ↗</a>
