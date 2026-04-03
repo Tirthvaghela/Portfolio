@@ -1,5 +1,16 @@
 "use client";
+import { useEffect, useState } from "react";
+
 export default function Footer() {
+  const [visitors, setVisitors] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.counterapi.dev/v1/tirthvaghela-portfolio/visits/up")
+      .then((r) => r.json())
+      .then((d) => setVisitors(d.count))
+      .catch(() => {});
+  }, []);
+
   return (
     <footer style={{ background: "var(--footer-bg)", padding: "48px 6%" }}>
       <div className="footer-inner">
@@ -21,9 +32,16 @@ export default function Footer() {
             </button>
           ))}
         </div>
-        <p className="footer-copy">
-          © {new Date().getFullYear()} Tirth Vaghela · &quot;Dream it. Code it. Deploy it.&quot;
-        </p>
+        <div style={{ textAlign: "right" }}>
+          <p className="footer-copy">
+            © {new Date().getFullYear()} Tirth Vaghela · &quot;Dream it. Code it. Deploy it.&quot;
+          </p>
+          {visitors !== null && (
+            <p style={{ fontSize: 11, color: "#444", marginTop: 6 }}>
+              You are visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — thanks for stopping by!
+            </p>
+          )}
+        </div>
       </div>
       <style>{`
         .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }

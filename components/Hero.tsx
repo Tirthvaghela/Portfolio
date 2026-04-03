@@ -102,12 +102,6 @@ export default function Hero() {
                 <div className="hero-stat-label">{label}</div>
               </div>
             ))}
-            {visitors !== null && (
-              <div style={{ textAlign: "center" }}>
-                <div className="hero-stat-num">{visitors}<span style={{ color: "var(--accent)" }}>+</span></div>
-                <div className="hero-stat-label">Visitors</div>
-              </div>
-            )}
           </div>
         </div>
 
