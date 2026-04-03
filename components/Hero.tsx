@@ -95,9 +95,9 @@ export default function Hero() {
               Full-Stack<br /><span style={{ color: "var(--accent)" }}>Developer</span>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 24, marginTop: 24, justifyContent: "center" }}>
+          <div style={{ display: "flex", gap: 0, marginTop: 24, width: "100%", maxWidth: 300, justifyContent: "space-around" }}>
             {[{ num: "8", label: "Projects" }, { num: "5", label: "Tech Stacks" }, { num: "1", label: "Internship" }].map(({ num, label }) => (
-              <div key={label} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div key={label} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
                 <div className="hero-stat-num">{num}<span style={{ color: "var(--accent)" }}>+</span></div>
                 <div className="hero-stat-label">{label}</div>
               </div>
