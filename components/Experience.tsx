@@ -114,14 +114,23 @@ export default function Experience() {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginTop: 20 }}>
-              <div style={{ background: "#f59e0b", borderRadius: 2 }} />
+              <div style={{ background: "#2563eb", borderRadius: 2 }} />
               <div style={{ paddingBottom: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
                   <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Developing Front-End Apps with React</h4>
-                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#f59e0b", background: "transparent", border: "1.5px solid #f59e0b", padding: "2px 8px", borderRadius: 2 }}>In Progress</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#16a34a", background: "transparent", border: "1.5px solid #16a34a", padding: "2px 8px", borderRadius: 2 }}>Completed</span>
                 </div>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>IBM — Coursera · 4 modules</p>
-                <a href="https://www.coursera.org/learn/developing-frontend-apps-with-react" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Course ↗</a>
+                <div style={{ display: "flex", gap: 16, marginTop: 6, flexWrap: "wrap" }}>
+                  <a href="/ibm-react-certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
+                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                  >View Certificate ↗</a>
+                  <a href="https://www.credly.com/badges/89cb78a8-a849-4529-99f6-70603ec5349c/public_url" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
+                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                  >View Badge ↗</a>
+                </div>
               </div>
             </div>
           </div>
