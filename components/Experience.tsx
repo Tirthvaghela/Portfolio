@@ -118,7 +118,6 @@ export default function Experience() {
               <div style={{ paddingBottom: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
                   <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Developing Front-End Apps with React</h4>
-                  <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#16a34a", background: "transparent", border: "1.5px solid #16a34a", padding: "2px 8px", borderRadius: 2 }}>Completed</span>
                 </div>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>IBM — Coursera · 4 modules</p>
                 <div style={{ display: "flex", gap: 16, marginTop: 6, flexWrap: "wrap" }}>
