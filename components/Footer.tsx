@@ -5,9 +5,9 @@ export default function Footer() {
   const [visitors, setVisitors] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("https://api.counterapi.dev/v1/tirthvaghela-portfolio/visits/up")
+    fetch("https://hits.sh/tirthvaghela.in.json")
       .then((r) => r.json())
-      .then((d) => setVisitors(d.count))
+      .then((d) => setVisitors(d.count ?? d.value ?? null))
       .catch(() => {});
   }, []);
 

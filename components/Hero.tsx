@@ -13,15 +13,7 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting] = useState(false);
-  const [visitors, setVisitors] = useState<number | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    fetch("https://api.counterapi.dev/v1/tirthvaghela-portfolio/visits/up")
-      .then((r) => r.json())
-      .then((d) => setVisitors(d.count))
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     const current = roles[roleIndex];
