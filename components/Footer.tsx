@@ -37,7 +37,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Tirth Vaghela · &quot;Dream it. Code it. Deploy it.&quot;
           </p>
           {visitors !== null && (
-            <p style={{ fontSize: 11, color: "#888", marginTop: 6 }}>
+            <p className="footer-visitor">
               Visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — glad you stopped by!
             </p>
           )}
@@ -46,12 +46,14 @@ export default function Footer() {
       <style>{`
         .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
         .footer-links { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-        .footer-copy { font-size: 12px; color: #444; }
+        .footer-copy { font-size: 12px; color: #888; }
+        .footer-visitor { font-size: 11px; color: #888; margin-top: 6px; }
         @media (max-width: 768px) {
           .footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
           .footer-brand { text-align: center; }
           .footer-links { justify-content: center; width: 100%; }
           .footer-copy { text-align: center; }
+          .footer-visitor { text-align: center; }
         }
       `}</style>
     </footer>
