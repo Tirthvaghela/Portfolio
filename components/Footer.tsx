@@ -39,7 +39,7 @@ export default function Footer() {
           <p className="footer-visitor">
             {visitors !== null
               ? <>Visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — glad you stopped by! 👋</>
-              : "Thanks for visiting — glad you stopped by! 👋"
+              : "Thanks for visiting — glad you stopped by! "
             }
           </p>
         </div>
