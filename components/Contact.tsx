@@ -68,7 +68,7 @@ export default function Contact() {
         <div className="contact-grid">
           <div>
             <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.8, marginBottom: 32 }}>
-              Have a project in mind or want to collaborate? I&apos;d love to hear from you.
+              Got a project idea, an internship offer, or just want to say hi? I respond fast — let&apos;s build something together.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 48 }}>
               {[
