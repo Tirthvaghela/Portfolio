@@ -99,10 +99,15 @@ export default function Navbar() {
           >
             {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
           </button>
+          <a href="/TV_Resume.pdf" download
+            style={{ background: "transparent", color: "var(--text)", padding: "8px 18px", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none", border: "1.5px solid var(--text)", transition: "all 0.2s" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--text)"; e.currentTarget.style.color = "var(--bg)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--text)"; }}
+          >Resume</a>
           <a href="mailto:vaghelatirth719@gmail.com"
-            style={{ background: "var(--text)", color: "var(--bg)", padding: "10px 24px", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none", letterSpacing: "0.5px", transition: "background 0.2s, color 0.2s" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#2563eb"; e.currentTarget.style.color = "#fff"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = ""; }}
+            style={{ background: "transparent", color: "var(--text)", padding: "8px 18px", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none", border: "1.5px solid var(--text)", letterSpacing: "0.5px", transition: "all 0.2s" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--text)"; e.currentTarget.style.color = "var(--bg)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--text)"; }}
           >Hire Me</a>
         </div>
 
