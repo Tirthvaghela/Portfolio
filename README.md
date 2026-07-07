@@ -6,7 +6,7 @@
 
 ## 👋 About Me
 
-I'm **Tirth Vaghela**, a Full-Stack Developer and MSc IT student (Semester 8) at **GLS University, Ahmedabad**. I build modern web applications and AI-powered systems using React, Next.js, Django, Flask, and more.
+I'm **Tirth Vaghela**, a Full-Stack Developer and MSc IT student (Semester 9) at **GLS University, Ahmedabad**. I build modern web applications and AI-powered systems using React, Next.js, Django, Flask, and more.
 
 - 📍 Ahmedabad, Gujarat, India
 - 📧 vaghelatirth719@gmail.com
@@ -20,7 +20,7 @@ I'm **Tirth Vaghela**, a Full-Stack Developer and MSc IT student (Semester 8) at
 
 | Degree | Institution | Period | Status |
 |--------|------------|--------|--------|
-| MSc IT (Integrated) | GLS University | 2025 – 2027 | Pursuing — Sem 8 |
+| MSc IT (Integrated) | GLS University | 2025 – 2027 | Pursuing — Sem 9 |
 | BSc IT | GLS University | 2022 – 2025 | Completed — CGPA 7.64, First Class with Distinction |
 
 ---

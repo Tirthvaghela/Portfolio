@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Github, Linkedin, Mail } from "lucide-react";
 
 const roles = ["Full-Stack Developer", "AI/ML Engineer", "React Developer", "Python Developer"];
@@ -24,8 +25,10 @@ export default function Hero() {
     } else if (deleting && displayed.length > 0) {
       timeoutRef.current = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
     } else if (deleting && displayed.length === 0) {
-      setDeleting(false);
-      setRoleIndex((i) => (i + 1) % roles.length);
+      timeoutRef.current = setTimeout(() => {
+        setDeleting(false);
+        setRoleIndex((i) => (i + 1) % roles.length);
+      }, 100);
     }
     return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
   }, [displayed, deleting, roleIndex]);
@@ -40,7 +43,7 @@ export default function Hero() {
           <h1 style={{ fontWeight: 900, color: "var(--text)", marginBottom: 8, lineHeight: 1 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 2 }}>
               <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "var(--text)" }}>Hi,</span>
-              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "var(--text)" }}> I'm</span>
+              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "var(--text)" }}> I&apos;m</span>
             </div>
             <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Tirth</div>
             <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent", marginBottom: 20 }}>Vaghela</div>
@@ -57,7 +60,7 @@ export default function Hero() {
           </div>
 
           <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
-            MSc IT student (Sem 8) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
+            MSc IT student (Sem 9) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
@@ -81,7 +84,7 @@ export default function Hero() {
           <div style={{ position: "relative", width: "100%", maxWidth: 300 }}>
             <div className="hero-card-border" />
             <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }} className="avatar-card">
-              <img src="/avatar.svg" alt="Developer illustration" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              <Image src="/avatar.svg" alt="Developer illustration" width={300} height={300} priority style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
             <div style={{ position: "absolute", bottom: 20, right: -8, background: "var(--text)", color: "var(--bg)", padding: "14px 18px", borderRadius: 3, fontSize: 13, zIndex: 2, letterSpacing: "0.5px", lineHeight: 1.6, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
               Full-Stack<br /><span style={{ color: "var(--accent)" }}>Developer</span>

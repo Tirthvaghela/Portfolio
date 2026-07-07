@@ -7,7 +7,7 @@ export const personalInfo = {
   github: "https://github.com/Tirthvaghela",
   linkedin: "https://www.linkedin.com/in/tirthvaghela/",
   summary:
-    "Motivated MSc IT student (Semester 8) at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",
+    "Motivated MSc IT student (Semester 9) at GLS University with strong skills in full-stack web development. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Passionate about developing scalable applications and continuously learning new technologies.",
 };
 
 export const skills = {
@@ -38,7 +38,7 @@ export const education = [
   {
     institution: "GLS University",
     degree: "Master of Science in Information Technology (MSc IT)",
-    note: "Integrated Master's — Currently in Semester 8",
+    note: "Integrated Master's — Currently in Semester 9",
     period: "2025 – 2027",
     status: "Pursuing",
   },

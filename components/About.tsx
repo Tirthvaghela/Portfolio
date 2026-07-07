@@ -71,7 +71,7 @@ export default function About() {
               <span style={{ WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Me.</span>
             </h2>
             <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.9, marginBottom: 32 }}>
-              Motivated MSc IT student (Semester 8) at GLS University with strong skills in full-stack web development. Completed BSc IT as part of the integrated IMSC program. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Completed multiple internships and hands-on projects including authentication systems and AI-based platforms.
+              Motivated MSc IT student (Semester 9) at GLS University with strong skills in full-stack web development. Completed BSc IT as part of the integrated IMSC program. Experienced in building modern web applications using Python, Django, Next.js, React, and databases like MySQL and MongoDB. Completed multiple internships and hands-on projects including authentication systems and AI-based platforms.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
@@ -100,6 +100,7 @@ export default function About() {
           </div>
           <div style={{ marginTop: 24, padding: "20px 24px", border: "1.5px solid var(--border)", borderRadius: 6, background: "var(--bg-card)" }} className="github-activity-card">
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 16 }}>GitHub Activity</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`https://ghchart.rshah.org/2563eb/Tirthvaghela`}
               alt="GitHub contribution chart"

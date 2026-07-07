@@ -138,7 +138,8 @@ export default function Contact() {
             </div>
             <button type="submit" disabled={status === "sending"}
               className="send-btn"
-              style={{ background: status === "sent" ? "#16a34a" : status === "error" ? "#dc2626" : "var(--text)", color: "var(--bg)", border: "none", padding: "16px 32px", fontSize: 14, fontWeight: 700, cursor: status === "sending" ? "not-allowed" : "pointer", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: 8, borderRadius: 2, transition: "background 0.2s, color 0.2s", alignSelf: "flex-start", opacity: status === "sending" ? 0.7 : 1 }}
+              data-status={status}
+              style={{ border: "none", padding: "16px 32px", fontSize: 14, fontWeight: 700, cursor: status === "sending" ? "not-allowed" : "pointer", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: 8, borderRadius: 2, transition: "background 0.2s, color 0.2s", alignSelf: "flex-start", opacity: status === "sending" ? 0.7 : 1 }}
             >
               {status === "sending" && "Sending..."}
               {status === "sent" && <><CheckCircle size={16} /> Sent!</>}
@@ -153,7 +154,9 @@ export default function Contact() {
         .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
         .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .send-btn { background: var(--text) !important; color: var(--bg) !important; }
-        .send-btn:hover:not(:disabled) { background: var(--accent) !important; color: #fff !important; }
+        .send-btn[data-status="sent"] { background: #16a34a !important; color: #fff !important; }
+        .send-btn[data-status="error"] { background: #dc2626 !important; color: #fff !important; }
+        .send-btn:hover:not(:disabled):not([data-status="sent"]):not([data-status="error"]) { background: var(--accent) !important; color: #fff !important; }
         .contact-form { padding-top: 0; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr; gap: 40px; }

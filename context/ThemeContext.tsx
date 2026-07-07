@@ -9,7 +9,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as Theme | null;
-    if (saved) { setTheme(saved); document.documentElement.setAttribute("data-theme", saved); }
+    if (saved) {
+      setTimeout(() => {
+        setTheme(saved);
+        document.documentElement.setAttribute("data-theme", saved);
+      }, 0);
+    }
   }, []);
 
   const toggle = () => {

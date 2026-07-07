@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tirthvaghela.in"),
   openGraph: {
     title: "Tirth Vaghela | Full-Stack Developer",
-    description: "IMSC IT student at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
+    description: "IMSC IT student (Sem 9) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
     url: "https://tirthvaghela.in",
     siteName: "Tirth Vaghela Portfolio",
     images: [
@@ -46,6 +46,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta property="og:image:height" content="630" />
         <meta name="twitter:image" content="https://tirthvaghela.in/opengraph-image" />
         <meta name="twitter:card" content="summary_large_image" />
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            try {
+              const saved = localStorage.getItem('theme');
+              if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+              } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+              }
+            } catch (e) {}
+          })();
+        ` }} />
       </head>
       <body className={spaceGrotesk.variable} style={{ fontFamily: "var(--font-space), sans-serif" }}><ThemeProvider>{children}</ThemeProvider><Analytics /></body>
     </html>

@@ -13,20 +13,44 @@ export default function Navbar() {
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
+    let ticking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 20);
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
-      const offsets = links.map((l) => {
-        const el = document.getElementById(l.toLowerCase());
-        if (!el) return { id: l, top: Infinity };
-        return { id: l, top: el.getBoundingClientRect().top };
-      });
-      const inView = offsets.filter((o) => o.top <= 120);
-      if (inView.length > 0) setActive(inView[inView.length - 1].id);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          const total = document.documentElement.scrollHeight - window.innerHeight;
+          setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-120px 0px -70% 0px",
+      threshold: 0,
+    };
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const capitalized = id.charAt(0).toUpperCase() + id.slice(1);
+          setActive(capitalized);
+        }
+      });
+    };
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    links.forEach((link) => {
+      const el = document.getElementById(link.toLowerCase());
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const handleNav = (id: string) => {
