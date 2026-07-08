@@ -65,7 +65,7 @@ export default function Hero() {
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
             <button onClick={() => scrollTo("projects")} className="btn-primary">View Projects</button>
-            <button onClick={() => scrollTo("contact")} className="btn-outline">Contact Me</button>
+            <a href="/TV_Resume.pdf" download className="btn-outline" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }}>Resume</a>
           </div>
 
           <div style={{ display: "flex", gap: 10 }}>
