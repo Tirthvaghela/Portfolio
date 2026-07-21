@@ -39,6 +39,12 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
+                  <blockquote style={{ marginTop: 20, paddingLeft: 18, borderLeft: "3px solid var(--accent)", fontStyle: "italic", fontSize: 14, color: "var(--text)", lineHeight: 1.7 }}>
+                    &ldquo;His attention to detail, creativity, and willingness to go the extra mile set him apart from his peers.&rdquo;
+                    <footer style={{ marginTop: 8, fontStyle: "normal", fontSize: 12, color: "var(--text-muted)", fontWeight: 600 }}>
+                      — Deven Chopra, Software Engineering Manager at Prodigy InfoTech
+                    </footer>
+                  </blockquote>
                   <div style={{ display: "flex", gap: 16, marginTop: 20, flexWrap: "wrap" }}>
                     <a href="/Certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
                       onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}

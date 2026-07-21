@@ -24,7 +24,7 @@ export const experience = [
     company: "Prodigy InfoTech",
     role: "Full-Stack Web Development Intern",
     type: "Remote",
-    period: "02/2026",
+    period: "Feb 2026 – Mar 2026",
     points: [
       "Task 1 — Built a production-ready enterprise authentication system using Django REST Framework and React with JWT, 2FA (TOTP), session management, audit logging, and role-based access control.",
       "Task 2 — Developed a full-featured MERN stack Employee Management System with JWT auth, profile picture upload, advanced search/filtering, CSV/PDF export, and a professional Electrox Design System UI.",
@@ -57,6 +57,7 @@ export const education = [
 export const projects = [
   {
     id: 1,
+    slug: "urban-signal",
     title: "Urban Signal",
     subtitle: "Intelligent Traffic Management System",
     tech: ["Next.js", "TypeScript", "Flask", "OpenCV", "YOLOv4", "MySQL"],
@@ -71,6 +72,7 @@ export const projects = [
   },
   {
     id: 2,
+    slug: "eventease",
     title: "EventEase",
     subtitle: "Event Management Platform",
     tech: ["Django", "Django REST Framework", "SQLite"],
@@ -85,6 +87,7 @@ export const projects = [
   },
   {
     id: 3,
+    slug: "freshvault",
     title: "FreshVault",
     subtitle: "Local Pantry E-Commerce Platform",
     tech: ["PHP", "MySQL", "Tailwind CSS"],
@@ -98,6 +101,7 @@ export const projects = [
   },
   {
     id: 4,
+    slug: "vois",
     title: "Vois",
     subtitle: "Social Media Platform",
     tech: ["React", "FastAPI", "MongoDB", "JWT"],
@@ -111,6 +115,7 @@ export const projects = [
   },
   {
     id: 5,
+    slug: "electrox-mobile",
     title: "Electrox-Mobile",
     subtitle: "Mobile Digital Voting Platform",
     tech: ["Flutter", "Node.js", "Express", "MongoDB", "JWT"],
@@ -125,6 +130,7 @@ export const projects = [
   },
   {
     id: 6,
+    slug: "rigs",
     title: "RIGS",
     subtitle: "Roadside Intelligent Governance System",
     tech: ["React", "Node.js", "MongoDB", "YOLOv8", "OpenCV"],
@@ -139,6 +145,7 @@ export const projects = [
   },
   {
     id: 7,
+    slug: "wedding-face-finder",
     title: "Wedding Face Finder",
     subtitle: "AI Photo Search System",
     tech: ["Flask", "DeepFace", "ArcFace", "RetinaFace"],
@@ -153,6 +160,7 @@ export const projects = [
   },
   {
     id: 8,
+    slug: "electrox-web",
     title: "Electrox Web",
     subtitle: "Secure Digital Voting Platform",
     tech: ["React", "Flask", "MongoDB", "JWT"],

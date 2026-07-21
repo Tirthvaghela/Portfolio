@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 
 interface Project {
   id: number;
+  slug: string;
   title: string;
   subtitle: string;
   tech: string[];
