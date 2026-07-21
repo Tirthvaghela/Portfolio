@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowUpRight } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface Project {
   id: number;
@@ -23,6 +23,9 @@ interface Props {
 }
 
 export default function ProjectModal({ project, onClose }: Props) {
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
+
   // Close on Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -35,6 +38,16 @@ export default function ProjectModal({ project, onClose }: Props) {
     if (project) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     return () => { document.body.style.overflow = ""; };
+  }, [project]);
+
+  // Move focus into the dialog on open, restore it to the trigger on close
+  useEffect(() => {
+    if (project) {
+      previouslyFocused.current = document.activeElement as HTMLElement;
+      closeBtnRef.current?.focus();
+    } else {
+      previouslyFocused.current?.focus();
+    }
   }, [project]);
 
   return (
@@ -71,6 +84,9 @@ export default function ProjectModal({ project, onClose }: Props) {
               pointerEvents: "all",
             }}
             className="project-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
           >
             {/* Color bar */}
             <div style={{ height: 5, background: `linear-gradient(90deg, ${project.color}, ${project.color}60)`, borderRadius: "8px 8px 0 0" }} />
@@ -84,7 +100,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       {project.category}
                     </span>
                   </div>
-                  <h2 style={{ fontSize: 28, fontWeight: 900, color: "var(--text)", letterSpacing: "-1px", lineHeight: 1, marginBottom: 4 }}>
+                  <h2 id="project-modal-title" style={{ fontSize: 28, fontWeight: 900, color: "var(--text)", letterSpacing: "-1px", lineHeight: 1, marginBottom: 4 }}>
                     {project.title}
                   </h2>
                   <p style={{ fontSize: 14, color: project.color, fontWeight: 600 }}>{project.subtitle}</p>
@@ -96,7 +112,9 @@ export default function ProjectModal({ project, onClose }: Props) {
                   )}
                 </div>
                 <button
+                  ref={closeBtnRef}
                   onClick={onClose}
+                  aria-label="Close"
                   style={{ background: "var(--bg-section)", border: "none", borderRadius: "50%", width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "background 0.2s", color: "var(--text)" }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = "var(--border)")}
                   onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-section)")}

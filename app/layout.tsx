@@ -37,6 +37,27 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Tirth Vaghela",
+  url: "https://tirthvaghela.in",
+  jobTitle: "Full-Stack Developer",
+  email: "mailto:vaghelatirth719@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Ahmedabad",
+    addressRegion: "Gujarat",
+    addressCountry: "IN",
+  },
+  sameAs: ["https://github.com/Tirthvaghela", "https://www.linkedin.com/in/tirthvaghela/"],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "GLS University",
+  },
+  knowsAbout: ["React", "Next.js", "Django", "Flask", "Python", "TypeScript", "AI/ML"],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -46,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta property="og:image:height" content="630" />
         <meta name="twitter:image" content="https://tirthvaghela.in/opengraph-image" />
         <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
             try {

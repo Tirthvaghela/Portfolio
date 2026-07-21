@@ -67,6 +67,7 @@ export const projects = [
     buildDays: 65,
     category: "AI / ML",
     color: "#6366f1",
+    featured: true,
   },
   {
     id: 2,
@@ -80,6 +81,7 @@ export const projects = [
     buildDays: 40,
     category: "Web",
     color: "#10b981",
+    featured: true,
   },
   {
     id: 3,
@@ -92,6 +94,7 @@ export const projects = [
     buildDays: 25,
     category: "Web",
     color: "#f59e0b",
+    featured: false,
   },
   {
     id: 4,
@@ -104,6 +107,7 @@ export const projects = [
     buildDays: 32,
     category: "Full-Stack",
     color: "#ec4899",
+    featured: true,
   },
   {
     id: 5,
@@ -117,6 +121,7 @@ export const projects = [
     buildDays: 45,
     category: "Mobile",
     color: "#3b82f6",
+    featured: false,
   },
   {
     id: 6,
@@ -130,6 +135,7 @@ export const projects = [
     buildDays: 22,
     category: "AI / ML",
     color: "#ef4444",
+    featured: true,
   },
   {
     id: 7,
@@ -143,6 +149,7 @@ export const projects = [
     buildDays: 14,
     category: "AI / ML",
     color: "#8b5cf6",
+    featured: false,
   },
   {
     id: 8,
@@ -156,5 +163,22 @@ export const projects = [
     buildDays: 38,
     category: "Full-Stack",
     color: "#06b6d4",
+    featured: false,
   },
 ];
+
+export const upcomingProject = {
+  title: "VoiceForm AI",
+  subtitle: "Multilingual Voice-to-Form Accessibility Engine",
+  description:
+    "Point your camera at any paper form. VoiceForm reads its exact layout, holds a real voice conversation with you in Gujarati, Hindi, or English, and hands back a print-ready PDF filled in perfectly — no typing, no OCR guesswork.",
+  teasers: [
+    "Understands arbitrary form layouts — not OCR guesswork, actual document structure.",
+    "Holds a real multilingual voice conversation to collect every answer, field by field.",
+    "Writes responses back onto the original PDF — pixel-perfect, box by box, font-matched.",
+  ],
+  tech: ["FastAPI", "PaddleOCR", "Whisper", "Gemini", "MongoDB", "Next.js"],
+  category: "AI / ML",
+  status: "Coming Soon",
+  teaserLine: "You talk. It listens. And then...",
+};
