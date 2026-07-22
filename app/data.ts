@@ -173,6 +173,25 @@ export const projects = [
     color: "#06b6d4",
     featured: false,
   },
+  {
+    id: 9,
+    slug: "gls-uni-portal",
+    title: "GLS University Student Portal",
+    subtitle: "10-Page Mobile-First Portal — \"Academic Vanguard\" Design System",
+    tech: ["HTML", "JavaScript", "Tailwind CSS", "Vite"],
+    description: "A 10-page student portal built as a real design system, not a mockup — dashboard, attendance, fees, results, schedule, events, and a digital ID card, all under one navy-and-gold visual language.",
+    points: [
+      "Designed a complete 10-page portal — login, dashboard, attendance, fees, results, schedule, events, and a digital ID — under a custom navy/gold \"Academic Vanguard\" design system with its own type scale and icon set.",
+      "Built a tabbed Schedule page: a weekly Class Schedule with a Mon–Sat day picker that auto-selects today, and an Exam Schedule with paper details and instructions.",
+      "Created an interactive Digital Student ID card (tilt-on-hover) showing linked service status, a recent access log, and share/download/report-lost actions.",
+      "Built a categorized FAQ support chatbot (Admissions, Fees, Academics, Campus) backed by a real CSV knowledge base of question-answer pairs.",
+    ],
+    github: "https://github.com/Tirthvaghela/GlsUni_mob_prototype",
+    demo: "https://gls-uni-mob-prototype.vercel.app",
+    category: "Web",
+    color: "#14b8a6",
+    featured: false,
+  },
 ];
 
 export const upcomingProject = {

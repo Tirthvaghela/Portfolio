@@ -130,12 +130,24 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
 
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ background: "var(--accent)", color: "#fff", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+                    >
+                      Live Demo <ArrowUpRight size={15} />
+                    </a>
+                  )}
                   {project.github && (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ background: "var(--text)", color: "var(--bg)", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+                      style={project.demo
+                        ? { background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }
+                        : { background: "var(--text)", color: "var(--bg)", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
                     >
                       View on GitHub <ArrowUpRight size={15} />
                     </a>

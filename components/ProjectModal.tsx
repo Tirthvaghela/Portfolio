@@ -12,6 +12,7 @@ interface Project {
   description: string;
   points: string[];
   github?: string;
+  demo?: string;
   collaborator?: { name: string; linkedin: string };
   buildDays?: number;
   category: string;
@@ -176,11 +177,22 @@ export default function ProjectModal({ project, onClose }: Props) {
 
               {/* Action buttons */}
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                {project.demo && (
+                  <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                    style={{ background: "var(--accent)", color: "#fff", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "opacity 0.2s" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                  >
+                    Live Demo <ArrowUpRight size={15} />
+                  </a>
+                )}
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noopener noreferrer"
-                    style={{ background: "var(--text)", color: "var(--bg)", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "background 0.2s" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--accent)"; e.currentTarget.style.color = "#fff"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = ""; }}
+                    style={project.demo
+                      ? { background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "all 0.2s" }
+                      : { background: "var(--text)", color: "var(--bg)", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "background 0.2s" }}
+                    onMouseEnter={(e) => { if (project.demo) { e.currentTarget.style.borderColor = "var(--text)"; } else { e.currentTarget.style.background = "var(--accent)"; e.currentTarget.style.color = "#fff"; } }}
+                    onMouseLeave={(e) => { if (project.demo) { e.currentTarget.style.borderColor = "var(--border)"; } else { e.currentTarget.style.background = ""; e.currentTarget.style.color = ""; } }}
                   >
                     View on GitHub <ArrowUpRight size={15} />
                   </a>
