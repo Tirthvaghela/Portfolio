@@ -26,7 +26,7 @@ const stats = [
   { num: 8, label: "Projects Completed", color: "var(--text)" },
   { num: 5, label: "Tech Stacks Mastered", color: "var(--accent)" },
   { num: 1, label: "Internship", color: "var(--text)" },
-  { num: 3, label: "Years of Learning", color: "var(--accent)" },
+  { num: 4, label: "Years of Learning", color: "var(--accent)" },
 ];
 
 function StatCard({ num, label, color, started }: { num: number; label: string; color: string; started: boolean }) {
