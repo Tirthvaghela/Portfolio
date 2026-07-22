@@ -179,7 +179,7 @@ export const projects = [
     title: "GLS University Student Portal",
     subtitle: "10-Page Mobile-First Portal — \"Academic Vanguard\" Design System",
     tech: ["HTML", "JavaScript", "Tailwind CSS", "Vite"],
-    description: "A 10-page student portal built as a real design system, not a mockup — dashboard, attendance, fees, results, schedule, events, and a digital ID card, all under one navy-and-gold visual language.",
+    description: "Because checking your results shouldn't feel like a chore. Ten pages, one navy-and-gold design system, and a digital ID card that actually tilts when you hover it.",
     points: [
       "Designed a complete 10-page portal — login, dashboard, attendance, fees, results, schedule, events, and a digital ID — under a custom navy/gold \"Academic Vanguard\" design system with its own type scale and icon set.",
       "Built a tabbed Schedule page: a weekly Class Schedule with a Mon–Sat day picker that auto-selects today, and an Exam Schedule with paper details and instructions.",
