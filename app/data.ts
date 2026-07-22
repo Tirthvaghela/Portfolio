@@ -177,7 +177,7 @@ export const projects = [
     id: 9,
     slug: "gls-uni-portal",
     title: "GLS University Student Portal",
-    subtitle: "10-Page Mobile-First Portal — \"Academic Vanguard\" Design System",
+    subtitle: "Mobile-First Student Portal",
     tech: ["HTML", "JavaScript", "Tailwind CSS", "Vite"],
     description: "Because checking your results shouldn't feel like a chore. Ten pages, one navy-and-gold design system, and a digital ID card that actually tilts when you hover it.",
     points: [
