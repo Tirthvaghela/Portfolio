@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Mail, GraduationCap } from "lucide-react";
 import FadeIn from "./FadeIn";
+import GithubActivity from "./GithubActivity";
 
 function useCountUp(target: number, duration: number, start: boolean) {
   const [count, setCount] = useState(0);
@@ -100,13 +101,7 @@ export default function About() {
           </div>
           <div style={{ marginTop: 24, padding: "20px 24px", border: "1.5px solid var(--border)", borderRadius: 6, background: "var(--bg-card)" }} className="github-activity-card">
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 16 }}>GitHub Activity</p>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`https://ghchart.rshah.org/2563eb/Tirthvaghela`}
-              alt="GitHub contribution chart"
-              style={{ width: "100%", borderRadius: 3 }}
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-            />
+            <GithubActivity username="Tirthvaghela" />
             <a href="https://github.com/Tirthvaghela" target="_blank" rel="noopener noreferrer"
               style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600, display: "inline-block", marginTop: 12 }}
               onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}

@@ -60,7 +60,7 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta property="og:image" content="https://tirthvaghela.in/opengraph-image" />
         <meta property="og:image:width" content="1200" />
