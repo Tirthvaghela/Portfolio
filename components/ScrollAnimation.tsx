@@ -38,7 +38,14 @@ export default function ScrollAnimation() {
     if (!ctx) return;
     const cw = canvas.width;
     const ch = canvas.height;
-    const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    // Portrait/mobile viewports are far narrower than the source frames, so covering
+    // the canvas (scaling to the larger ratio) would crop the logo off both edges.
+    // Contain (the smaller ratio) keeps the whole frame visible there; wide/desktop
+    // viewports keep the immersive edge-to-edge cover fit.
+    const isPortrait = ch > cw;
+    const scale = isPortrait
+      ? Math.min(cw / img.naturalWidth, ch / img.naturalHeight)
+      : Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const dw = img.naturalWidth * scale;
     const dh = img.naturalHeight * scale;
     ctx.clearRect(0, 0, cw, ch);

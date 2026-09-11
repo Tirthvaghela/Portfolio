@@ -44,3 +44,6 @@ next-env.d.ts
 .agents/
 .claude/
 skills-lock.json
+
+# unused raw intro frames (not referenced by the app — public/intro-sequence is what's actually loaded)
+/ezgif-45fa0bce168d47c4-jpg

@@ -189,6 +189,7 @@ export default function Contact() {
           .contact-panel { grid-template-columns: 1fr; }
           .contact-panel-info { border-right: none; border-bottom: var(--bw) solid var(--text); }
           .contact-form-row { grid-template-columns: 1fr; }
+          .contact-email-big { font-size: 17px; }
         }
       `}</style>
     </section>

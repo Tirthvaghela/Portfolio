@@ -187,11 +187,13 @@ export default function Hero() {
           .hero-inner { padding: var(--space-xl) 6% var(--space-lg); grid-template-columns: 1fr; }
           .hero-art { display: none; }
           .hero-stats { grid-template-columns: repeat(2, 1fr); }
-          .hero-stat { border-left: none; border-top: var(--bw) solid var(--text); }
+          .hero-stat { border-left: none; border-top: none; }
+          .hero-stat:nth-child(-n+2) { border-bottom: var(--bw) solid var(--text); }
           .hero-stat:nth-child(odd) { border-right: var(--bw) solid var(--text); }
           .hero-actions { gap: var(--space-sm); }
           .btn-solid, .btn-outline { flex: 1 1 auto; justify-content: center; }
           .hero-social { width: 100%; margin-left: 0; margin-top: var(--space-sm); }
+          .hero-social .social-btn { flex: 1; }
         }
       `}</style>
     </section>

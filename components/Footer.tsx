@@ -62,8 +62,10 @@ export default function Footer() {
           margin-top: var(--space-lg); font-family: var(--font-mono); font-size: 11px; color: var(--footer-text); letter-spacing: 0.04em;
         }
         @media (max-width: 640px) {
-          .foot-top { flex-direction: column; align-items: flex-start; }
-          .foot-bottom { flex-direction: column; }
+          .foot-top { flex-direction: column; align-items: center; text-align: center; }
+          .foot-links { justify-content: center; flex-wrap: nowrap; gap: 8px; }
+          .foot-links button { font-size: 9.5px; }
+          .foot-bottom { flex-direction: column; align-items: center; text-align: center; }
         }
       `}</style>
     </footer>
