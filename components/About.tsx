@@ -52,6 +52,7 @@ export default function About() {
 
       <style>{`
         .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-2xl); align-items: start; }
+        .about-grid > * { min-width: 0; }
         .about-statement {
           font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
           font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 0.98; letter-spacing: -0.01em;

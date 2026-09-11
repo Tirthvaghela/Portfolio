@@ -184,6 +184,12 @@ export default function Hero() {
           .hero-stat:hover { background: var(--bg-alt); }
         }
         @media (max-width: 768px) {
+          /* globals.css forces padding-top/bottom:48px !important on every <section> for
+             mobile breathing room; .hero manages its own spacing entirely through
+             .hero-inner, so that global padding was adding an untracked 48px gap below
+             .hero-stats — its own border-bottom never actually touched the stats grid,
+             which is why the last row's vertical divider looked disconnected from it. */
+          .hero { padding-top: 0 !important; padding-bottom: 0 !important; }
           .hero-inner { padding: var(--space-xl) 6% var(--space-lg); grid-template-columns: 1fr; }
           .hero-art { display: none; }
           .hero-stats { grid-template-columns: repeat(2, 1fr); }

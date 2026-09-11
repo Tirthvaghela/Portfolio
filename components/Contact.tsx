@@ -56,7 +56,7 @@ export default function Contact() {
       <SectionPanel>
         <h2 className="contact-heading">GOT SOMETHING TO BUILD?</h2>
         <p className="contact-lede">
-          Got a project idea, an internship offer, or just want to say hi? I respond fast — let&apos;s build something together.
+          Got a project idea, an internship offer, or just want to say hi? I respond fast  let&apos;s build something together.
         </p>
 
         <div className="contact-panel">
@@ -66,7 +66,7 @@ export default function Contact() {
               <div className="contact-email-row">
                 <a href={`mailto:${EMAIL}`} className="contact-email-big">{EMAIL}</a>
                 <button onClick={copyEmail} title="Copy email" className="contact-copy-btn" data-copied={copied}>
-                  {copied ? <CheckCircle size={16} /> : <Copy size={16} />}
+                  {copied ? <CheckCircle size={10} /> : <Copy size={10} />}
                 </button>
               </div>
             </div>
@@ -164,12 +164,12 @@ export default function Contact() {
         .contact-social {
           width: 46px; height: 46px; border: var(--bw) solid var(--text); display: flex; align-items: center; justify-content: center;
           color: var(--text); text-decoration: none; background: var(--bg-card);
-          transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+          transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
         }
         @media (hover: hover) and (pointer: fine) {
-          .contact-social:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); transform: translate(-3px, -3px); }
+          .contact-social:hover { background: var(--accent); color: var(--accent-ink); transform: translate(-3px, -3px); box-shadow: var(--shadow-hard-sm); }
         }
-        .contact-social:active { transform: translate(0, 0); }
+        .contact-social:active { transform: translate(0, 0); box-shadow: none; }
 
         .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .field-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.05em; display: block; margin-bottom: 8px; }
@@ -189,7 +189,7 @@ export default function Contact() {
           .contact-panel { grid-template-columns: 1fr; }
           .contact-panel-info { border-right: none; border-bottom: var(--bw) solid var(--text); }
           .contact-form-row { grid-template-columns: 1fr; }
-          .contact-email-big { font-size: 17px; }
+          .contact-email-big { font-size: 13px; border-bottom: none; }
         }
       `}</style>
     </section>

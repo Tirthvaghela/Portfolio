@@ -9,7 +9,9 @@ const SCROLL_VH = 500;
 /** Frames play across this fraction of the scroll range; the rest is the reveal crossfade. */
 const FRAME_PHASE = 0.8;
 
-const framePath = (i: number) => `/intro-sequence/frame-${String(i).padStart(3, "0")}.jpg`;
+/** Desktop frames are 16:9; mobile frames are a separate 9:16-shot set so neither needs cropping. */
+const framePath = (i: number, mobile: boolean) =>
+  `/${mobile ? "intro-sequence-mobile" : "intro-sequence"}/frame-${String(i).padStart(3, "0")}.jpg`;
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 /** Symmetric ease — makes the crossfade read as gradual instead of front-loaded like a UI-snap curve would. */
 const smoothstep = (t: number) => t * t * (3 - 2 * t);
@@ -22,6 +24,7 @@ export default function ScrollAnimation() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef(0);
   const heroTriggeredRef = useRef(false);
+  const isMobileRef = useRef(false);
   const [ready, setReady] = useState(false);
   const [skip, setSkip] = useState(false);
 
@@ -38,12 +41,11 @@ export default function ScrollAnimation() {
     if (!ctx) return;
     const cw = canvas.width;
     const ch = canvas.height;
-    // Portrait/mobile viewports are far narrower than the source frames, so covering
-    // the canvas (scaling to the larger ratio) would crop the logo off both edges.
-    // Contain (the smaller ratio) keeps the whole frame visible there; wide/desktop
-    // viewports keep the immersive edge-to-edge cover fit.
-    const isPortrait = ch > cw;
-    const scale = isPortrait
+    // The mobile set is a clean 9:16 shoot, but real phone screens run taller than
+    // that (~19.5:9), so cover-fit would still crop the logo's sides — contain
+    // guarantees it's fully visible there. Desktop's source matches its viewports
+    // closely enough that edge-to-edge cover is the better look.
+    const scale = isMobileRef.current
       ? Math.min(cw / img.naturalWidth, ch / img.naturalHeight)
       : Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const dw = img.naturalWidth * scale;
@@ -70,7 +72,13 @@ export default function ScrollAnimation() {
     const revealFade = 1 - smoothstep(revealRaw);
     if (overlayRef.current) {
       overlayRef.current.style.opacity = String(revealFade);
-      overlayRef.current.style.pointerEvents = revealFade <= 0.02 ? "none" : "auto";
+      // Wider than the opacity's own near-zero point on purpose: mobile rubber-band/
+      // overscroll bounce can nudge progress back a hair right after landing on Hero,
+      // which at a 0.02 cutoff was enough to silently flip this fixed, full-screen,
+      // z-index:9999 overlay back to pointer-events:auto — invisible but still eating
+      // every click on the navbar underneath. This hysteresis absorbs that jitter
+      // while still re-arming for a genuine, deliberate scroll back into the intro.
+      overlayRef.current.style.pointerEvents = revealFade <= 0.08 ? "none" : "auto";
     }
 
     // Hero's entrance plays once, the first time the intro is substantially gone.
@@ -81,16 +89,20 @@ export default function ScrollAnimation() {
     }
   };
 
-  // Preload frames.
+  // Preload frames. The mobile/desktop set is decided once, from the viewport at
+  // mount — this mirrors how the rest of the site's breakpoint (768px) behaves and
+  // avoids reloading 240 images mid-session over a resize.
   useEffect(() => {
     let cancelled = false;
     let loaded = 0;
     const images: HTMLImageElement[] = [];
+    const mobile = window.innerWidth <= 768;
+    isMobileRef.current = mobile;
 
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
       img.decoding = "async";
-      img.src = framePath(i);
+      img.src = framePath(i, mobile);
       img.onload = () => {
         loaded += 1;
         if (i === 1) draw(0);

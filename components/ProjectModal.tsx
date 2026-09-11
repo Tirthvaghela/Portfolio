@@ -27,12 +27,32 @@ interface Props {
   onClose: () => void;
 }
 
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
+
 export default function ProjectModal({ project, onClose }: Props) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      // Keep Tab/Shift+Tab cycling within the modal instead of escaping to the page behind it.
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
@@ -69,6 +89,7 @@ export default function ProjectModal({ project, onClose }: Props) {
           <div style={{ position: "fixed", inset: 0, zIndex: 101, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", pointerEvents: "none" }}>
           <motion.div
             key="modal"
+            ref={modalRef}
             initial={{ opacity: 0, y: 20, scale: 0.98, boxShadow: "4px 4px 0 0 var(--accent)" }}
             animate={{ opacity: 1, y: 0, scale: 1, boxShadow: "10px 10px 0 0 var(--accent)", transition: { duration: 0.32, ease: EASE_OUT } }}
             exit={{ opacity: 0, y: 12, scale: 0.98, transition: { duration: 0.18, ease: EASE_IN } }}
