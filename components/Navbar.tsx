@@ -1,15 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
 const links = ["About", "Skills", "Projects", "Experience", "Contact"];
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("About");
   const [progress, setProgress] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
@@ -17,9 +19,9 @@ export default function Navbar() {
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
           const total = document.documentElement.scrollHeight - window.innerHeight;
           setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+          setScrolled(window.scrollY > 8);
           ticking = false;
         });
         ticking = true;
@@ -31,17 +33,12 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-120px 0px -70% 0px",
-      threshold: 0,
-    };
+    const observerOptions = { root: null, rootMargin: "-100px 0px -70% 0px", threshold: 0 };
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          const capitalized = id.charAt(0).toUpperCase() + id.slice(1);
-          setActive(capitalized);
+          setActive(id.charAt(0).toUpperCase() + id.slice(1));
         }
       });
     };
@@ -59,83 +56,180 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-      background: scrolled ? "var(--nav-bg)" : "transparent",
-      backdropFilter: scrolled ? "blur(12px)" : "none",
-      borderBottom: scrolled ? "1px solid var(--border-light)" : "none",
-      transition: "all 0.3s",
-    }}>
-      {/* Scroll progress bar */}
-      <div style={{ position: "absolute", top: 0, left: 0, height: 2, width: `${progress}%`, background: "var(--accent)", transition: "width 0.1s linear", zIndex: 51 }} />
+    <>
+      <a href="#main-content" className="skip-link">Skip to content</a>
 
-      <div style={{ padding: "0 6%", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <span onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ cursor: "pointer", fontSize: 22, fontWeight: 900, letterSpacing: "-1px", color: "var(--text)" }}>
+      <header className="slab" data-scrolled={scrolled}>
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="slab-mark" aria-label="Back to top">
           TV<span style={{ color: "var(--accent)" }}>.</span>
-        </span>
-
-        {/* Desktop links */}
-        <ul style={{ display: "flex", gap: 36, listStyle: "none" }} className="nav-desktop">
-          {links.map((l) => (
-            <li key={l} style={{ position: "relative" }}>
-              <button onClick={() => handleNav(l)}
-                style={{ background: "none", border: "none", color: active === l ? "var(--text)" : "var(--text-faint)", cursor: "pointer", fontSize: 14, fontWeight: active === l ? 700 : 500, letterSpacing: "0.3px", transition: "color 0.2s", padding: "4px 0" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = active === l ? "var(--text)" : "var(--text-faint)")}
-              >{l}</button>
-              {active === l && (
-                <span style={{ position: "absolute", bottom: -2, left: "50%", transform: "translateX(-50%)", width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }} />
-              )}
-            </li>
-          ))}
-        </ul>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }} className="nav-desktop">
-          <button onClick={toggle} aria-label="Toggle theme"
-            style={{ background: "none", border: "1.5px solid var(--border)", borderRadius: 6, width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text)", transition: "all 0.2s" }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.color = "var(--accent)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--text)"; }}
-          >
-            {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
-          </button>
-         
-          <a href="mailto:vaghelatirth719@gmail.com"
-            style={{ background: "transparent", color: "var(--text)", padding: "8px 18px", borderRadius: 4, fontSize: 13, fontWeight: 600, textDecoration: "none", border: "1.5px solid var(--text)", letterSpacing: "0.5px", transition: "all 0.2s" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--text)"; e.currentTarget.style.color = "var(--bg)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--text)"; }}
-          >Hire Me</a>
-        </div>
-
-        <button onClick={() => setOpen(!open)} className="nav-mobile" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)" }}>
-          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
-      </div>
 
-      {open && (
-        <div style={{ background: "var(--bg-alt)", borderTop: "1px solid var(--border-light)", padding: "16px 6%" }}>
-          {links.map((l) => (
-            <button key={l} onClick={() => handleNav(l)}
-              style={{ display: "block", width: "100%", textAlign: "left", background: "none", border: "none", color: active === l ? "var(--accent)" : "var(--text-muted)", fontWeight: active === l ? 700 : 400, cursor: "pointer", fontSize: 16, padding: "12px 0", borderBottom: "1px solid var(--border-light)" }}>
-              {l}
-            </button>
-          ))}
-          <button onClick={toggle}
-            style={{ marginTop: 12, background: "none", border: "1.5px solid var(--border)", borderRadius: 6, padding: "8px 16px", cursor: "pointer", color: "var(--text)", fontSize: 13, display: "flex", alignItems: "center", gap: 8 }}>
-            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
-            {theme === "dark" ? "Light Mode" : "Dark Mode"}
+        <nav aria-label="Primary" className="slab-links">
+          <ul>
+            {links.map((l) => (
+              <li key={l} className="slab-link-item">
+                <button onClick={() => handleNav(l)} data-active={active === l} aria-current={active === l ? "true" : undefined}>
+                  {l}
+                </button>
+                {active === l && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="slab-underline"
+                    transition={{ duration: 0.28, ease: EASE }}
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="slab-actions">
+          <button onClick={toggle} aria-label="Toggle theme" className="slab-icon-btn">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={theme}
+                className="slab-icon-swap"
+                initial={{ opacity: 0, rotate: -60, scale: 0.6 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 60, scale: 0.6 }}
+                transition={{ duration: 0.2, ease: EASE }}
+              >
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              </motion.span>
+            </AnimatePresence>
           </button>
+          <a href="/TV_Resume.pdf" download className="slab-cta">Résumé</a>
         </div>
-      )}
+
+        <button onClick={() => setOpen(!open)} className="slab-toggle" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+
+        <div className="slab-progress" style={{ width: `${progress}%` }} />
+      </header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="slab-sheet"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2, ease: EASE }}
+          >
+            <ul>
+              {links.map((l, i) => (
+                <motion.li
+                  key={l}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.22, delay: 0.04 * i, ease: EASE }}
+                >
+                  <button onClick={() => handleNav(l)} data-active={active === l} aria-current={active === l ? "true" : undefined}>
+                    {l}
+                  </button>
+                </motion.li>
+              ))}
+            </ul>
+            <div className="slab-sheet-foot">
+              <button onClick={toggle} className="slab-sheet-action">
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />} {theme === "dark" ? "LIGHT MODE" : "DARK MODE"}
+              </button>
+              <a href="/TV_Resume.pdf" download className="slab-sheet-action">RÉSUMÉ</a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
-        .nav-desktop { display: flex; align-items: center; }
-        .nav-mobile { display: none; }
-        @media (max-width: 768px) {
-          .nav-desktop { display: none !important; }
-          .nav-mobile { display: block !important; }
+        .skip-link {
+          position: fixed; top: -100px; left: var(--space-md); z-index: 500;
+          background: var(--text); color: var(--bg); padding: 10px 18px;
+          font-size: 13px; font-weight: 700; text-decoration: none;
+          transition: top var(--dur-short) var(--ease-out);
+        }
+        .skip-link:focus { top: var(--space-md); }
+
+        .slab {
+          position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 200;
+          display: flex; align-items: center; gap: var(--space-lg);
+          padding: 0 5%; background: var(--nav-bg); border-bottom: var(--bw) solid var(--text);
+          transition: box-shadow var(--dur-med) var(--ease-out);
+        }
+        .slab[data-scrolled="true"] { box-shadow: 0 4px 0 0 var(--border); }
+        .slab-mark {
+          background: none; border: none; cursor: pointer; color: var(--text);
+          font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.5px;
+          flex-shrink: 0;
+        }
+        .slab-links { margin-left: var(--space-lg); flex: 1; min-width: 0; }
+        .slab-links ul { display: flex; gap: var(--space-lg); list-style: none; flex-wrap: wrap; }
+        .slab-link-item { position: relative; }
+        .slab-links button {
+          position: relative; background: none; border: none; cursor: pointer; padding: 4px 0;
+          font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+          color: var(--text-faint); border-bottom: 3px solid transparent;
+          transition: color var(--dur-short) var(--ease-out);
+        }
+        .slab-links button:hover { color: var(--text); }
+        .slab-links button[data-active="true"] { color: var(--text); }
+        .slab-underline { position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; background: var(--accent); }
+        @media (hover: hover) and (pointer: fine) {
+          .slab-links button:not([data-active="true"])::after {
+            content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px;
+            background: var(--border); transform: scaleX(0); transform-origin: left center;
+            transition: transform var(--dur-short) var(--ease-out);
+          }
+          .slab-links button:not([data-active="true"]):hover::after { transform: scaleX(1); }
+        }
+        .slab-actions { display: flex; align-items: center; gap: var(--space-sm); flex-shrink: 0; }
+        .slab-icon-btn {
+          width: 38px; height: 38px; border: var(--bw) solid var(--text); background: var(--bg);
+          display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer;
+          overflow: hidden;
+          transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+        }
+        .slab-icon-btn:hover { background: var(--text); color: var(--bg); }
+        .slab-icon-swap { display: flex; align-items: center; justify-content: center; }
+        .slab-cta {
+          background: var(--accent); color: var(--accent-ink); border: var(--bw) solid var(--text);
+          padding: 9px 20px; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+          text-decoration: none; white-space: nowrap;
+          transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+        }
+        .slab-cta:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hard-sm); }
+        .slab-cta:active { transform: translate(0, 0); box-shadow: none; }
+        .slab-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--text); }
+        .slab-progress { position: absolute; left: 0; bottom: -3px; height: 3px; background: var(--accent); transition: width 0.1s linear; }
+
+        .slab-sheet {
+          display: none;
+        }
+
+        @media (max-width: 860px) {
+          .slab-links, .slab-actions { display: none; }
+          .slab-toggle { display: flex; align-items: center; justify-content: center; margin-left: auto; width: 40px; height: 40px; }
+          .slab-sheet {
+            display: block; position: fixed; inset: var(--nav-h) 0 0 0; z-index: 199;
+            background: var(--bg); padding: var(--space-xl) 6%; overflow-y: auto;
+          }
+          .slab-sheet ul { list-style: none; }
+          .slab-sheet button[data-active] {
+            display: block; width: 100%; text-align: left; background: none; border: none;
+            font-family: var(--font-display); font-size: 15vw; font-weight: 800; letter-spacing: -0.02em;
+            text-transform: uppercase; line-height: 1.05;
+            padding: 14px 0; border-bottom: var(--bw) solid var(--text);
+            color: var(--text-faint); cursor: pointer;
+          }
+          .slab-sheet button[data-active="true"] { color: var(--text); }
+          .slab-sheet-foot { margin-top: var(--space-2xl); display: flex; flex-direction: column; gap: var(--space-md); }
+          .slab-sheet-action {
+            display: flex; align-items: center; gap: var(--space-sm); min-height: 44px;
+            background: none; border: none; color: var(--text-muted); font-size: 14px; font-weight: 700;
+            letter-spacing: 0.04em; text-decoration: none; cursor: pointer;
+          }
         }
       `}</style>
-    </nav>
+    </>
   );
 }

@@ -1,139 +1,197 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { Github, Linkedin, Mail } from "lucide-react";
-
-const roles = ["Full-Stack Developer", "AI/ML Engineer", "React Developer", "Python Developer"];
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { personalInfo } from "@/app/data";
+import { onIntroComplete } from "@/lib/introSignal";
+import HeroArt from "./HeroArt";
 
 function scrollTo(id: string) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth" });
 }
 
-export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
-  const [deleting, setDeleting] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+const stats = [
+  { num: "8+", label: "Projects shipped" },
+  { num: "5+", label: "Tech stacks" },
+  { num: "1+", label: "Internship" },
+  { num: "4+", label: "Years building" },
+];
 
-  useEffect(() => {
-    const current = roles[roleIndex];
-    if (!deleting && displayed.length < current.length) {
-      timeoutRef.current = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80);
-    } else if (!deleting && displayed.length === current.length) {
-      timeoutRef.current = setTimeout(() => setDeleting(true), 2000);
-    } else if (deleting && displayed.length > 0) {
-      timeoutRef.current = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
-    } else if (deleting && displayed.length === 0) {
-      timeoutRef.current = setTimeout(() => {
-        setDeleting(false);
-        setRoleIndex((i) => (i + 1) % roles.length);
-      }, 100);
-    }
-    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
-  }, [displayed, deleting, roleIndex]);
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Timings run ~20% slower than the base choreography for a more deliberate,
+// premium entrance now that it's sequenced to start right after the intro.
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.11, delayChildren: 0.05 } },
+};
+
+const rise = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.48, ease: EASE } },
+};
+
+const nameRise = {
+  hidden: { opacity: 0, y: 30, clipPath: "inset(0 0 100% 0)" },
+  visible: { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)", transition: { duration: 0.58, ease: EASE } },
+};
+
+const blockIn = {
+  hidden: { opacity: 0, x: -26 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.53, ease: EASE } },
+};
+
+const ruleGrow = {
+  hidden: { scaleX: 0 },
+  visible: { scaleX: 1, transition: { duration: 0.5, ease: EASE } },
+};
+
+export default function Hero() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => onIntroComplete(() => setReady(true)), []);
 
   return (
-    <section id="about" className="hero-section">
-      <div className="hero-dots" />
-      <div className="hero-grid">
+    <section id="about" className="hero">
+      <motion.div className="hero-inner" variants={container} initial="hidden" animate={ready ? "visible" : "hidden"}>
+        <div className="hero-copy">
+          <motion.div className="hero-meta" variants={rise}>
+            <span className="tag">{personalInfo.location.toUpperCase()}</span>
+            <span className="tag tag-live">
+              <span className="tag-dot" /> OPEN TO WORK
+            </span>
+          </motion.div>
 
-        {/* LEFT */}
-        <div className="hero-left">
-          <h1 style={{ fontWeight: 900, color: "var(--text)", marginBottom: 8, lineHeight: 1 }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 2 }}>
-              <span style={{ fontSize: "clamp(28px, 6vw, 80px)", fontStyle: "italic", letterSpacing: "-2px", fontWeight: 900, color: "var(--text)" }}>Hi,</span>
-              <span style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontStyle: "italic", fontWeight: 500, color: "var(--text)" }}> I&apos;m</span>
-            </div>
-            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Tirth</div>
-            <div style={{ fontSize: "clamp(52px, 10vw, 130px)", letterSpacing: "-5px", lineHeight: 1, fontWeight: 900, WebkitTextStroke: "2px var(--stroke)", color: "transparent", marginBottom: 20 }}>Vaghela</div>
-            <div style={{ fontSize: "clamp(12px, 1.4vw, 20px)", fontWeight: 500, color: "var(--text)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 4 }}>and I am a</div>
+          <h1 className="hero-name">
+            <motion.span className="hero-name-line" variants={nameRise}>TIRTH</motion.span>
+            <br />
+            <motion.span className="hero-name-hit" variants={blockIn}>VAGHELA</motion.span>
           </h1>
 
-          <div className="hero-typewriter">
-            {displayed}<span style={{ color: "#2563eb", animation: "blink 1s step-end infinite" }}>|</span>
-          </div>
+          <motion.div className="hero-role-row" variants={rise}>
+            <span className="hero-role">{personalInfo.title.toUpperCase()}</span>
+            <span className="hero-stack">REACT · NEXT.JS · DJANGO · FLASK · PYTHON</span>
+            <motion.span className="hero-rule" variants={ruleGrow} />
+          </motion.div>
 
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 100, padding: "6px 14px", marginBottom: 20 }}>
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#16a34a", display: "inline-block", animation: "pulse-green 2s infinite" }} />
-            <span style={{ fontSize: 12, color: "#111", fontWeight: 600 }}>Open to opportunities</span>
-          </div>
-
-          <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.85, maxWidth: 460, marginBottom: 28 }}>
+          <motion.p className="hero-desc" variants={rise}>
             MSc IT student (Sem 9) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.
-          </p>
+          </motion.p>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
-            <button onClick={() => scrollTo("projects")} className="btn-primary">View Projects</button>
-            <a href="/TV_Resume.pdf" download className="btn-outline" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center" }}>Resume</a>
-          </div>
-
-          <div style={{ display: "flex", gap: 10 }}>
-            {[
-              { icon: <Github size={17} />, href: "https://github.com/Tirthvaghela", label: "GitHub" },
-              { icon: <Linkedin size={17} />, href: "https://www.linkedin.com/in/tirthvaghela/", label: "LinkedIn" },
-              { icon: <Mail size={17} />, href: "mailto:vaghelatirth719@gmail.com", label: "Email" },
-            ].map(({ icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-icon">{icon}</a>
-            ))}
-          </div>
+          <motion.div className="hero-actions" variants={rise}>
+            <button onClick={() => scrollTo("projects")} className="btn-solid">
+              VIEW PROJECTS <ArrowUpRight size={18} />
+            </button>
+            <a href="/TV_Resume.pdf" download className="btn-outline">RÉSUMÉ</a>
+            <div className="hero-social">
+              {[
+                { icon: <Github size={18} />, href: personalInfo.github, label: "GitHub" },
+                { icon: <Linkedin size={18} />, href: personalInfo.linkedin, label: "LinkedIn" },
+                { icon: <Mail size={18} />, href: `mailto:${personalInfo.email}`, label: "Email" },
+              ].map(({ icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="social-btn">{icon}</a>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
-        {/* RIGHT */}
-        <div className="hero-right">
-          <div style={{ position: "relative", width: "100%", maxWidth: 300 }}>
-            <div className="hero-card-border" />
-            <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 6, position: "relative", zIndex: 1, border: "1px solid #e0e0e0", overflow: "hidden", background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }} className="avatar-card">
-              <Image src="/avatar.svg" alt="Developer illustration" width={300} height={300} priority style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-            </div>
-            <div style={{ position: "absolute", bottom: 20, right: -8, background: "var(--text)", color: "var(--bg)", padding: "14px 18px", borderRadius: 3, fontSize: 13, zIndex: 2, letterSpacing: "0.5px", lineHeight: 1.6, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
-              Full-Stack<br /><span style={{ color: "var(--accent)" }}>Developer</span>
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: 0, marginTop: 24, width: "100%", maxWidth: 300, justifyContent: "space-around" }}>
-            {[{ num: "8", label: "Projects Shipped" }, { num: "5", label: "Tech Stacks" }, { num: "1", label: "Internship" }].map(({ num, label }) => (
-              <div key={label} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-                <div className="hero-stat-num">{num}<span style={{ color: "var(--accent)" }}>+</span></div>
-                <div className="hero-stat-label">{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <motion.div className="hero-art" variants={rise}>
+          <HeroArt />
+        </motion.div>
+      </motion.div>
 
-      </div>
-
-      <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, color: "var(--text-faint)", fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", zIndex: 1 }}>
-        <span style={{ color: "var(--text-muted)" }}>Scroll</span>
-        <div style={{ width: 1, height: 32, background: "linear-gradient(to bottom, var(--text-muted), transparent)" }} />
+      <div className="hero-stats">
+        {stats.map(({ num, label }) => (
+          <div key={label} className="hero-stat">
+            <div className="hero-stat-num">{num}</div>
+            <div className="hero-stat-label">{label}</div>
+          </div>
+        ))}
       </div>
 
       <style>{`
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        @keyframes pulse-green { 0%, 100% { box-shadow: 0 0 0 0 #86efac; } 70% { box-shadow: 0 0 0 6px transparent; } }
-        .hero-section { min-height: 100vh; background: var(--hero-bg); position: relative; overflow: hidden; padding-top: 72px; }
-        .hero-dots { position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle, #2563eb18 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); }
-        .hero-grid { position: relative; z-index: 1; width: 100%; padding: 40px 5% 80px; display: grid; grid-template-columns: 55% 45%; align-items: center; min-height: calc(100vh - 72px); }
-        .hero-left { padding-right: 4%; min-width: 0; }
-        .hero-right { display: flex; flex-direction: column; align-items: center; padding-left: 2%; }
-        .hero-typewriter { font-size: clamp(22px, 4.5vw, 64px); font-weight: 600; letter-spacing: -1px; color: #2563eb; line-height: 1; margin-bottom: 24px; min-height: 1.1em; overflow: hidden; white-space: nowrap; }
-        .btn-primary { background: #111; color: #fff; padding: 13px 28px; border-radius: 3px; font-weight: 700; font-size: 14px; border: 2px solid #111; cursor: pointer; letter-spacing: 0.4px; transition: all 0.2s; }
-        .btn-primary:hover { background: #2563eb; border-color: #2563eb; }
-        .btn-outline { background: transparent; color: #111; padding: 13px 28px; border-radius: 3px; font-weight: 700; font-size: 14px; border: 2px solid #111; cursor: pointer; letter-spacing: 0.4px; transition: all 0.2s; }
-        .btn-outline:hover { background: #111; color: #fff; }
-        .btn-resume { background: transparent; color: #2563eb; padding: 13px 28px; border-radius: 3px; font-weight: 700; font-size: 14px; border: 2px solid #2563eb; cursor: pointer; letter-spacing: 0.4px; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
-        .btn-resume:hover { background: #2563eb; color: #fff; }
-        .social-icon { width: 40px; height: 40px; border-radius: 3px; border: 1.5px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; transition: all 0.2s; }
-        .social-icon:hover { border-color: #2563eb; color: #2563eb; }
-        .hero-card-border { position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 2px solid #2563eb; border-radius: 6px; z-index: 0; }
-        .hero-stat-num { font-size: 28px; font-weight: 900; color: var(--text); letter-spacing: -1px; line-height: 1; }
-        .hero-stat-label { font-size: 10px; color: var(--text); margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.6; }
+        .hero { border-bottom: var(--bw) solid var(--text); }
+        .hero-inner {
+          padding: var(--space-2xl) 5% var(--space-xl); overflow: clip;
+          display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-2xl); align-items: center;
+        }
+        .hero-art { color: var(--text); display: flex; align-items: center; justify-content: center; }
+        .hero-art svg { width: 100%; max-width: 340px; height: auto; }
+        .tag {
+          display: inline-flex; align-items: center; gap: 8px;
+          font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+          border: 1.5px solid var(--text); padding: 5px 12px; color: var(--text-muted);
+        }
+        .hero-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: var(--space-lg); }
+        .tag-live { color: var(--text); font-weight: 700; }
+        .tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--positive); display: inline-block; }
+        .hero-name {
+          font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+          font-size: clamp(3.2rem, 12vw, 8.5rem); line-height: 0.88; letter-spacing: -0.02em;
+          color: var(--text); margin-bottom: var(--space-lg); overflow-wrap: anywhere; min-width: 0;
+        }
+        .hero-name-line { display: inline-block; }
+        .hero-name-hit {
+          display: inline-block; background: var(--accent); color: var(--accent-ink);
+          padding: 0 0.08em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+        }
+        .hero-role-row {
+          position: relative; display: flex; align-items: baseline; gap: var(--space-lg); flex-wrap: wrap;
+          padding-bottom: var(--space-md); margin-bottom: var(--space-md);
+        }
+        .hero-rule {
+          position: absolute; left: 0; right: 0; bottom: 0; height: var(--bw); background: var(--text);
+          transform-origin: left center; display: block;
+        }
+        .hero-role { font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 2.4vw, 26px); letter-spacing: -0.01em; color: var(--text); }
+        .hero-stack { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; }
+        .hero-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 56ch; margin-bottom: var(--space-xl); }
+        .hero-actions { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }
+        .btn-solid {
+          background: var(--text); color: var(--bg); border: var(--bw) solid var(--text);
+          padding: 15px 26px; font-family: var(--font-display); font-weight: 700; font-size: 14px;
+          letter-spacing: 0.04em; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+          transition: transform var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+        }
+        .btn-solid:hover { background: var(--accent); border-color: var(--text); color: var(--accent-ink); transform: translate(-3px, -3px); box-shadow: var(--shadow-hard); }
+        .btn-solid:active { transform: translate(0, 0); box-shadow: none; }
+        .btn-outline {
+          background: var(--bg); color: var(--text); border: var(--bw) solid var(--text);
+          padding: 15px 26px; font-family: var(--font-display); font-weight: 700; font-size: 14px;
+          letter-spacing: 0.04em; cursor: pointer; text-decoration: none;
+          transition: transform var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+        }
+        .btn-outline:hover { background: var(--accent); color: var(--accent-ink); transform: translate(-3px, -3px); box-shadow: var(--shadow-hard); }
+        .btn-outline:active { transform: translate(0, 0); box-shadow: none; }
+        .hero-social { display: flex; gap: 10px; margin-left: var(--space-sm); }
+        .social-btn {
+          width: 46px; height: 46px; border: var(--bw) solid var(--text); display: flex; align-items: center; justify-content: center;
+          color: var(--text); text-decoration: none; background: var(--bg);
+          transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+        }
+        .social-btn:hover { background: var(--text); color: var(--bg); }
+        @media (hover: hover) and (pointer: fine) {
+          .social-btn svg { transition: transform var(--dur-short) var(--ease-out); }
+          .social-btn:hover svg { transform: translateY(-2px); }
+        }
+        .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: var(--bw) solid var(--text); }
+        .hero-stat { padding: var(--space-lg) 5%; border-left: var(--bw) solid var(--text); transition: background-color var(--dur-med) var(--ease-out); }
+        .hero-stat:first-child { border-left: none; }
+        .hero-stat-num { font-family: var(--font-mono); font-size: clamp(26px, 3.4vw, 42px); font-weight: 500; color: var(--text); line-height: 1; }
+        .hero-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        @media (hover: hover) and (pointer: fine) {
+          .hero-stat:hover { background: var(--bg-alt); }
+        }
         @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr; padding: 32px 5% 60px; gap: 40px; }
-          .hero-left { padding-right: 0; width: 100%; }
-          .hero-right { padding-left: 0; align-items: center; }
-          .hero-right > div:first-child { max-width: 220px; }
-          .hero-typewriter { white-space: normal; overflow: visible; font-size: clamp(22px, 7vw, 40px); }
-          .hero-card-border { right: -6px; bottom: -6px; }
+          .hero-inner { padding: var(--space-xl) 6% var(--space-lg); grid-template-columns: 1fr; }
+          .hero-art { display: none; }
+          .hero-stats { grid-template-columns: repeat(2, 1fr); }
+          .hero-stat { border-left: none; border-top: var(--bw) solid var(--text); }
+          .hero-stat:nth-child(odd) { border-right: var(--bw) solid var(--text); }
+          .hero-actions { gap: var(--space-sm); }
+          .btn-solid, .btn-outline { flex: 1 1 auto; justify-content: center; }
+          .hero-social { width: 100%; margin-left: 0; margin-top: var(--space-sm); }
         }
       `}</style>
     </section>

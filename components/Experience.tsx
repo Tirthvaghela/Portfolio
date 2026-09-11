@@ -1,152 +1,158 @@
 "use client";
+import { Briefcase, GraduationCap as GradIcon, ArrowUpRight } from "lucide-react";
 import { experience, education } from "@/app/data";
 import FadeIn from "./FadeIn";
+import SectionPanel from "./SectionPanel";
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ background: "var(--bg-alt)", padding: "100px 6%" }}>
-      <FadeIn>
-        <div style={{ marginBottom: 64 }}>
-          <p style={{ fontSize: 13, color: "var(--accent)", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", marginBottom: 12 }}>
-            My journey
-          </p>
-          <h2 style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1, color: "var(--text)" }}>
-            Experience &amp;<br />
-            <span style={{ WebkitTextStroke: "2px var(--stroke)", color: "transparent" }}>Education</span>
-          </h2>
-        </div>
-      </FadeIn>
+    <section id="experience" style={{ background: "var(--bg-alt)", padding: "var(--space-2xl) 5%", borderBottom: "var(--bw) solid var(--text)" }}>
+      <SectionPanel>
+        <h2 className="exp-heading">EXPERIENCE &amp; EDUCATION</h2>
 
-      <div className="exp-grid">
-        <FadeIn direction="left" delay={0.1}>
+        <div className="exp-grid">
+          <FadeIn direction="left" delay={0.05}>
           <div>
-            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 32 }}>Work Experience</h3>
+            <p className="exp-label"><Briefcase size={13} aria-hidden /> WORK EXPERIENCE</p>
             {experience.map((exp, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
-                <div style={{ background: "var(--accent)", borderRadius: 2 }} />
-                <div style={{ paddingBottom: 40 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-                    <h4 style={{ fontSize: 20, fontWeight: 800, color: "var(--text)", letterSpacing: "-0.5px" }}>{exp.role}</h4>
-                    <span style={{ fontSize: 12, color: "var(--text-muted)", background: "var(--bg-card)", padding: "4px 12px", border: "1px solid var(--border)", borderRadius: 2 }}>{exp.period}</span>
-                  </div>
-                  <p style={{ fontSize: 14, color: "var(--accent)", fontWeight: 700, marginBottom: 4 }}>{exp.company}</p>
-                  <p style={{ fontSize: 12, color: "var(--text-faint)", marginBottom: 16 }}>{exp.type}</p>
-                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 16 }}>
-                    {exp.points.map((pt, j) => (
-                      <li key={j} style={{ display: "flex", gap: 10, fontSize: 14, color: "var(--text-muted)", lineHeight: 1.8, paddingBottom: 16, borderBottom: "1px solid var(--border-light)" }}>
-                        <span style={{ color: "var(--accent)", flexShrink: 0, marginTop: 4, fontSize: 10 }}>●</span>
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                  <blockquote style={{ marginTop: 20, paddingLeft: 18, borderLeft: "3px solid var(--accent)", fontStyle: "italic", fontSize: 14, color: "var(--text)", lineHeight: 1.7 }}>
-                    &ldquo;His attention to detail, creativity, and willingness to go the extra mile set him apart from his peers.&rdquo;
-                    <footer style={{ marginTop: 8, fontStyle: "normal", fontSize: 12, color: "var(--text-muted)", fontWeight: 600 }}>
-                      — Deven Chopra, Software Engineering Manager at Prodigy InfoTech
-                    </footer>
-                  </blockquote>
-                  <div style={{ display: "flex", gap: 16, marginTop: 20, flexWrap: "wrap" }}>
-                    <a href="/Certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
-                      onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                      onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
-                    >View Certificate ↗</a>
-                    <a href="/lor.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
-                      onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                      onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
-                    >View LOR ↗</a>
-                  </div>
+              <div key={i} className="exp-block">
+                <div className="exp-block-head">
+                  <h3 className="exp-role">{exp.role.toUpperCase()}</h3>
+                  <span className="exp-period">{exp.period}</span>
+                </div>
+                <p className="exp-company">{exp.company} — {exp.type.toUpperCase()}</p>
+                <ul className="exp-points">
+                  {exp.points.map((pt, j) => (
+                    <li key={j}><span className="exp-mark" aria-hidden /><span>{pt}</span></li>
+                  ))}
+                </ul>
+                <blockquote className="exp-quote">
+                  &ldquo;His attention to detail, creativity, and willingness to go the extra mile set him apart from his peers.&rdquo;
+                  <footer>— DEVEN CHOPRA, SOFTWARE ENGINEERING MANAGER AT PRODIGY INFOTECH</footer>
+                </blockquote>
+                <div className="exp-links">
+                  <a href="/Certificate.pdf" target="_blank" rel="noopener noreferrer">CERTIFICATE <ArrowUpRight size={12} className="ext-arrow" /></a>
+                  <a href="/lor.pdf" target="_blank" rel="noopener noreferrer">LOR <ArrowUpRight size={12} className="ext-arrow" /></a>
                 </div>
               </div>
             ))}
           </div>
         </FadeIn>
 
-        <FadeIn direction="right" delay={0.2}>
+        <FadeIn direction="right" delay={0.1}>
           <div>
-            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 32 }}>Education</h3>
+            <p className="exp-label exp-label--accent"><GradIcon size={13} aria-hidden /> EDUCATION</p>
             {education.map((edu, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginBottom: 32 }}>
-                <div style={{ background: "var(--accent)", borderRadius: 2 }} />
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
-                    <div>
-                      <h4 style={{ fontSize: 20, fontWeight: 800, color: "var(--text)", letterSpacing: "-0.5px" }}>
-                        <a href="https://www.glsuniversity.ac.in" target="_blank" rel="noopener noreferrer"
-                          style={{ color: "var(--text)", textDecoration: "none" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text)")}
-                        >{edu.institution} ↗</a>
-                      </h4>
-                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: edu.status === "Pursuing" ? "#2563eb" : "#16a34a", background: "transparent", border: `1.5px solid ${edu.status === "Pursuing" ? "#2563eb" : "#16a34a"}`, padding: "3px 10px", borderRadius: 2, display: "inline-block", marginTop: 6 }}>
-                        {edu.status}
-                      </span>
-                    </div>
-                    <span style={{ fontSize: 12, color: "var(--text-muted)", background: "var(--bg-card)", padding: "4px 12px", border: "1px solid var(--border)", borderRadius: 2, whiteSpace: "nowrap" }}>{edu.period}</span>
+              <div key={i} className="exp-block exp-block--edu" data-current={edu.status === "Pursuing"}>
+                <span className="exp-index">{String(i + 1).padStart(2, "0")}</span>
+                <div className="exp-edu-body">
+                  <div className="exp-block-head">
+                    <h3 className="exp-role">
+                      <a href="https://www.glsuniversity.ac.in" target="_blank" rel="noopener noreferrer" className="exp-role-link">{edu.institution.toUpperCase()} <ArrowUpRight size={15} className="ext-arrow" /></a>
+                    </h3>
+                    <span className="exp-period">{edu.period}</span>
                   </div>
-                  <p style={{ fontSize: 15, color: "var(--text)", fontWeight: 600, lineHeight: 1.5, marginTop: 10 }}>{edu.degree}</p>
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>{edu.note}</p>
+                  <span className="exp-status" data-pursuing={edu.status === "Pursuing"}>{edu.status.toUpperCase()}</span>
+                  <p className="exp-degree">{edu.degree}</p>
+                  <p className="exp-note">{edu.note}</p>
                   {"cgpa" in edu && (
-                    <div style={{ marginTop: 12, display: "flex", flexWrap: "wrap", gap: 8 }}>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", background: "transparent", border: "1.5px solid var(--border)", padding: "4px 12px", borderRadius: 2 }}>
-                        CGPA: {(edu as {cgpa: string}).cgpa}
-                      </span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: "#16a34a", background: "transparent", border: "1.5px solid #16a34a", padding: "4px 12px", borderRadius: 2 }}>
-                        {(edu as {distinction: string}).distinction}
-                      </span>
+                    <div className="exp-badges">
+                      <span className="exp-badge">CGPA {(edu as {cgpa: string}).cgpa}</span>
+                      <span className="exp-badge exp-badge--accent">{(edu as {distinction: string}).distinction.toUpperCase()}</span>
                     </div>
                   )}
                 </div>
               </div>
             ))}
 
-            <h3 style={{ fontSize: 13, fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 24, marginTop: 16 }}>Training / Courses</h3>
-
-            <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24 }}>
-              <div style={{ background: "var(--accent)", borderRadius: 2 }} />
-              <div style={{ paddingBottom: 16 }}>
-                <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Master MongoDB Database Design</h4>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Compass + Mongosh + PyMongo — Udemy · Feb 2026</p>
-                <a href="/mongodb-udemy.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Certificate ↗</a>
-              </div>
+            <p className="exp-label exp-label--tight">TRAINING / COURSES</p>
+            <div className="exp-course">
+              <h4>MASTER MONGODB DATABASE DESIGN</h4>
+              <p className="exp-note">Compass + Mongosh + PyMongo — Udemy · Feb 2026</p>
+              <a href="/mongodb-udemy.pdf" target="_blank" rel="noopener noreferrer">CERTIFICATE <ArrowUpRight size={11} className="ext-arrow" /></a>
             </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginTop: 20 }}>
-              <div style={{ background: "var(--accent)", borderRadius: 2 }} />
-              <div style={{ paddingBottom: 16 }}>
-                <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Claude Code in Action</h4>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Anthropic — March 2026</p>
-                <a href="/claude-code-certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", marginTop: 6, display: "inline-block", textDecoration: "none", fontWeight: 600 }}>View Certificate ↗</a>
-              </div>
+            <div className="exp-course">
+              <h4>CLAUDE CODE IN ACTION</h4>
+              <p className="exp-note">Anthropic — March 2026</p>
+              <a href="/claude-code-certificate.pdf" target="_blank" rel="noopener noreferrer">CERTIFICATE <ArrowUpRight size={11} className="ext-arrow" /></a>
             </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "4px 1fr", gap: 24, marginTop: 20 }}>
-              <div style={{ background: "#2563eb", borderRadius: 2 }} />
-              <div style={{ paddingBottom: 16 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
-                  <h4 style={{ fontSize: 16, fontWeight: 800, color: "var(--text)" }}>Developing Front-End Apps with React</h4>
-                </div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>IBM — Coursera · 4 modules</p>
-                <div style={{ display: "flex", gap: 16, marginTop: 6, flexWrap: "wrap" }}>
-                  <a href="/ibm-react-certificate.pdf" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
-                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
-                  >View Certificate ↗</a>
-                  <a href="https://www.credly.com/badges/89cb78a8-a849-4529-99f6-70603ec5349c/public_url" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}
-                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
-                  >View Badge ↗</a>
-                </div>
+            <div className="exp-course">
+              <h4>DEVELOPING FRONT-END APPS WITH REACT</h4>
+              <p className="exp-note">IBM — Coursera · 4 modules</p>
+              <div className="exp-links">
+                <a href="/ibm-react-certificate.pdf" target="_blank" rel="noopener noreferrer">CERTIFICATE <ArrowUpRight size={11} className="ext-arrow" /></a>
+                <a href="https://www.credly.com/badges/89cb78a8-a849-4529-99f6-70603ec5349c/public_url" target="_blank" rel="noopener noreferrer">BADGE <ArrowUpRight size={11} className="ext-arrow" /></a>
               </div>
             </div>
           </div>
         </FadeIn>
-      </div>
+        </div>
+      </SectionPanel>
 
       <style>{`
-        .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .exp-heading {
+          font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+          font-size: clamp(2rem, 4.2vw, 3.2rem); letter-spacing: -0.01em; line-height: 1;
+          color: var(--text); margin-bottom: var(--space-2xl);
+        }
+        .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); }
+        .exp-label {
+          display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; font-weight: 800;
+          letter-spacing: 0.12em; color: var(--bg); background: var(--text); padding: 11px 14px; margin-bottom: var(--space-lg);
+        }
+        .exp-label--accent { color: var(--accent-ink); background: var(--accent); }
+        .exp-label--tight { margin-top: var(--space-xl); }
+        .exp-block {
+          border: var(--bw) solid var(--text); background: var(--bg-card); padding: var(--space-lg); margin-bottom: var(--space-lg);
+          transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .exp-block:hover { transform: translate(-4px, -4px); box-shadow: var(--shadow-hard); border-color: var(--accent); }
+        }
+        .exp-block--edu[data-current="true"] { border-color: var(--accent); background: var(--bg-alt); }
+        .exp-block--edu { display: flex; gap: var(--space-md); align-items: flex-start; }
+        .exp-index { font-family: var(--font-mono); font-size: clamp(40px, 4.6vw, 64px); font-weight: 500; line-height: 0.8; color: var(--text); flex-shrink: 0; }
+        .exp-edu-body { min-width: 0; flex: 1; }
+        .exp-block-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+        .exp-role { font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; letter-spacing: -0.005em; color: var(--text); line-height: 1.1; }
+        .exp-role-link { color: inherit; text-decoration: none; }
+        .exp-role-link:hover { color: var(--accent); }
+        .exp-period { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); border: 1.5px solid var(--text); padding: 3px 10px; white-space: nowrap; }
+        .exp-company { font-size: 13px; color: var(--accent); font-weight: 700; margin-top: 4px; }
+        .exp-points { list-style: none; padding: 0; margin-top: var(--space-md); display: flex; flex-direction: column; gap: 12px; }
+        .exp-points li { display: flex; gap: 12px; font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+        .exp-mark { width: 9px; height: 9px; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+        .exp-quote {
+          position: relative; margin-top: var(--space-lg); padding: var(--space-lg); background: var(--text); color: var(--bg);
+          font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.5; overflow: hidden;
+        }
+        .exp-quote::before {
+          content: "\\201C"; position: absolute; top: -30px; right: 10px; font-family: var(--font-display); font-weight: 800;
+          font-size: 130px; line-height: 1; color: var(--bg); opacity: 0.12; pointer-events: none;
+        }
+        .exp-quote footer { position: relative; z-index: 1; margin-top: 10px; font-family: var(--font-mono); font-size: 10px; font-weight: 400; color: var(--bg-alt); letter-spacing: 0.03em; }
+        .exp-links { display: flex; gap: 18px; margin-top: var(--space-md); }
+        .exp-links a { font-family: var(--font-mono); font-size: 12px; color: var(--text); text-decoration: none; border-bottom: 2px solid var(--accent); font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .ext-arrow { display: inline-block; vertical-align: -2px; }
+        .exp-status { display: inline-block; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.05em; color: var(--accent); border: 1.5px solid var(--accent); padding: 3px 10px; }
+        .exp-status[data-pursuing="false"] { color: var(--positive); border-color: var(--positive); }
+        .exp-degree { font-size: 15px; color: var(--text); font-weight: 700; margin-top: 10px; }
+        .exp-note { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+        .exp-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-sm); }
+        .exp-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--text); border: 1.5px solid var(--text); padding: 3px 10px; }
+        .exp-badge--accent { color: var(--positive); border-color: var(--positive); }
+        .exp-course {
+          border: var(--bw) solid var(--text); background: var(--bg-card); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-lg);
+          transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .exp-course:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-hard-sm); border-color: var(--accent); }
+        }
+        .exp-course h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text); }
+        .exp-course a { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; text-decoration: none; border-bottom: 1.5px solid var(--accent); }
         @media (max-width: 768px) {
-          .exp-grid { grid-template-columns: 1fr; gap: 48px; }
-          .exp-grid > div > div > h3 { margin-top: 0; }
+          .exp-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+          .exp-index { font-size: 32px; }
         }
       `}</style>
     </section>

@@ -16,92 +16,69 @@ export default function OGImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #f8f8f6 0%, #eef2ff 100%)",
+          background: "#f7f7f5",
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        {/* Dot grid background */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: "radial-gradient(circle, #2563eb22 1.5px, transparent 1.5px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-
-        {/* Card */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "center",
-            background: "white",
-            borderRadius: 16,
-            padding: "60px 80px",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-            border: "1.5px solid #e8e8e8",
-            gap: 16,
-            zIndex: 1,
+            background: "#f7f7f5",
+            padding: "56px 72px",
+            border: "5px solid #111",
+            boxShadow: "16px 16px 0 0 #2148d8",
+            gap: 14,
           }}
         >
-          {/* Initials */}
-          <div
-            style={{
-              fontSize: 80,
-              fontWeight: 900,
-              letterSpacing: "-4px",
-              color: "#111",
-              lineHeight: 1,
-              display: "flex",
-            }}
-          >
-            TV<span style={{ color: "#2563eb" }}>.</span>
+          <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: "2px", color: "#2148d8", display: "flex" }}>
+            TV.
           </div>
 
-          {/* Name */}
           <div
             style={{
-              fontSize: 48,
+              fontSize: 84,
               fontWeight: 800,
               color: "#111",
-              letterSpacing: "-2px",
+              letterSpacing: "-3px",
+              lineHeight: 0.95,
+              textTransform: "uppercase",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <span>TIRTH</span>
+            <span>VAGHELA</span>
+          </div>
+
+          <div
+            style={{
+              fontSize: 26,
+              fontWeight: 700,
+              color: "#111",
+              letterSpacing: "0.5px",
+              textTransform: "uppercase",
+              borderTop: "5px solid #111",
+              paddingTop: 14,
+              marginTop: 6,
               display: "flex",
             }}
           >
-            Tirth Vaghela
+            Full-Stack Developer
           </div>
 
-          {/* Role */}
           <div
             style={{
-              fontSize: 24,
-              fontWeight: 600,
-              color: "#2563eb",
+              fontSize: 17,
+              color: "#444",
               letterSpacing: "0.5px",
               display: "flex",
             }}
           >
-            Full-Stack Developer · AI/ML Engineer
-          </div>
-
-          {/* Divider */}
-          <div style={{ width: 60, height: 3, background: "#2563eb", borderRadius: 2, display: "flex" }} />
-
-          {/* Description */}
-          <div
-            style={{
-              fontSize: 18,
-              color: "#777",
-              textAlign: "center",
-              maxWidth: 600,
-              lineHeight: 1.6,
-              display: "flex",
-            }}
-          >
-            React · Next.js · Django · Flask · Python · AI/ML
+            REACT · NEXT.JS · DJANGO · FLASK · PYTHON
           </div>
         </div>
       </div>

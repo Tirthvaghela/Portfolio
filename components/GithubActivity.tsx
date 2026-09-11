@@ -5,10 +5,10 @@ type ContribDay = { date: string; count: number; level: number };
 
 const LEVEL_COLORS = [
   "var(--border)",
-  "rgba(37,99,235,0.3)",
-  "rgba(37,99,235,0.55)",
-  "rgba(37,99,235,0.8)",
-  "rgba(37,99,235,1)",
+  "color-mix(in oklch, var(--accent) 30%, var(--bg-card))",
+  "color-mix(in oklch, var(--accent) 55%, var(--bg-card))",
+  "color-mix(in oklch, var(--accent) 80%, var(--bg-card))",
+  "var(--accent)",
 ];
 
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -79,10 +79,11 @@ export default function GithubActivity({ username }: { username: string }) {
 
   if (failed) {
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={`https://ghchart.rshah.org/2563eb/${username}`}
         alt="GitHub contribution chart"
-        style={{ width: "100%", borderRadius: 3 }}
+        style={{ width: "100%" }}
         onError={(e) => {
           (e.currentTarget as HTMLImageElement).style.display = "none";
         }}
@@ -91,7 +92,7 @@ export default function GithubActivity({ username }: { username: string }) {
   }
 
   if (!weeks) {
-    return <div style={{ height: 110, borderRadius: 3, background: "var(--border-light)" }} />;
+    return <div style={{ height: 110, background: "var(--border-light)" }} />;
   }
 
   const labels = monthLabels(weeks);
@@ -99,8 +100,8 @@ export default function GithubActivity({ username }: { username: string }) {
   return (
     <div>
       {total !== null && (
-        <p style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 10 }}>
-          {total.toLocaleString()} contributions in the last year
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "var(--text-muted)", marginBottom: 10 }}>
+          {total.toLocaleString()} CONTRIBUTIONS IN THE LAST YEAR
         </p>
       )}
       <div style={{ display: "flex", overflowX: "auto", paddingBottom: 4 }}>
@@ -129,7 +130,6 @@ export default function GithubActivity({ username }: { username: string }) {
                     style={{
                       width: 10,
                       height: 10,
-                      borderRadius: 2,
                       background: day ? LEVEL_COLORS[day.level] : "transparent",
                     }}
                   />

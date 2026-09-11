@@ -2,6 +2,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { CategoryIcon } from "./CategoryIcon";
+
+const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+const EASE_IN = [0.7, 0, 0.84, 0] as const;
 
 interface Project {
   id: number;
@@ -16,7 +20,6 @@ interface Project {
   collaborator?: { name: string; linkedin: string };
   buildDays?: number;
   category: string;
-  color: string;
 }
 
 interface Props {
@@ -28,21 +31,18 @@ export default function ProjectModal({ project, onClose }: Props) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
-  // Close on Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  // Lock body scroll when open
   useEffect(() => {
     if (project) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     return () => { document.body.style.overflow = ""; };
   }, [project]);
 
-  // Move focus into the dialog on open, restore it to the trigger on close
   useEffect(() => {
     if (project) {
       previouslyFocused.current = document.activeElement as HTMLElement;
@@ -56,60 +56,49 @@ export default function ProjectModal({ project, onClose }: Props) {
     <AnimatePresence>
       {project && (
         <>
-          {/* Backdrop */}
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.18 }}
             onClick={onClose}
-            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 100, backdropFilter: "blur(4px)" }}
+            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 100 }}
           />
 
-          {/* Modal panel */}
           <div style={{ position: "fixed", inset: 0, zIndex: 101, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", pointerEvents: "none" }}>
           <motion.div
             key="modal"
-            initial={{ opacity: 0, y: 40, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.97 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 20, scale: 0.98, boxShadow: "4px 4px 0 0 var(--accent)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, boxShadow: "10px 10px 0 0 var(--accent)", transition: { duration: 0.32, ease: EASE_OUT } }}
+            exit={{ opacity: 0, y: 12, scale: 0.98, transition: { duration: 0.18, ease: EASE_IN } }}
             style={{
               position: "relative", zIndex: 101,
               background: "var(--bg-card)",
-              borderRadius: 8,
+              border: "var(--bw) solid var(--text)",
               width: "min(680px, 92vw)",
               maxHeight: "85vh",
               overflowY: "auto",
-              boxShadow: "0 32px 80px rgba(0,0,0,0.4)",
               pointerEvents: "all",
             }}
-            className="project-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-modal-title"
           >
-            {/* Color bar */}
-            <div style={{ height: 5, background: `linear-gradient(90deg, ${project.color}, ${project.color}60)`, borderRadius: "8px 8px 0 0" }} />
-
             <div style={{ padding: "clamp(20px, 5vw, 40px)" }}>
-              {/* Header */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: project.color, background: `${project.color}20`, padding: "3px 10px", borderRadius: 2 }}>
-                      {project.category}
-                    </span>
-                  </div>
-                  <h2 id="project-modal-title" style={{ fontSize: 28, fontWeight: 900, color: "var(--text)", letterSpacing: "-1px", lineHeight: 1, marginBottom: 4 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24, gap: 16 }}>
+                <div style={{ minWidth: 0 }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", color: "var(--accent)", border: "1.5px solid var(--accent)", padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+                    <CategoryIcon category={project.category} size={12} />
+                    {project.category.toUpperCase()}
+                  </span>
+                  <h2 id="project-modal-title" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 38px)", fontWeight: 800, textTransform: "uppercase", color: "var(--text)", letterSpacing: "-0.01em", lineHeight: 0.95, marginBottom: 6, overflowWrap: "anywhere" }}>
                     {project.title}
                   </h2>
-                  <p style={{ fontSize: 14, color: project.color, fontWeight: 600 }}>{project.subtitle}</p>
+                  <p style={{ fontSize: 14, color: "var(--text-muted)", fontWeight: 600 }}>{project.subtitle}</p>
                   {project.buildDays && (
-                    <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6, background: "var(--bg-section)", border: "1px solid var(--border)", borderRadius: 100, padding: "4px 12px" }}>
-                      <span style={{ fontSize: 11, color: "var(--text-muted)" }}>⏱</span>
-                      <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)" }}>Built in ~{project.buildDays} days</span>
+                    <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", border: "1.5px solid var(--text)", padding: "4px 12px" }}>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>BUILT IN ~{project.buildDays} DAYS</span>
                     </div>
                   )}
                 </div>
@@ -117,92 +106,81 @@ export default function ProjectModal({ project, onClose }: Props) {
                   ref={closeBtnRef}
                   onClick={onClose}
                   aria-label="Close"
-                  style={{ background: "var(--bg-section)", border: "none", borderRadius: "50%", width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "background 0.2s", color: "var(--text)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--border)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-section)")}
+                  style={{ background: "var(--bg-card)", border: "var(--bw) solid var(--text)", width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out)", color: "var(--text)" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--text)"; e.currentTarget.style.color = "var(--bg)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "var(--bg-card)"; e.currentTarget.style.color = "var(--text)"; }}
                 >
                   <X size={16} />
                 </button>
               </div>
 
-              {/* Description */}
               <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.8, marginBottom: 28 }}>
                 {project.description}
               </p>
 
-              {/* Bullet points */}
               <div style={{ marginBottom: 28 }}>
-                <h3 style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 16 }}>
-                  Key Features
+                <h3 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 16 }}>
+                  KEY FEATURES
                 </h3>
-                <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column" }}>
                   {project.points.map((pt, i) => (
-                    <li key={i} style={{ display: "flex", gap: 12, fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7 }}>
-                      <span style={{ width: 20, height: 20, borderRadius: "50%", background: `${project.color}15`, border: `1.5px solid ${project.color}40`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: project.color, display: "block" }} />
-                      </span>
+                    <li key={i} style={{ display: "flex", gap: 12, fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7, padding: "12px 0", borderTop: i === 0 ? "none" : "1.5px solid var(--border)" }}>
+                      <span style={{ color: "var(--accent)", fontWeight: 800, flexShrink: 0 }}>—</span>
                       {pt}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Collaborator */}
               {project.collaborator && (
                 <div style={{ marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontSize: 12, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase" }}>Built with</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.05em" }}>BUILT WITH</span>
                   <a href={project.collaborator.linkedin} target="_blank" rel="noopener noreferrer"
-                    style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}
-                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+                    style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", textDecoration: "none", borderBottom: "2px solid var(--accent)" }}
                   >
-                    {project.collaborator.name} ↗
+                    {project.collaborator.name} <ArrowUpRight size={13} style={{ display: "inline", verticalAlign: "-2px" }} />
                   </a>
                 </div>
               )}
 
-              {/* Tech stack */}
               <div style={{ marginBottom: 32 }}>
-                <h3 style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 12 }}>
-                  Tech Stack
+                <h3 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 12 }}>
+                  TECH STACK
                 </h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {project.tech.map((t) => (
-                    <span key={t} style={{ fontSize: 13, color: "var(--text-muted)", background: "var(--bg-section)", padding: "6px 14px", borderRadius: 3, border: "1px solid var(--border)", fontWeight: 500 }}>
-                      {t}
+                    <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text)", padding: "5px 12px", border: "1.5px solid var(--text)", fontWeight: 600 }}>
+                      {t.toUpperCase()}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Action buttons */}
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 {project.demo && (
                   <a href={project.demo} target="_blank" rel="noopener noreferrer"
-                    style={{ background: "var(--accent)", color: "#fff", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "opacity 0.2s" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                    style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "var(--bw) solid var(--text)", padding: "13px 24px", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "transform var(--dur-short) var(--ease-out)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translate(-2px,-2px)"; e.currentTarget.style.boxShadow = "4px 4px 0 0 var(--text)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}
                   >
-                    Live Demo <ArrowUpRight size={15} />
+                    LIVE DEMO <ArrowUpRight size={15} />
                   </a>
                 )}
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noopener noreferrer"
-                    style={project.demo
-                      ? { background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "all 0.2s" }
-                      : { background: "var(--text)", color: "var(--bg)", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "background 0.2s" }}
-                    onMouseEnter={(e) => { if (project.demo) { e.currentTarget.style.borderColor = "var(--text)"; } else { e.currentTarget.style.background = "var(--accent)"; e.currentTarget.style.color = "#fff"; } }}
-                    onMouseLeave={(e) => { if (project.demo) { e.currentTarget.style.borderColor = "var(--border)"; } else { e.currentTarget.style.background = ""; e.currentTarget.style.color = ""; } }}
+                    style={{ background: project.demo ? "var(--bg-card)" : "var(--text)", color: project.demo ? "var(--text)" : "var(--bg)", border: "var(--bw) solid var(--text)", padding: "13px 24px", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, textDecoration: "none", transition: "transform var(--dur-short) var(--ease-out)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translate(-2px,-2px)"; e.currentTarget.style.boxShadow = "4px 4px 0 0 var(--accent)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = ""; }}
                   >
-                    View on GitHub <ArrowUpRight size={15} />
+                    VIEW ON GITHUB <ArrowUpRight size={15} />
                   </a>
                 )}
                 <button onClick={onClose}
-                  style={{ background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "all 0.2s" }}
+                  style={{ background: "var(--bg-card)", color: "var(--text)", border: "var(--bw) solid var(--border)", padding: "13px 24px", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "border-color var(--dur-short) var(--ease-out)" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--text)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; }}
                 >
-                  Close
+                  CLOSE
                 </button>
               </div>
             </div>

@@ -11,50 +11,59 @@ export default function Footer() {
       .catch(() => {});
   }, []);
 
+  const links = ["About", "Skills", "Projects", "Experience", "Contact"];
+
   return (
-    <footer style={{ background: "var(--footer-bg)", padding: "48px 6%" }}>
-      <div className="footer-inner">
-        <div className="footer-brand">
-          <div style={{ fontSize: 28, fontWeight: 900, letterSpacing: "-1px", marginBottom: 4, color: "#fff" }}>
-            TV<span style={{ color: "var(--accent)" }}>.</span>
-          </div>
-          <p style={{ fontSize: 13, color: "var(--footer-text, #888)" }}>Full-Stack Developer · Ahmedabad, India</p>
-        </div>
-        <div className="footer-links">
-          {["About", "Skills", "Projects", "Experience", "Contact"].map((l) => (
-            <button key={l}
-              onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}
-              style={{ background: "none", border: "none", color: "var(--footer-text, #888)", cursor: "pointer", fontSize: 13, transition: "color 0.2s", whiteSpace: "nowrap" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--footer-text, #888)")}
-            >
-              {l}
+    <footer className="foot">
+      <div className="foot-top">
+        <span className="foot-mark">
+          TV<span style={{ color: "var(--accent)" }}>.</span>
+          <svg className="foot-mark-signal" width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden>
+            <rect x="0.5" y="8" width="3" height="5.5" fill="var(--accent)" />
+            <rect x="6.5" y="4.5" width="3" height="9" fill="var(--accent)" />
+            <rect x="12.5" y="0.5" width="3" height="13" fill="var(--accent)" />
+          </svg>
+        </span>
+        <nav aria-label="Footer" className="foot-links">
+          {links.map((l) => (
+            <button key={l} onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}>
+              {l.toUpperCase()}
             </button>
           ))}
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <p className="footer-copy">
-            © {new Date().getFullYear()} Tirth Vaghela · &quot;Dream it. Code it. Deploy it.&quot;
-          </p>
-          <p className="footer-visitor">
-            {visitors !== null
-              ? <>Visitor <span style={{ color: "var(--accent)", fontWeight: 700 }}>#{visitors}</span> — glad you stopped by! 👋</>
-              : "Thanks for visiting — glad you stopped by! "
-            }
-          </p>
-        </div>
+        </nav>
       </div>
+      <div className="foot-bottom">
+        <span>© {new Date().getFullYear()} TIRTH VAGHELA — AHMEDABAD, INDIA</span>
+        {visitors !== null && <span>VISITOR #{visitors}</span>}
+      </div>
+
       <style>{`
-        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
-        .footer-links { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-        .footer-copy { font-size: 12px; color: #888; }
-        .footer-visitor { font-size: 11px; color: #888; margin-top: 6px; }
-        @media (max-width: 768px) {
-          .footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
-          .footer-brand { text-align: center; }
-          .footer-links { justify-content: center; width: 100%; }
-          .footer-copy { text-align: center; }
-          .footer-visitor { text-align: center; }
+        .foot { background: var(--footer-bg); border-top: var(--bw-lg) solid var(--accent); padding: var(--space-xl) 5% var(--space-lg); }
+        .foot-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1.5px solid var(--footer-text); }
+        .foot-mark { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.01em; color: #fff; }
+        .foot-mark-signal { flex-shrink: 0; }
+        .foot-links { display: flex; gap: var(--space-lg); flex-wrap: wrap; }
+        .foot-links button {
+          position: relative; background: none; border: none; color: var(--footer-text); cursor: pointer;
+          font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+          transition: color var(--dur-short) var(--ease-out); min-height: 44px;
+        }
+        .foot-links button:hover { color: #fff; }
+        @media (hover: hover) and (pointer: fine) {
+          .foot-links button::after {
+            content: ""; position: absolute; left: 0; right: 0; bottom: 14px; height: 1.5px;
+            background: var(--accent); transform: scaleX(0); transform-origin: left center;
+            transition: transform var(--dur-short) var(--ease-out);
+          }
+          .foot-links button:hover::after { transform: scaleX(1); }
+        }
+        .foot-bottom {
+          display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+          margin-top: var(--space-lg); font-family: var(--font-mono); font-size: 11px; color: var(--footer-text); letter-spacing: 0.04em;
+        }
+        @media (max-width: 640px) {
+          .foot-top { flex-direction: column; align-items: flex-start; }
+          .foot-bottom { flex-direction: column; }
         }
       `}</style>
     </footer>

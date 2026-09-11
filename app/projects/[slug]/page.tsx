@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { projects } from "@/app/data";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FadeIn from "@/components/FadeIn";
+import { CategoryIcon } from "@/components/CategoryIcon";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -47,38 +49,38 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <Navbar />
-      <main>
-        <section style={{ background: "var(--bg-section)", padding: "120px 6% 100px", minHeight: "80vh" }}>
+      <main id="main-content">
+        <section style={{ background: "var(--bg-section)", padding: "var(--space-2xl) 6%", minHeight: "80vh" }}>
           <div style={{ maxWidth: 780, margin: "0 auto" }}>
             <Link
               href="/#projects"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--text-muted)", textDecoration: "none", marginBottom: 32 }}
+              className="back-link"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600, color: "var(--text-muted)", textDecoration: "none", marginBottom: 32 }}
             >
-              <ArrowLeft size={14} /> Back to Projects
+              <ArrowLeft size={14} /> BACK TO PROJECTS
             </Link>
 
-            <div style={{ background: "var(--bg-card)", border: "1.5px solid var(--border)", borderRadius: 8, overflow: "hidden" }}>
-              <div style={{ height: 5, background: `linear-gradient(90deg, ${project.color}, ${project.color}60)` }} />
-
+            <FadeIn>
+            <div style={{ background: "var(--bg-card)", border: "var(--bw) solid var(--text)", boxShadow: "10px 10px 0 0 var(--accent)" }}>
               <div style={{ padding: "clamp(24px, 5vw, 48px)" }}>
                 <span
                   style={{
-                    fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase",
-                    color: project.color, background: `${project.color}20`, padding: "3px 10px", borderRadius: 2,
+                    fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase",
+                    color: "var(--accent)", border: "1.5px solid var(--accent)", padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 6,
                   }}
                 >
+                  <CategoryIcon category={project.category} size={12} />
                   {project.category}
                 </span>
 
-                <h1 style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 900, color: "var(--text)", letterSpacing: "-1px", lineHeight: 1.1, marginTop: 12, marginBottom: 4 }}>
+                <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px, 5vw, 48px)", fontWeight: 800, textTransform: "uppercase", color: "var(--text)", letterSpacing: "-0.01em", lineHeight: 0.95, marginTop: 14, marginBottom: 6, overflowWrap: "anywhere" }}>
                   {project.title}
                 </h1>
-                <p style={{ fontSize: 15, color: project.color, fontWeight: 600 }}>{project.subtitle}</p>
+                <p style={{ fontSize: 15, color: "var(--text-muted)", fontWeight: 600 }}>{project.subtitle}</p>
 
                 {project.buildDays && (
-                  <div style={{ marginTop: 12, display: "inline-flex", alignItems: "center", gap: 6, background: "var(--bg-section)", border: "1px solid var(--border)", borderRadius: 100, padding: "4px 12px" }}>
-                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>⏱</span>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)" }}>Built in ~{project.buildDays} days</span>
+                  <div style={{ marginTop: 12, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", border: "1.5px solid var(--text)", padding: "4px 12px" }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>BUILT IN ~{project.buildDays} DAYS</span>
                   </div>
                 )}
 
@@ -87,15 +89,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </p>
 
                 <div style={{ marginBottom: 28 }}>
-                  <h2 style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 16 }}>
-                    Key Features
+                  <h2 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 16 }}>
+                    KEY FEATURES
                   </h2>
-                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column" }}>
                     {project.points.map((pt, i) => (
-                      <li key={i} style={{ display: "flex", gap: 12, fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7 }}>
-                        <span style={{ width: 20, height: 20, borderRadius: "50%", background: `${project.color}15`, border: `1.5px solid ${project.color}40`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-                          <span style={{ width: 6, height: 6, borderRadius: "50%", background: project.color, display: "block" }} />
-                        </span>
+                      <li key={i} style={{ display: "flex", gap: 12, fontSize: 14, color: "var(--text-muted)", lineHeight: 1.7, padding: "12px 0", borderTop: i === 0 ? "none" : "1.5px solid var(--border)" }}>
+                        <span style={{ color: "var(--accent)", fontWeight: 800, flexShrink: 0 }}>—</span>
                         {pt}
                       </li>
                     ))}
@@ -104,26 +104,26 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
                 {project.collaborator && (
                   <div style={{ marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{ fontSize: 12, color: "var(--text-faint)", letterSpacing: "1px", textTransform: "uppercase" }}>Built with</span>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.05em" }}>BUILT WITH</span>
                     <a
                       href={project.collaborator.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", textDecoration: "none" }}
+                      style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", textDecoration: "none", borderBottom: "2px solid var(--accent)" }}
                     >
-                      {project.collaborator.name} ↗
+                      {project.collaborator.name} <ArrowUpRight size={13} style={{ display: "inline", verticalAlign: "-2px" }} />
                     </a>
                   </div>
                 )}
 
                 <div style={{ marginBottom: 32 }}>
-                  <h2 style={{ fontSize: 12, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 12 }}>
-                    Tech Stack
+                  <h2 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 12 }}>
+                    TECH STACK
                   </h2>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                     {project.tech.map((t) => (
-                      <span key={t} style={{ fontSize: 13, color: "var(--text-muted)", background: "var(--bg-section)", padding: "6px 14px", borderRadius: 3, border: "1px solid var(--border)", fontWeight: 500 }}>
-                        {t}
+                      <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text)", padding: "5px 12px", border: "1.5px solid var(--text)", fontWeight: 600 }}>
+                        {t.toUpperCase()}
                       </span>
                     ))}
                   </div>
@@ -135,9 +135,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ background: "var(--accent)", color: "#fff", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+                      style={{ background: "var(--accent)", color: "var(--accent-ink)", border: "var(--bw) solid var(--text)", padding: "13px 24px", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
                     >
-                      Live Demo <ArrowUpRight size={15} />
+                      LIVE DEMO <ArrowUpRight size={15} />
                     </a>
                   )}
                   {project.github && (
@@ -145,26 +145,32 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={project.demo
-                        ? { background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }
-                        : { background: "var(--text)", color: "var(--bg)", border: "none", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+                      style={{ background: project.demo ? "var(--bg-card)" : "var(--text)", color: project.demo ? "var(--text)" : "var(--bg)", border: "var(--bw) solid var(--text)", padding: "13px 24px", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
                     >
-                      View on GitHub <ArrowUpRight size={15} />
+                      VIEW ON GITHUB <ArrowUpRight size={15} />
                     </a>
                   )}
                   <Link
                     href="/#projects"
-                    style={{ background: "transparent", color: "var(--text)", border: "1.5px solid var(--border)", padding: "13px 28px", borderRadius: 3, fontSize: 14, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+                    style={{ background: "var(--bg-card)", color: "var(--text)", border: "var(--bw) solid var(--border)", padding: "13px 24px", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em", display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
                   >
-                    Back to Projects
+                    BACK TO PROJECTS
                   </Link>
                 </div>
               </div>
             </div>
+            </FadeIn>
           </div>
         </section>
       </main>
       <Footer />
+
+      <style>{`
+        .back-link { transition: transform var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+        @media (hover: hover) and (pointer: fine) {
+          .back-link:hover { color: var(--text); transform: translateX(-3px); }
+        }
+      `}</style>
     </>
   );
 }

@@ -67,7 +67,6 @@ export const projects = [
     collaborator: { name: "Dhruv Sadrawala", linkedin: "https://www.linkedin.com/in/dhruv-sadrawala22/" },
     buildDays: 65,
     category: "AI / ML",
-    color: "#6366f1",
     featured: true,
   },
   {
@@ -82,7 +81,6 @@ export const projects = [
     collaborator: { name: "Dhruv Sadrawala", linkedin: "https://www.linkedin.com/in/dhruv-sadrawala22/" },
     buildDays: 40,
     category: "Web",
-    color: "#10b981",
     featured: true,
   },
   {
@@ -96,7 +94,6 @@ export const projects = [
     github: "https://github.com/Tirthvaghela/FreshValut",
     buildDays: 25,
     category: "Web",
-    color: "#f59e0b",
     featured: false,
   },
   {
@@ -110,7 +107,6 @@ export const projects = [
     github: "https://github.com/Tirthvaghela/Vois",
     buildDays: 32,
     category: "Full-Stack",
-    color: "#ec4899",
     featured: true,
   },
   {
@@ -125,7 +121,6 @@ export const projects = [
     collaborator: { name: "Dhruv Sadrawala", linkedin: "https://www.linkedin.com/in/dhruv-sadrawala22/" },
     buildDays: 45,
     category: "Mobile",
-    color: "#3b82f6",
     featured: false,
   },
   {
@@ -140,7 +135,6 @@ export const projects = [
     collaborator: { name: "Dhruv Sadrawala", linkedin: "https://www.linkedin.com/in/dhruv-sadrawala22/" },
     buildDays: 22,
     category: "AI / ML",
-    color: "#ef4444",
     featured: true,
   },
   {
@@ -155,7 +149,6 @@ export const projects = [
     collaborator: { name: "Dhruv Sadrawala", linkedin: "https://www.linkedin.com/in/dhruv-sadrawala22/" },
     buildDays: 14,
     category: "AI / ML",
-    color: "#8b5cf6",
     featured: false,
   },
   {
@@ -170,7 +163,6 @@ export const projects = [
     collaborator: { name: "Dhruv Sadrawala", linkedin: "https://www.linkedin.com/in/dhruv-sadrawala22/" },
     buildDays: 38,
     category: "Full-Stack",
-    color: "#06b6d4",
     featured: false,
   },
   {
@@ -189,23 +181,36 @@ export const projects = [
     github: "https://github.com/Tirthvaghela/GlsUni_mob_prototype",
     demo: "https://gls-uni-mob-prototype.vercel.app",
     category: "Web",
-    color: "#14b8a6",
     featured: false,
   },
 ];
 
-export const upcomingProject = {
-  title: "VoiceForm AI",
-  subtitle: "Multilingual Voice-to-Form Accessibility Engine",
-  description:
-    "Point your camera at any paper form. VoiceForm reads its exact layout, holds a real voice conversation with you in Gujarati, Hindi, or English, and hands back a print-ready PDF filled in perfectly — no typing, no OCR guesswork.",
-  teasers: [
-    "Understands arbitrary form layouts — not OCR guesswork, actual document structure.",
-    "Holds a real multilingual voice conversation to collect every answer, field by field.",
-    "Writes responses back onto the original PDF — pixel-perfect, box by box, font-matched.",
-  ],
-  tech: ["FastAPI", "PaddleOCR", "Whisper", "Gemini", "MongoDB", "Next.js"],
-  category: "AI / ML",
-  status: "Coming Soon",
-  teaserLine: "You talk. It listens. And then...",
-};
+export const upcomingProjects = [
+  {
+    title: "VoiceForm AI",
+    subtitle: "Multilingual Voice-to-Form Accessibility Engine",
+    description:
+      "Point your camera at any paper form. VoiceForm reads its exact layout, holds a real voice conversation with you in Gujarati, Hindi, or English, and hands back a print-ready PDF filled in perfectly — no typing, no OCR guesswork.",
+    teasers: [
+      "Understands arbitrary form layouts — not OCR guesswork, actual document structure.",
+      "Holds a real multilingual voice conversation to collect every answer, field by field.",
+      "Writes responses back onto the original PDF — pixel-perfect, box by box, font-matched.",
+    ],
+    tech: ["FastAPI", "PaddleOCR", "Whisper", "Gemini", "MongoDB", "Next.js"],
+    category: "AI / ML",
+    status: "Coming Soon",
+    teaserLine: "You talk. It listens. And then...",
+  },
+  {
+    title: "ProjectMind AI",
+    category: "AI / ML",
+    status: "Coming Soon",
+    teaserLine: "Turn ideas into projects.",
+  },
+  {
+    title: "FileFlow",
+    category: "Full-Stack",
+    status: "Coming Soon",
+    teaserLine: "Your files. On autopilot.",
+  },
+];

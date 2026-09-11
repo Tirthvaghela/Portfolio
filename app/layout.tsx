@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Space_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Geist, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/context/ThemeContext";
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space", display: "swap" });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["300", "400", "600", "800"], variable: "--font-bricolage", display: "swap" });
+const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-geist", display: "swap" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono-jb", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Tirth Vaghela | Full-Stack Developer",
@@ -81,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           })();
         ` }} />
       </head>
-      <body className={spaceGrotesk.variable} style={{ fontFamily: "var(--font-space), sans-serif" }}><ThemeProvider>{children}</ThemeProvider><Analytics /></body>
+      <body className={`${bricolage.variable} ${geist.variable} ${jetbrainsMono.variable}`}><ThemeProvider>{children}</ThemeProvider><Analytics /></body>
     </html>
   );
 }
