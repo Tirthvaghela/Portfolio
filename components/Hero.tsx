@@ -120,7 +120,7 @@ export default function Hero() {
         .hero-art svg { width: 100%; max-width: 340px; height: auto; }
         .tag {
           display: inline-flex; align-items: center; gap: 8px;
-          font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+          font-family: var(--font-mono-face); font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
           border: 1.5px solid var(--text); padding: 5px 12px; color: var(--text-muted);
         }
         .hero-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: var(--space-lg); }
@@ -145,7 +145,7 @@ export default function Hero() {
           transform-origin: left center; display: block;
         }
         .hero-role { font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 2.4vw, 26px); letter-spacing: -0.01em; color: var(--text); }
-        .hero-stack { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; }
+        .hero-stack { font-family: var(--font-mono-face); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; }
         .hero-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 56ch; margin-bottom: var(--space-xl); }
         .hero-actions { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }
         .btn-solid {
@@ -178,7 +178,7 @@ export default function Hero() {
         .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: var(--bw) solid var(--text); }
         .hero-stat { padding: var(--space-lg) 5%; border-left: var(--bw) solid var(--text); transition: background-color var(--dur-med) var(--ease-out); }
         .hero-stat:first-child { border-left: none; }
-        .hero-stat-num { font-family: var(--font-mono); font-size: clamp(26px, 3.4vw, 42px); font-weight: 500; color: var(--text); line-height: 1; }
+        .hero-stat-num { font-family: var(--font-mono-face); font-size: clamp(26px, 3.4vw, 42px); font-weight: 500; color: var(--text); line-height: 1; }
         .hero-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
         @media (hover: hover) and (pointer: fine) {
           .hero-stat:hover { background: var(--bg-alt); }

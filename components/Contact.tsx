@@ -106,7 +106,7 @@ export default function Contact() {
               <textarea rows={6} placeholder="Tell me about your project... (min 20 characters)" value={form.message} onChange={(e) => { setForm({ ...form, message: e.target.value }); setErrors({ ...errors, message: "" }); }} style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "var(--danger)" : "var(--border)" }} onFocus={(e) => (e.target.style.borderColor = errors.message ? "var(--danger)" : "var(--text)")} onBlur={(e) => (e.target.style.borderColor = errors.message ? "var(--danger)" : "var(--border)")} />
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
                 {errors.message ? <p className="field-error">{errors.message}</p> : <span />}
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: form.message.length >= 20 ? "var(--accent)" : "var(--text-faint)" }}>{form.message.length}/20</span>
+                <span style={{ fontFamily: "var(--font-mono-face)", fontSize: 11, color: form.message.length >= 20 ? "var(--accent)" : "var(--text-faint)" }}>{form.message.length}/20</span>
               </div>
             </div>
             <button type="submit" disabled={status === "sending"} className="send-btn" data-status={status}>
@@ -137,7 +137,7 @@ export default function Contact() {
         }
         .contact-panel-form { padding: var(--space-2xl); display: flex; flex-direction: column; gap: 16px; }
 
-        .contact-row-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.08em; margin-bottom: 10px; }
+        .contact-row-label { font-family: var(--font-mono-face); font-size: 11px; color: var(--text-faint); letter-spacing: 0.08em; margin-bottom: 10px; }
         .contact-email-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .contact-email-big {
           font-family: var(--font-display); font-weight: 800; letter-spacing: -0.01em;
@@ -172,7 +172,7 @@ export default function Contact() {
         .contact-social:active { transform: translate(0, 0); box-shadow: none; }
 
         .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .field-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing: 0.05em; display: block; margin-bottom: 8px; }
+        .field-label { font-family: var(--font-mono-face); font-size: 11px; color: var(--text-faint); letter-spacing: 0.05em; display: block; margin-bottom: 8px; }
         .field-error { font-size: 11px; color: var(--danger); margin-top: 4px; }
         .send-btn {
           border: var(--bw) solid var(--text) !important; padding: 16px 32px; font-family: var(--font-display); font-size: 14px; font-weight: 700;

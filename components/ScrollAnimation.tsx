@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { completeIntro } from "@/lib/introSignal";
+import { WordRotate } from "@/components/ui/word-rotate";
+import { Highlighter } from "@/components/ui/highlighter";
+
+/** Welcome (English) → Hindi → Gujarati → four more scripts, in that order. */
+const GREETING_WORDS = ["Welcome", "नमस्ते", "સુસ્વાગતમ્", "Bonjour", "Hola", "Ciao", "こんにちは", "안녕하세요"];
 
 const FRAME_COUNT = 240;
 const SCROLL_VH = 500;
@@ -19,7 +24,7 @@ const smoothstep = (t: number) => t * t * (3 - 2 * t);
 export default function ScrollAnimation() {
   const spacerRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const hintRef = useRef<HTMLDivElement>(null);
+  const greetingRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef(0);
@@ -42,11 +47,21 @@ export default function ScrollAnimation() {
     const cw = canvas.width;
     const ch = canvas.height;
     // The mobile set is a clean 9:16 shoot, but real phone screens run taller than
-    // that (~19.5:9), so cover-fit would still crop the logo's sides — contain
+    // that (~19.5:9), so pure cover-fit would crop the logo's sides — contain
     // guarantees it's fully visible there. Desktop's source matches its viewports
     // closely enough that edge-to-edge cover is the better look.
+    //
+    // Pure contain leaves a visibly large empty margin (~9% of viewport height per
+    // side at typical phone widths), because contain sizes for the frame's own
+    // rectangle, not the logo drawn inside it — and measuring the actual pixels
+    // across all 240 mobile frames, the logo itself never exceeds 88% of the
+    // frame's width or 50.3% of its height. That means the true safe scale (where
+    // the *logo*, not the frame, would just touch an edge) is contain-scale * 1.13,
+    // not contain-scale * 1.0. MOBILE_SAFE_ZOOM uses 1.08 to fill most of that
+    // headroom while keeping a buffer for measurement/anti-aliasing slack.
+    const MOBILE_SAFE_ZOOM = 1.08;
     const scale = isMobileRef.current
-      ? Math.min(cw / img.naturalWidth, ch / img.naturalHeight)
+      ? Math.min(cw / img.naturalWidth, ch / img.naturalHeight) * MOBILE_SAFE_ZOOM
       : Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const dw = img.naturalWidth * scale;
     const dh = img.naturalHeight * scale;
@@ -65,8 +80,21 @@ export default function ScrollAnimation() {
       draw(index);
     }
 
-    const hintFade = 1 - clamp01((frameProgress - 0.92) / 0.08);
-    if (hintRef.current) hintRef.current.style.opacity = String(hintFade);
+    // The first ~10 frames are genuinely blank (the logo hasn't animated in yet —
+    // motion-blurred fragments only start appearing around frameProgress 0.06), so
+    // there's a short, real window to greet before anything else is on screen. Fully
+    // visible from the very start (progress 0) — no fade-in ramp, since a delayed
+    // appearance would mean the greeting isn't there for the first instant of scroll.
+    const greetingFade = 1 - clamp01((frameProgress - 0.02) / 0.025);
+    if (greetingRef.current) {
+      greetingRef.current.style.opacity = String(greetingFade);
+      // A scroll-driven scale-in (not a timed animation) gives the block real physical
+      // weight on entry instead of just a flat fade, matching the same directness as
+      // everything else this intro does — snap to the current scroll position, no easing
+      // that runs on its own once you stop scrolling.
+      const scale = 0.8 + 0.2 * greetingFade;
+      greetingRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
 
     const revealRaw = clamp01((progress - FRAME_PHASE) / (1 - FRAME_PHASE));
     const revealFade = 1 - smoothstep(revealRaw);
@@ -166,8 +194,14 @@ export default function ScrollAnimation() {
       {!skip && (
         <div ref={overlayRef} className="intro-overlay" aria-hidden="true">
           <canvas ref={canvasRef} className={`intro-canvas ${ready ? "is-ready" : ""}`} />
-          <div ref={hintRef} className="intro-scroll-hint">
-            <span>Scroll</span>
+          <div ref={greetingRef} className="intro-greeting">
+            <WordRotate words={GREETING_WORDS} duration={2400} className="intro-greeting-word" />
+            <p className="intro-greeting-hint">
+              Please{" "}
+              <Highlighter action="underline" color="#2563EB" strokeWidth={1.5} animationDuration={700} iterations={1} padding={2} isView>
+                scroll down
+              </Highlighter>
+            </p>
           </div>
         </div>
       )}
@@ -178,29 +212,38 @@ export default function ScrollAnimation() {
           height: 100vh; height: 100svh;
           z-index: 9999;
           display: flex; align-items: center; justify-content: center;
-          background: var(--bg); overflow: hidden;
+          /* Matches the frame footage's own baked-in background exactly (not var(--bg),
+             which is close but not identical) so the canvas's transparent letterbox
+             margin is invisible against the drawn frame instead of showing a seam. */
+          background: #e8e6e7; overflow: hidden;
         }
         .intro-canvas {
           width: 100%; height: 100%; display: block;
           opacity: 0; transition: opacity 0.6s var(--ease-out);
         }
         .intro-canvas.is-ready { opacity: 1; }
-        .intro-scroll-hint {
-          position: absolute; left: 50%; bottom: var(--space-xl);
-          transform: translateX(-50%);
+        .intro-greeting {
+          position: absolute; left: 50%; top: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          display: flex; flex-direction: column; align-items: center; gap: var(--space-md);
         }
-        .intro-scroll-hint span {
-          display: block;
-          font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-          letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted);
-          animation: intro-hint-in 0.6s var(--ease-out) both;
+        .intro-greeting-word {
+          display: inline-block;
+          font-family: var(--font-mono-face); font-weight: 700; text-transform: uppercase;
+          font-size: clamp(2.4rem, 14vw, 5rem); letter-spacing: -0.01em; line-height: 0.95;
+          background: var(--accent); color: var(--accent-ink);
+          padding: 0.05em 0.3em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+          box-shadow: 8px 8px 0 0 var(--text);
         }
-        @keyframes intro-hint-in {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .intro-scroll-hint span { animation: none; opacity: 1; }
+        .intro-greeting-hint {
+          /* rough-notation positions its underline SVG absolutely relative to the
+             nearest positioned ancestor of the annotated span — without this, it
+             falls back to .intro-greeting further up the tree and lands offset. */
+          position: relative;
+          display: block; white-space: nowrap;
+          font-family: var(--font-mono-face); font-size: 12px; font-weight: 500;
+          letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
         }
       `}</style>
     </>

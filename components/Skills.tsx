@@ -44,7 +44,7 @@ export default function Skills() {
           transition: border-left-color var(--dur-med) var(--ease-out), background-color var(--dur-med) var(--ease-out);
         }
         .skill-row-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-        .skill-num { font-family: var(--font-mono); font-size: 14px; color: var(--accent); font-weight: 700; white-space: nowrap; transition: transform var(--dur-med) var(--ease-out); display: inline-block; }
+        .skill-num { font-family: var(--font-mono-face); font-size: 14px; color: var(--accent); font-weight: 700; white-space: nowrap; transition: transform var(--dur-med) var(--ease-out); display: inline-block; }
         .skill-cat { font-family: var(--font-display); font-weight: 800; font-size: clamp(18px, 2vw, 24px); letter-spacing: -0.01em; color: var(--text); transition: transform var(--dur-med) var(--ease-out); display: inline-block; }
         .skill-items { display: flex; flex-wrap: wrap; gap: 10px 22px; }
         .skill-item { font-family: var(--font-display); font-weight: 600; font-size: clamp(14px, 1.4vw, 17px); color: var(--text-muted); letter-spacing: 0.01em; transition: color var(--dur-med) var(--ease-out); }

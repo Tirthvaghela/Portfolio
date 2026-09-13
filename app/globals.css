@@ -33,7 +33,7 @@ html { scroll-behavior: smooth; overflow-x: clip; }
   /* type — 2+1, no blending with the prior system */
   --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
   --font-body: var(--font-geist), "Geist", system-ui, sans-serif;
-  --font-mono: var(--font-mono-jb), "JetBrains Mono", ui-monospace, monospace;
+  --font-mono-face: var(--font-mono-jb), "JetBrains Mono", ui-monospace, monospace;
 
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;
@@ -132,3 +132,27 @@ a, button {
     scroll-behavior: auto !important;
   }
 }
+
+/* Script-specific type: only applied to the Hindi/Gujarati words in the intro's
+   multilingual greeting, never to Latin text or the site's own type system. */
+@font-face {
+  font-family: "AMS Kashi";
+  src: url("/ams-kashi.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  /* The font file's own internal ascent metric is wildly oversized (its glyphs
+     render correctly, but the browser's line-box for it balloons well past every
+     other font at the same font-size/line-height) — override it back to a normal
+     ratio instead of patching the font file itself. */
+  ascent-override: 80%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "KAP041";
+  src: url("/kap041.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+.font-script-hi { font-family: "AMS Kashi", "Noto Sans Devanagari", sans-serif; }
+.font-script-gu { font-family: "KAP041", "Noto Sans Gujarati", sans-serif; }

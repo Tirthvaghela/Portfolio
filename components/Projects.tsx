@@ -149,7 +149,7 @@ export default function Projects() {
           .project-row:hover .project-num { transform: translateX(4px); }
           .project-row:hover .project-title { transform: translateX(6px); }
         }
-        .project-num { font-family: var(--font-mono); font-size: clamp(48px, 6vw, 88px); font-weight: 500; line-height: 0.8; color: var(--accent); transition: transform var(--dur-med) var(--ease-out); }
+        .project-num { font-family: var(--font-mono-face); font-size: clamp(48px, 6vw, 88px); font-weight: 500; line-height: 0.8; color: var(--accent); transition: transform var(--dur-med) var(--ease-out); }
         .project-body { min-width: 0; }
         .project-head { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-sm); }
         .project-title {
@@ -159,14 +159,14 @@ export default function Projects() {
         }
         .project-cat {
           display: inline-flex; align-items: center; gap: 5px;
-          font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+          font-family: var(--font-mono-face); font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
           border: 1.5px solid currentColor; padding: 3px 10px;
         }
         .project-cat--status { color: var(--accent); border-color: var(--accent); text-transform: uppercase; transition: background-color var(--dur-med) var(--ease-out), color var(--dur-med) var(--ease-out); }
         .project-arrow { margin-left: auto; flex-shrink: 0; transition: transform var(--dur-med) var(--ease-out); }
         .project-desc { font-size: 15px; line-height: 1.7; color: var(--text-muted); margin-bottom: var(--space-md); max-width: 70ch; transition: color var(--dur-short) var(--ease-out); }
         .project-tech { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tech-tag { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); border: 1px solid var(--text-muted); padding: 3px 9px; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+        .tech-tag { font-family: var(--font-mono-face); font-size: 11px; color: var(--text-muted); border: 1px solid var(--text-muted); padding: 3px 9px; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
 
         .teaser-grid {
           display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -190,7 +190,7 @@ export default function Projects() {
         }
         .teaser-status {
           display: inline-flex; align-items: center; gap: 5px;
-          font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+          font-family: var(--font-mono-face); font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
           text-transform: uppercase; color: var(--accent); border: 1.5px solid var(--accent); padding: 3px 10px;
           transition: background-color var(--dur-med) var(--ease-out), color var(--dur-med) var(--ease-out);
         }

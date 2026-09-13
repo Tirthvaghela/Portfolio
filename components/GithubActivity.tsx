@@ -100,7 +100,7 @@ export default function GithubActivity({ username }: { username: string }) {
   return (
     <div>
       {total !== null && (
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "var(--text-muted)", marginBottom: 10 }}>
+        <p style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, fontWeight: 600, color: "var(--text-muted)", marginBottom: 10 }}>
           {total.toLocaleString()} CONTRIBUTIONS IN THE LAST YEAR
         </p>
       )}

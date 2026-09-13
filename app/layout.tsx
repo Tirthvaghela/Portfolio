@@ -62,7 +62,7 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${bricolage.variable} ${geist.variable} ${jetbrainsMono.variable}`}>
       <head>
         <meta property="og:image" content="https://tirthvaghela.in/opengraph-image" />
         <meta property="og:image:width" content="1200" />
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           })();
         ` }} />
       </head>
-      <body className={`${bricolage.variable} ${geist.variable} ${jetbrainsMono.variable}`}><ThemeProvider>{children}</ThemeProvider><Analytics /></body>
+      <body><ThemeProvider>{children}</ThemeProvider><Analytics /></body>
     </html>
   );
 }

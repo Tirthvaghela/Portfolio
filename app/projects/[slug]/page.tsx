@@ -55,7 +55,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <Link
               href="/#projects"
               className="back-link"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600, color: "var(--text-muted)", textDecoration: "none", marginBottom: 32 }}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono-face)", fontSize: 13, fontWeight: 600, color: "var(--text-muted)", textDecoration: "none", marginBottom: 32 }}
             >
               <ArrowLeft size={14} /> BACK TO PROJECTS
             </Link>
@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <div style={{ padding: "clamp(24px, 5vw, 48px)" }}>
                 <span
                   style={{
-                    fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase",
+                    fontFamily: "var(--font-mono-face)", fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase",
                     color: "var(--accent)", border: "1.5px solid var(--accent)", padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 6,
                   }}
                 >
@@ -79,7 +79,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <p style={{ fontSize: 15, color: "var(--text-muted)", fontWeight: 600 }}>{project.subtitle}</p>
 
                 {project.buildDays && (
-                  <div style={{ marginTop: 12, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", border: "1.5px solid var(--text)", padding: "4px 12px" }}>
+                  <div style={{ marginTop: 12, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono-face)", border: "1.5px solid var(--text)", padding: "4px 12px" }}>
                     <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>BUILT IN ~{project.buildDays} DAYS</span>
                   </div>
                 )}
@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </p>
 
                 <div style={{ marginBottom: 28 }}>
-                  <h2 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 16 }}>
+                  <h2 style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 16 }}>
                     KEY FEATURES
                   </h2>
                   <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column" }}>
@@ -104,7 +104,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
                 {project.collaborator && (
                   <div style={{ marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.05em" }}>BUILT WITH</span>
+                    <span style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.05em" }}>BUILT WITH</span>
                     <a
                       href={project.collaborator.linkedin}
                       target="_blank"
@@ -117,12 +117,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 )}
 
                 <div style={{ marginBottom: 32 }}>
-                  <h2 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 12 }}>
+                  <h2 style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 12 }}>
                     TECH STACK
                   </h2>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                     {project.tech.map((t) => (
-                      <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text)", padding: "5px 12px", border: "1.5px solid var(--text)", fontWeight: 600 }}>
+                      <span key={t} style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, color: "var(--text)", padding: "5px 12px", border: "1.5px solid var(--text)", fontWeight: 600 }}>
                         {t.toUpperCase()}
                       </span>
                     ))}

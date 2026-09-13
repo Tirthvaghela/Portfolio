@@ -65,7 +65,7 @@ export default function About() {
           transition: border-color var(--dur-med) var(--ease-out), background-color var(--dur-med) var(--ease-out);
         }
         .about-meta-icon { color: var(--accent); flex-shrink: 0; display: flex; transition: transform var(--dur-med) var(--ease-out); }
-        .about-meta-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; min-width: 90px; }
+        .about-meta-label { font-family: var(--font-mono-face); font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; min-width: 90px; }
         .about-meta-value { font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none; display: inline-block; transition: transform var(--dur-med) var(--ease-out), color var(--dur-med) var(--ease-out); }
         @media (hover: hover) and (pointer: fine) {
           .about-meta-row:hover { border-color: var(--accent); background: var(--bg-alt); }
@@ -74,7 +74,7 @@ export default function About() {
         }
         .github-box { border: var(--bw) solid var(--text); background: var(--bg-card); padding: var(--space-lg); }
         .github-box-head { display: flex; align-items: center; gap: 8px; color: var(--text-muted); margin-bottom: var(--space-md); }
-        .github-label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--text-muted); }
+        .github-label { font-family: var(--font-mono-face); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--text-muted); }
         .github-live-dot { width: 6px; height: 6px; background: var(--positive); margin-left: auto; flex-shrink: 0; }
         .github-link {
           display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-md);

@@ -45,7 +45,7 @@ export default function Footer() {
         .foot-links { display: flex; gap: var(--space-lg); flex-wrap: wrap; }
         .foot-links button {
           position: relative; background: none; border: none; color: var(--footer-text); cursor: pointer;
-          font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+          font-family: var(--font-mono-face); font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
           transition: color var(--dur-short) var(--ease-out); min-height: 44px;
         }
         .foot-links button:hover { color: #fff; }
@@ -59,7 +59,7 @@ export default function Footer() {
         }
         .foot-bottom {
           display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-          margin-top: var(--space-lg); font-family: var(--font-mono); font-size: 11px; color: var(--footer-text); letter-spacing: 0.04em;
+          margin-top: var(--space-lg); font-family: var(--font-mono-face); font-size: 11px; color: var(--footer-text); letter-spacing: 0.04em;
         }
         @media (max-width: 640px) {
           .foot-top { flex-direction: column; align-items: center; text-align: center; }

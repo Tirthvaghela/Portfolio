@@ -109,7 +109,7 @@ export default function ProjectModal({ project, onClose }: Props) {
             <div style={{ padding: "clamp(20px, 5vw, 40px)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24, gap: 16 }}>
                 <div style={{ minWidth: 0 }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", color: "var(--accent)", border: "1.5px solid var(--accent)", padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+                  <span style={{ fontFamily: "var(--font-mono-face)", fontSize: 11, fontWeight: 700, letterSpacing: "0.05em", color: "var(--accent)", border: "1.5px solid var(--accent)", padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
                     <CategoryIcon category={project.category} size={12} />
                     {project.category.toUpperCase()}
                   </span>
@@ -118,7 +118,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                   </h2>
                   <p style={{ fontSize: 14, color: "var(--text-muted)", fontWeight: 600 }}>{project.subtitle}</p>
                   {project.buildDays && (
-                    <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono)", border: "1.5px solid var(--text)", padding: "4px 12px" }}>
+                    <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-mono-face)", border: "1.5px solid var(--text)", padding: "4px 12px" }}>
                       <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>BUILT IN ~{project.buildDays} DAYS</span>
                     </div>
                   )}
@@ -140,7 +140,7 @@ export default function ProjectModal({ project, onClose }: Props) {
               </p>
 
               <div style={{ marginBottom: 28 }}>
-                <h3 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 16 }}>
+                <h3 style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 16 }}>
                   KEY FEATURES
                 </h3>
                 <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column" }}>
@@ -155,7 +155,7 @@ export default function ProjectModal({ project, onClose }: Props) {
 
               {project.collaborator && (
                 <div style={{ marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.05em" }}>BUILT WITH</span>
+                  <span style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.05em" }}>BUILT WITH</span>
                   <a href={project.collaborator.linkedin} target="_blank" rel="noopener noreferrer"
                     style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", textDecoration: "none", borderBottom: "2px solid var(--accent)" }}
                   >
@@ -165,12 +165,12 @@ export default function ProjectModal({ project, onClose }: Props) {
               )}
 
               <div style={{ marginBottom: 32 }}>
-                <h3 style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 12 }}>
+                <h3 style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: "var(--text-faint)", marginBottom: 12 }}>
                   TECH STACK
                 </h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {project.tech.map((t) => (
-                    <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--text)", padding: "5px 12px", border: "1.5px solid var(--text)", fontWeight: 600 }}>
+                    <span key={t} style={{ fontFamily: "var(--font-mono-face)", fontSize: 12, color: "var(--text)", padding: "5px 12px", border: "1.5px solid var(--text)", fontWeight: 600 }}>
                       {t.toUpperCase()}
                     </span>
                   ))}
