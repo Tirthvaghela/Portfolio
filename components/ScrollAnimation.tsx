@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
-import { completeIntro } from "@/lib/introSignal";
+import { completeIntro, onIntroComplete } from "@/lib/introSignal";
 import { WordRotate } from "@/components/ui/word-rotate";
 import { Highlighter } from "@/components/ui/highlighter";
 
@@ -178,6 +178,23 @@ export default function ScrollAnimation() {
     return () => mq.removeEventListener("change", apply);
   }, []);
 
+  // Belt-and-suspenders for mobile Chrome/Safari: their address bar animates in/out
+  // during a scroll gesture, and the fixed overlay's layout can lag a frame or two
+  // behind that live viewport change, briefly exposing real page background at the
+  // edge. Matching body's own background to the overlay's for the intro's duration
+  // means that gap — even if it can't be fully eliminated — is invisible either way.
+  useEffect(() => {
+    if (skip) return;
+    document.body.style.backgroundColor = "#e8e6e7";
+    const unsubscribe = onIntroComplete(() => {
+      document.body.style.backgroundColor = "";
+    });
+    return () => {
+      unsubscribe();
+      document.body.style.backgroundColor = "";
+    };
+  }, [skip]);
+
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     if (!skip) applyProgress(progress);
   });
@@ -208,8 +225,11 @@ export default function ScrollAnimation() {
 
       <style>{`
         .intro-overlay {
-          position: fixed; top: 0; left: 0; width: 100vw;
-          height: 100vh; height: 100svh;
+          /* inset:0 (not width/height:100vw/vh) so this always fills whatever the
+             browser's CURRENT visible viewport is — mobile browsers resize that as
+             their toolbar shows/hides mid-scroll, and a fixed vh/svh value doesn't
+             track that live, leaving a strip of the page's own --bg exposed below. */
+          position: fixed; inset: 0;
           z-index: 9999;
           display: flex; align-items: center; justify-content: center;
           /* Matches the frame footage's own baked-in background exactly (not var(--bg),
