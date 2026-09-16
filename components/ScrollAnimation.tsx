@@ -16,7 +16,7 @@ const FRAME_PHASE = 0.8;
 
 /** Desktop frames are 16:9; mobile frames are a separate 9:16-shot set so neither needs cropping. */
 const framePath = (i: number, mobile: boolean) =>
-  `/${mobile ? "intro-sequence-mobile" : "intro-sequence"}/frame-${String(i).padStart(3, "0")}.jpg`;
+  `/${mobile ? "intro-sequence-mobile" : "intro-sequence"}/frame-${String(i).padStart(3, "0")}.webp`;
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 /** Symmetric ease — makes the crossfade read as gradual instead of front-loaded like a UI-snap curve would. */
 const smoothstep = (t: number) => t * t * (3 - 2 * t);
