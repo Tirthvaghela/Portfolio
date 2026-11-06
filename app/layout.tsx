@@ -1,89 +1,65 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Bricolage_Grotesque, Geist, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { ThemeProvider } from "@/context/ThemeContext";
+import { bricolage, instrument, jetbrains } from "./fonts";
+import { MOTION_KEY, SITE } from "@/content/site";
 
-const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["300", "400", "600", "800"], variable: "--font-bricolage", display: "swap" });
-const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-geist", display: "swap" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono-jb", display: "swap" });
+const DESCRIPTION =
+  "Portfolio of Tirth Vaghela – Full-Stack Developer specializing in React, Next.js, Django, Flask, and AI/ML integrations.";
 
 export const metadata: Metadata = {
   title: "Tirth Vaghela | Full-Stack Developer",
-  description:
-    "Portfolio of Tirth Vaghela – Full-Stack Developer specializing in React, Next.js, Django, Flask, and AI/ML integrations.",
-  keywords: ["Tirth Vaghela", "Full-Stack Developer", "React", "Next.js", "Django", "Flask", "AI", "ML", "Portfolio"],
-  authors: [{ name: "Tirth Vaghela" }],
-  metadataBase: new URL("https://tirthvaghela.in"),
+  description: DESCRIPTION,
+  metadataBase: new URL(SITE.url),
+  alternates: { canonical: SITE.url },
+  authors: [{ name: SITE.name }],
   openGraph: {
     title: "Tirth Vaghela | Full-Stack Developer",
-    description: "IMSC IT student (Sem 9) at GLS University. Building modern web apps and AI-powered systems using React, Next.js, Django, Flask, and more.",
-    url: "https://tirthvaghela.in",
+    description: DESCRIPTION,
+    url: SITE.url,
     siteName: "Tirth Vaghela Portfolio",
-    images: [
-      {
-        url: "https://tirthvaghela.in/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Tirth Vaghela – Full-Stack Developer",
-      },
-    ],
+    images: [{ url: `${SITE.url}/opengraph-image`, width: 1200, height: 630, alt: "Tirth Vaghela – Full-Stack Developer" }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Tirth Vaghela | Full-Stack Developer",
-    description: "IMSC IT student at GLS University. Building modern web apps and AI-powered systems.",
-    images: ["https://tirthvaghela.in/opengraph-image"],
+    description: DESCRIPTION,
+    images: [`${SITE.url}/opengraph-image`],
   },
 };
+
+export const viewport: Viewport = { themeColor: "#14120f", width: "device-width", initialScale: 1 };
 
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Tirth Vaghela",
-  url: "https://tirthvaghela.in",
+  name: SITE.name,
+  url: SITE.url,
   jobTitle: "Full-Stack Developer",
-  email: "mailto:vaghelatirth719@gmail.com",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Ahmedabad",
-    addressRegion: "Gujarat",
-    addressCountry: "IN",
-  },
-  sameAs: ["https://github.com/Tirthvaghela", "https://www.linkedin.com/in/tirthvaghela/"],
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "GLS University",
-  },
+  email: `mailto:${SITE.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Ahmedabad", addressRegion: "Gujarat", addressCountry: "IN" },
+  sameAs: [SITE.github, SITE.linkedin],
+  alumniOf: { "@type": "CollegeOrUniversity", name: "GLS University" },
   knowsAbout: ["React", "Next.js", "Django", "Flask", "Python", "TypeScript", "AI/ML"],
 };
 
+/* Runs before paint: decides motion on/off so CSS (hero height, pinned reel layout)
+   is correct on the very first frame — no layout shift once React hydrates. */
+const motionBoot = `(function(){try{var s=localStorage.getItem('${MOTION_KEY}');var on=s?s==='on':!matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',on?'on':'off');if(on)document.documentElement.setAttribute('data-loading','');}catch(e){document.documentElement.setAttribute('data-motion','on');}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${bricolage.variable} ${geist.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable}`}>
       <head>
-        <meta property="og:image" content="https://tirthvaghela.in/opengraph-image" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:image" content="https://tirthvaghela.in/opengraph-image" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <script dangerouslySetInnerHTML={{ __html: motionBoot }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function() {
-            try {
-              const saved = localStorage.getItem('theme');
-              if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-              } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-              }
-            } catch (e) {}
-          })();
-        ` }} />
       </head>
-      <body><ThemeProvider>{children}</ThemeProvider><Analytics /></body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

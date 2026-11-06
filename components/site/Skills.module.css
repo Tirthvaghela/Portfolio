@@ -1,0 +1,79 @@
+.skills { z-index: 7; background: #efe9dc; color: #14120f; padding-top: clamp(56px, 8vw, 120px); }
+.head { padding: 0 var(--gut); }
+.l2 { padding-bottom: .08em; }
+.l2 > * { color: var(--teal); }
+
+.orbit { position: relative; overflow: hidden; background: #efe9dc; }
+/* --S: orbit diameter. Desktop min(.8h, .48w, 760); mobile min(w − 32, 460). */
+.grid {
+  --S: min(80vh, 48vw, 760px);
+  min-height: auto; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center;
+  gap: 32px 48px; padding: 72px var(--gut) 40px;
+}
+:global(html[data-motion="on"]) .grid { min-height: 100svh; }
+
+
+.panel { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.numRow { display: flex; align-items: baseline; gap: 12px; }
+.num { font-size: clamp(64px, 7vw, 120px); line-height: .8; color: var(--red); }
+.title { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(44px, 5vw, 88px); line-height: .88; letter-spacing: -.02em; text-transform: uppercase; }
+.items { margin: 0; padding: 0; list-style: none; }
+.items li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid rgba(20, 18, 15, .18); font-weight: 600; font-size: clamp(22px, 2vw, 30px); letter-spacing: -.02em; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab { height: 40px; padding: 0 14px; border-radius: 99px; border: 1.5px solid #14120f; background: transparent; color: #14120f; display: flex; align-items: center; transition: background .3s, color .3s; }
+.tab[aria-selected="true"] { background: #14120f; color: #efe9dc; }
+@media (max-width: 899px) { .tab { height: 44px; } }
+.hint { opacity: .65; }
+
+.orbCol { display: flex; justify-content: center; min-width: 0; }
+.orb { position: relative; flex: none; width: var(--S); height: var(--S); }
+.ring {
+  --d: calc(var(--S) * var(--f) * var(--R, 1));
+  position: absolute; left: 50%; top: 50%; width: var(--d); height: var(--d);
+  margin-left: calc(var(--d) / -2); margin-top: calc(var(--d) / -2);
+  border-radius: 50%; border: 1px dashed rgba(20, 18, 15, .22); transition: border-color .4s;
+}
+.ring[data-active="true"] { border: 1.5px solid var(--red); }
+.slot { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform: rotate(var(--a)) translateX(calc(var(--d) / 2)) rotate(calc(var(--a) * -1)); }
+.pillHold { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.pill {
+  position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); padding: 6px 12px; border-radius: 99px; background: #efe9dc; color: #14120f;
+  border: 1px solid rgba(20, 18, 15, .25); font-family: var(--mono); font-size: 12px; white-space: nowrap; transition: background .4s, border-color .4s;
+}
+.ring[data-active="true"] .pill { background: var(--red); border-color: var(--red); }
+@media (max-width: 899px) { .pill { padding: 3px 8px; font-size: 10px; } }
+.core {
+  position: absolute; left: 50%; top: 50%; width: calc(var(--S) * .2); height: calc(var(--S) * .2); margin-left: calc(var(--S) * -.1); margin-top: calc(var(--S) * -.1);
+  border-radius: 50%; background: #14120f; color: #efe9dc; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+}
+.coreN { font-weight: 800; font-stretch: 75%; font-size: calc(var(--S) * .075); line-height: .85; }
+.coreL { font-size: 10px; }
+
+@media (max-width: 899px) {
+  /* Compact stage: orbit + panel fit one screen while pinned. The orbit is sized by
+     the screen's height as well as its width; --R pulls the rings in so outer labels stay on screen. */
+  .grid {
+    --S: max(180px, min(calc(100vw - 32px), calc(100svh - 330px), 460px)); --R: .82;
+    grid-template-columns: minmax(0, 1fr); align-content: center; gap: 14px; padding: 16px 16px 24px;
+  }
+  .orbCol { order: -1; } /* mobile: the orbit sits above the panel */
+  .panel { gap: 10px; }
+  .numRow { gap: 8px; }
+  .num { font-size: 48px; }
+  .title { font-size: clamp(30px, 9vw, 44px); }
+  .items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .items li { padding: 6px 12px; border: 1.5px solid #14120f; border-radius: 99px; font-size: 15px; }
+  .items li > span:last-child { display: none; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 2px 16px; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; }
+  .hint { display: none; }
+  /* Only the active group's ring is labelled; the others show as dots. */
+  .ring:not([data-active="true"]) .pill { font-size: 0; padding: 0; width: 8px; height: 8px; border: 0; background: rgba(20, 18, 15, .3); }
+  /* Rings spread evenly from ~half radius outward so inner labels clear the centre disc. */
+  .ring { --d: calc(var(--S) * (.46 + var(--k) * .108) * var(--R)); }
+  .core { width: calc(var(--S) * .16); height: calc(var(--S) * .16); margin-left: calc(var(--S) * -.08); margin-top: calc(var(--S) * -.08); }
+  .coreN { font-size: calc(var(--S) * .065); }
+  .coreL { font-size: 8px; }
+}
+@media (max-width: 340px) { .grid { --R: .76; } }

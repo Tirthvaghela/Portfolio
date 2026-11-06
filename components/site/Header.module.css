@@ -1,0 +1,36 @@
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 65; background: var(--must); transform: scaleX(0); transform-origin: 0 50%; }
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 60; mix-blend-mode: difference; color: #fff; transition: transform .5s var(--ease); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 72px; padding: 0 var(--gut); }
+.mark { font-weight: 800; font-size: 24px; letter-spacing: -.03em; padding: 8px 0; }
+.nav { display: flex; gap: 2px; }
+.navLink { display: flex; align-items: baseline; gap: 6px; padding: 12px; transition: opacity .3s; }
+.navNum { font-size: 10px; }
+.tools { display: flex; align-items: center; gap: 8px; }
+.motion { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 8px; }
+.track { position: relative; width: 34px; height: 18px; border: 1px solid #fff; border-radius: 99px; }
+.knob { position: absolute; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: #fff; transition: left .3s var(--ease); }
+.resume { display: flex; align-items: center; height: 42px; padding: 0 18px; border: 1px solid #fff; border-radius: 99px; white-space: nowrap; }
+.resume:hover { background: #fff; color: #000; opacity: 1; }
+.burger { width: 44px; height: 44px; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 7px; }
+.burger span { width: 24px; height: 2px; background: #fff; }
+@media (max-width: 899px) {
+  .nav, .motion { display: none; }
+  .burger { display: flex; }
+}
+
+/* Mobile menu */
+.panel { position: fixed; inset: 0; z-index: 70; background: var(--red); color: #14120f; display: flex; flex-direction: column; padding: 0 20px 24px; overflow: auto; }
+.panelTop { display: flex; align-items: center; justify-content: space-between; height: 72px; flex: none; }
+.close { height: 44px; padding: 0 4px; display: flex; align-items: center; }
+.mnav { display: flex; flex-direction: column; margin-top: 12px; }
+.mlink { display: block; padding: 6px 0; border-bottom: 1.5px solid #14120f; overflow: hidden; }
+.mlinkIn { display: flex; align-items: baseline; justify-content: space-between; }
+.mlabel { font-weight: 800; font-stretch: 75%; font-size: clamp(56px, 16vw, 96px); line-height: .95; letter-spacing: -.02em; text-transform: uppercase; }
+.mnum { font-size: 30px; }
+.mfoot { margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 12px; font-family: var(--mono); font-size: 13px; }
+.mfoot a { padding: 10px 0; }
+.mrow { display: flex; gap: 20px; }
+.mmotion { display: flex; align-items: center; gap: 10px; height: 44px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.mtrack { position: relative; width: 34px; height: 18px; border: 1px solid #14120f; border-radius: 99px; }
+.mknob { position: absolute; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: #14120f; transition: left .3s; }
+@media (max-width: 899px) { .resume { height: 44px; } }

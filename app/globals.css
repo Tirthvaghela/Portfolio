@@ -1,158 +1,67 @@
-@import "tailwindcss";
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; overflow-x: clip; }
+/* Portfolio v8 — global tokens + shared type primitives.
+   Every value below is copied from the v8 reference's base <style> and inline styles. */
 
 :root {
-  /* stark ink / paper — tinted, never literal #000/#fff */
-  --bg: oklch(98% 0.004 260);
-  --bg-alt: oklch(94% 0.006 260);
-  --bg-card: oklch(98% 0.004 260);
-  --bg-section: oklch(98% 0.004 260);
-  --text: oklch(9% 0.010 260);
-  --text-muted: oklch(34% 0.012 260);
-  --text-faint: oklch(50% 0.010 260);
-  --border: oklch(9% 0.010 260);
-  --border-light: oklch(9% 0.010 260);
-
-  /* one accent, pushed to real saturation, used in blocks not sprinkles */
-  --accent: oklch(56% 0.24 260);
-  --accent-ink: oklch(99% 0.004 260);
-  --focus: oklch(56% 0.24 260);
-
-  --positive: oklch(52% 0.16 148);
-  --positive-bg: oklch(94% 0.03 148);
-  --positive-border: var(--text);
-  --danger: oklch(52% 0.20 25);
-
-  --footer-bg: oklch(9% 0.010 260);
-  --footer-text: oklch(70% 0.012 260);
-  --nav-bg: var(--bg);
-
-  /* type — 2+1, no blending with the prior system */
-  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
-  --font-body: var(--font-geist), "Geist", system-ui, sans-serif;
-  --font-mono-face: var(--font-mono-jb), "JetBrains Mono", ui-monospace, monospace;
-
-  --space-3xs: 0.125rem;
-  --space-2xs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2.5rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6rem;
-  --space-4xl: 9rem;
-
-  /* motion — sharp, fast, no spring (Brutal duration scale ~0.75x) */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-micro: 90ms;
-  --dur-short: 150ms;
-  --dur-med: 220ms;
-  --dur-long: 260ms;
-
-  /* hard geometry — no blur, no round */
-  --bw: 3px;
-  --bw-lg: 5px;
-  --radius: 0px;
-  --shadow-hard: 6px 6px 0 0 var(--text);
-  --shadow-hard-sm: 4px 4px 0 0 var(--text);
-
-  --nav-h: 68px;
-
-  --z-base: 1;
-  --z-raised: 10;
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-modal: 400;
-  --z-toast: 500;
+  --ink: #14120f;
+  --paper: #efe9dc;
+  --ink2: #221f1a;
+  --red: oklch(0.62 0.21 30);
+  --teal: oklch(0.52 0.1 180);
+  --must: oklch(0.83 0.15 85);
+  --err: oklch(0.48 0.19 30);
+  --gut: clamp(16px, 3vw, 40px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
+  --serif: var(--font-serif), "Instrument Serif", serif;
+  --mono: var(--font-jb), "JetBrains Mono", monospace;
 }
 
-[data-theme="dark"] {
-  --bg: oklch(8% 0.012 260);
-  --bg-alt: oklch(13% 0.014 260);
-  --bg-card: oklch(8% 0.012 260);
-  --bg-section: oklch(8% 0.012 260);
-  --text: oklch(96% 0.006 260);
-  --text-muted: oklch(72% 0.010 260);
-  --text-faint: oklch(56% 0.010 260);
-  --border: oklch(96% 0.006 260);
-  --border-light: oklch(96% 0.006 260);
-
-  --accent: oklch(68% 0.19 260);
-  --accent-ink: oklch(10% 0.010 260);
-  --focus: oklch(68% 0.19 260);
-
-  --positive: oklch(70% 0.14 148);
-  --positive-bg: oklch(20% 0.05 148);
-  --positive-border: var(--text);
-  --danger: oklch(68% 0.17 25);
-
-  --footer-bg: oklch(5% 0.010 260);
-  --footer-text: oklch(62% 0.010 260);
-  --nav-bg: var(--bg);
-
-  --shadow-hard: 6px 6px 0 0 var(--text);
-  --shadow-hard-sm: 4px 4px 0 0 var(--text);
-}
-
+html { scroll-behavior: smooth; }
 body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  line-height: 1.5;
-  overflow-x: clip;
-  padding-top: var(--nav-h);
+  margin: 0;
+  background: #14120f;
+  color: #efe9dc;
+  font-family: var(--display);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+*, *::before, *::after { box-sizing: border-box; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: inherit; opacity: .85; }
+::selection { background: oklch(0.83 0.15 85); color: #14120f; }
+:focus-visible { outline: 2px solid oklch(0.83 0.15 85); outline-offset: 3px; }
+input::placeholder, textarea::placeholder { color: rgba(20, 18, 15, .5); }
+input[type=search]::placeholder { color: rgba(239, 233, 220, .5); }
+img { max-width: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html[data-motion="off"] { scroll-behavior: auto; }
+/* Loader scroll lock from the very first paint (cleared by SiteProvider when the loader ends). */
+html[data-loading] body { overflow: hidden; }
 
-section { scroll-margin-top: var(--nav-h); }
+/* ── shared primitives (repeated verbatim across the reference) ── */
+/* Button reset first: `all: unset` must not override the type classes declared below it. */
+.btn { all: unset; cursor: pointer; box-sizing: border-box; }
+.btn:focus-visible { outline: 2px solid oklch(0.83 0.15 85); outline-offset: 3px; }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.mono11 { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.serif { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.disp { font-weight: 800; font-stretch: 75%; text-transform: uppercase; }
+/* accent word inside a display heading */
+.accent { font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; text-transform: none; letter-spacing: -.03em; }
+.mask { display: block; overflow: hidden; }
+.mask > * { display: block; }
+.sr { position: absolute; left: -9999px; }
 
-@media (max-width: 768px) {
-  section { padding-top: 48px !important; padding-bottom: 48px !important; }
-}
+/* Section sheet: overlaps the previous one by 28px with a 32px top radius. */
+.sheet { position: relative; margin-top: -28px; border-radius: 32px 32px 0 0; transform-origin: 50% 100%; }
+.secPad { padding: clamp(56px, 8vw, 120px) var(--gut); }
+.secHead { display: flex; justify-content: space-between; gap: 16px; }
+.h2 { margin: 28px 0 0; font-weight: 800; font-stretch: 75%; font-size: clamp(60px, 10vw, 170px); line-height: .84; letter-spacing: -.03em; text-transform: uppercase; }
 
-a, button {
-  font-family: inherit;
+.skip {
+  position: absolute; left: -9999px; top: 8px; z-index: 300; background: oklch(0.83 0.15 85); color: #14120f;
+  padding: 14px; font-family: var(--mono); font-size: 13px; min-height: 44px;
 }
+.skip:focus { left: 8px; }
 
-:focus-visible {
-  outline: var(--bw) solid var(--accent);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 100ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 100ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Script-specific type: only applied to the Hindi/Gujarati words in the intro's
-   multilingual greeting, never to Latin text or the site's own type system. */
-@font-face {
-  font-family: "AMS Kashi";
-  src: url("/ams-kashi.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-  /* The font file's own internal ascent metric is wildly oversized (its glyphs
-     render correctly, but the browser's line-box for it balloons well past every
-     other font at the same font-size/line-height) — override it back to a normal
-     ratio instead of patching the font file itself. */
-  ascent-override: 80%;
-  descent-override: 20%;
-  line-gap-override: 0%;
-}
-@font-face {
-  font-family: "KAP041";
-  src: url("/kap041.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-}
-.font-script-hi { font-family: "AMS Kashi", "Noto Sans Devanagari", sans-serif; }
-.font-script-gu { font-family: "KAP041", "Noto Sans Gujarati", sans-serif; }
+/* Before JS runs (or with motion off) every [data-reveal] is visible; GSAP hides then reveals. */

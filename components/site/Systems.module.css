@@ -1,0 +1,33 @@
+.sys { z-index: 6; background: var(--teal); color: #efe9dc; }
+.headRow { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 40px; margin: 28px 0 clamp(32px, 4vw, 56px); }
+.h2 { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(56px, 8.4vw, 144px); line-height: .84; letter-spacing: -.03em; text-transform: uppercase; }
+.l2 { padding-bottom: .08em; }
+.l2 > * { color: var(--must); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 99px; background: rgba(20, 18, 15, .28); }
+.tab { height: 44px; padding: 0 18px; border-radius: 99px; display: flex; align-items: center; background: transparent; color: #efe9dc; font-weight: 600; font-size: 15px; transition: background .3s, color .3s; }
+.tab[aria-selected="true"] { background: #efe9dc; color: #14120f; }
+
+.pipe { position: relative; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.line { position: absolute; left: 6%; right: 6%; top: 50%; height: 3px; background: rgba(239, 233, 220, .25); border-radius: 2px; }
+.fill { position: absolute; inset: 0; background: var(--must); border-radius: 2px; transform-origin: 0% 50%; }
+.step { position: relative; border-radius: 24px; background: #efe9dc; color: #14120f; padding: clamp(18px, 2vw, 26px); display: flex; flex-direction: column; gap: 14px; min-height: 240px; }
+.n { width: 56px; height: 56px; border-radius: 50%; background: #14120f; color: var(--must); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 15px; font-weight: 500; }
+.label { margin-top: auto; font-weight: 800; font-stretch: 75%; font-size: clamp(28px, 2.4vw, 38px); line-height: .95; letter-spacing: -.02em; text-transform: uppercase; }
+.note { font-size: 21px; line-height: 1.15; }
+@media (max-width: 899px) {
+  .pipe { grid-template-columns: minmax(0, 1fr); }
+  .line { left: 45px; right: auto; top: 24px; bottom: 24px; width: 3px; height: auto; }
+  .fill { transform-origin: 50% 0%; }
+  .step { min-height: 0; }
+}
+.override { margin: 20px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 20px; background: var(--red); color: #14120f; font-size: 17px; font-weight: 600; }
+.overrideTag { padding: 4px 10px; border-radius: 99px; background: #14120f; color: var(--red); }
+.openCase { margin-top: 24px; display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px; border-radius: 99px; border: 1px solid rgba(239, 233, 220, .6); font-weight: 600; }
+.openCase:hover { background: #efe9dc; color: #14120f; }
+
+/* Small screens: the pill can't hold all three names on one line — use an even
+   three-column segmented control instead, labels wrapping inside each button. */
+@media (max-width: 599px) {
+  .tabs { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 5px; border-radius: 26px; }
+  .tab { min-height: 52px; height: auto; padding: 8px 6px; justify-content: center; text-align: center; border-radius: 21px; font-size: 14px; line-height: 1.15; }
+}

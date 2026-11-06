@@ -1,0 +1,31 @@
+.about { z-index: 2; background: #efe9dc; color: #14120f; }
+.l2 { padding-bottom: .06em; }
+.l2 > * { color: var(--red); padding-left: clamp(0px, 8vw, 160px); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 32px 64px; margin-top: clamp(40px, 6vw, 80px); align-items: start; }
+.col { display: flex; flex-direction: column; gap: 22px; }
+.col2 { display: flex; flex-direction: column; gap: 12px; }
+.lead { margin: 0; font-weight: 600; font-size: clamp(24px, 2.4vw, 36px); line-height: 1.18; letter-spacing: -.025em; }
+.body { margin: 0; max-width: 62ch; font-size: 18px; line-height: 1.65; }
+.collab { font-weight: 700; border-bottom: 2px solid var(--red); }
+.now { border-radius: 28px; background: var(--teal); color: #efe9dc; padding: clamp(20px, 2.4vw, 32px); }
+.nowHead { display: flex; justify-content: space-between; align-items: baseline; }
+.nowTitle { font-size: 46px; line-height: 1; }
+.dl { margin: 16px 0 0; }
+.dl > div { padding: 14px 0; border-top: 1px solid rgba(239, 233, 220, .25); }
+.dl > div:last-child { padding-bottom: 0; }
+.dl dt { font-weight: 700; font-size: 20px; letter-spacing: -.02em; }
+.dl dd { margin: 4px 0 0; font-size: 16px; line-height: 1.5; }
+.dl dd a { border-bottom: 1px solid currentColor; }
+.stats { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; background: #14120f; border: 2px solid #14120f; border-radius: 24px; overflow: hidden; }
+.stat { background: #efe9dc; padding: 18px 20px; display: flex; flex-direction: column-reverse; gap: 4px; }
+.stat dd { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(52px, 5vw, 84px); line-height: .85; letter-spacing: -.03em; }
+.plus { color: var(--red); }
+.gh { margin-top: clamp(32px, 5vw, 64px); border-radius: 24px; background: #14120f; color: #efe9dc; overflow: hidden; }
+.ghHead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; padding: 14px 22px; border-bottom: 1px solid rgba(239, 233, 220, .15); }
+.ghTitle { display: flex; align-items: center; gap: 10px; }
+.ghDot { width: 8px; height: 8px; border-radius: 50%; background: var(--must); }
+.ghLink { padding: 8px 0; }
+.ghBody { padding: 22px; overflow-x: auto; }
+.ghCard { min-width: 640px; background: #efe9dc; border-radius: 12px; padding: 14px; }
+.ghCard img { display: block; width: 100%; height: auto; }
+@media (max-width: 899px) { .ghLink { display: flex; align-items: center; min-height: 44px; padding: 0; } }

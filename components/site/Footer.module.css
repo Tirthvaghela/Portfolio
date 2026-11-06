@@ -1,0 +1,31 @@
+.footer { position: relative; z-index: 10; margin-top: -28px; border-radius: 32px 32px 0 0; background: var(--red); color: #14120f; padding: 44px var(--gut) 24px; overflow: hidden; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 28px 40px; }
+.col { display: flex; flex-direction: column; }
+.col a { padding: 6px 0; font-weight: 600; font-size: 20px; }
+@media (max-width: 899px) { .col a { padding: 10px 0; } }
+.label { padding-bottom: 8px; }
+.label2 { padding-bottom: 2px; }
+.timeCol { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.time { font-weight: 800; font-stretch: 75%; font-size: clamp(56px, 6vw, 88px); line-height: .85; letter-spacing: -.02em; }
+.top { margin-top: 12px; width: 64px; height: 64px; border-radius: 50%; background: #14120f; color: #efe9dc; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.name { display: flex; justify-content: space-between; align-items: flex-end; overflow: hidden; margin-top: clamp(40px, 7vw, 96px); font-size: 11.5vw; line-height: .8; letter-spacing: -.02em; text-transform: uppercase; padding-top: .05em; touch-action: pan-y; }
+.ch { display: inline-block; }
+.gap { display: inline-block; width: .28em; }
+.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 22px; padding-top: 16px; border-top: 1.5px solid #14120f; }
+
+/* Mobile: compact footer — Menu + Elsewhere side by side, clock and back-to-top on one row,
+   extra top room so the fixed header never sits on the first label. */
+@media (max-width: 899px) {
+  .footer { padding-top: 76px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .col a { font-size: 18px; padding: 11px 0; }
+  .timeCol {
+    grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; row-gap: 4px;
+    align-items: end; padding-top: 22px; border-top: 1.5px solid #14120f;
+  }
+  .timeCol > * { grid-column: 1; }
+  .timeCol > .top { grid-column: 2; grid-row: 1 / span 3; align-self: center; margin-top: 0; }
+  .time { font-size: clamp(56px, 18vw, 80px); }
+  .name { margin-top: 36px; }
+  .legal { flex-direction: column; gap: 6px; }
+}
