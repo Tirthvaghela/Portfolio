@@ -5,6 +5,8 @@ export const SITE = {
   name: "Tirth Vaghela",
   url: "https://tirthvaghela.in",
   email: "vaghelatirth719@gmail.com",
+  /** Formspree form that delivers contact-form messages to the inbox above. */
+  formspree: "https://formspree.io/f/xqeygzoo",
   github: "https://github.com/Tirthvaghela",
   linkedin: "https://www.linkedin.com/in/tirthvaghela/",
   collaborator: "https://www.linkedin.com/in/dhruv-sadrawala22/",

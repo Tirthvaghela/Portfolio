@@ -38,3 +38,6 @@
 .sentSmall { margin: 0; font-size: 16px; line-height: 1.5; }
 .sentSmall a { border-bottom: 1px solid currentColor; }
 .again { align-self: flex-start; height: 46px; padding: 0 20px; border-radius: 99px; background: #14120f; color: #efe9dc; display: flex; align-items: center; }
+.send:disabled { cursor: progress; opacity: .7; }
+.sendErr { color: var(--err); }
+.sendErr a { border-bottom: 1px solid currentColor; }

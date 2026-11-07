@@ -13,8 +13,10 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [sentTo, setSentTo] = useState("");
   const [copied, setCopied] = useState(false);
+  const sent = status === "sent";
 
   const validate = () => {
     const e: Errors = {};
@@ -24,12 +26,25 @@ export default function Contact() {
     return e;
   };
 
-  const submit = (ev: React.FormEvent) => {
+  // Sends through Formspree; the success state only appears once Formspree confirms delivery.
+  const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
+    if (status === "sending") return;
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
-    window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent("Portfolio enquiry from " + name.trim())}&body=${encodeURIComponent(message.trim() + "\n\n— " + name.trim() + " (" + email.trim() + ")")}`;
-    setSent(true); setErrors({});
+    setErrors({}); setStatus("sending");
+    try {
+      const res = await fetch(SITE.formspree, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), _subject: `Portfolio enquiry from ${name.trim()}` }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setSentTo(email.trim()); setStatus("sent");
+      setName(""); setEmail(""); setMessage("");
+    } catch {
+      setStatus("error"); // keep what they typed so they can retry
+    }
   };
 
   const copy = () => {
@@ -82,16 +97,24 @@ export default function Contact() {
                 {errors.message && <span role="alert" className={s.err}>✕ {errors.message}</span>}
               </label>
               <div className={s.sendRow}>
-                <button type="submit" data-magnetic="" className={`btn ${s.send}`}><span>Send</span><span className={`${s.sendSub} serif`}>message →</span></button>
-                <p className={s.sendNote}>Opens a pre-filled draft in your email app.</p>
+                <button type="submit" data-magnetic="" disabled={status === "sending"} aria-busy={status === "sending"} className={`btn ${s.send}`}>
+                  {status === "sending"
+                    ? <span>Sending…</span>
+                    : <><span>Send</span><span className={`${s.sendSub} serif`}>message →</span></>}
+                </button>
+                <p className={s.sendNote} aria-live="polite">
+                  {status === "error"
+                    ? <span className={s.sendErr}>✕ Couldn&apos;t send right now. Try again, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> directly.</span>
+                    : "Goes straight to Tirth's inbox."}
+                </p>
               </div>
             </form>
           ) : (
             <div role="status" className={s.sent}>
-              <span className={`${s.sentTag} mono`}>Draft ready</span>
-              <p className={s.sentBig}>Your email app should have opened with the message filled in. Hit send there to reach Tirth.</p>
-              <p className={s.sentSmall}>Nothing opened? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
-              <button type="button" onClick={() => { setSent(false); setName(""); setEmail(""); setMessage(""); setErrors({}); }} className={`btn ${s.again} mono`}>Write another</button>
+              <span className={`${s.sentTag} mono`}>Message sent</span>
+              <p className={s.sentBig}>Thanks — your message reached Tirth. You&apos;ll get a reply at {sentTo}.</p>
+              <p className={s.sentSmall}>Need to add something? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+              <button type="button" onClick={() => { setStatus("idle"); setErrors({}); }} className={`btn ${s.again} mono`}>Write another</button>
             </div>
           )}
         </div>
