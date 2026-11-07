@@ -49,13 +49,29 @@ export default function Header() {
     }
   }, { scope: panelRef, dependencies: [navOpen] });
 
+  // Close = the opening in reverse: links sink behind their masks, then the circle shrinks
+  // back into the top-right corner. Without motion it closes instantly.
+  const closing = useRef(false);
+  const closeMenu = () => {
+    const el = panelRef.current;
+    if (!motion || !el) { setNavOpen(false); return; }
+    if (closing.current) return;
+    closing.current = true;
+    gsap.killTweensOf([el, ...el.querySelectorAll("[data-nav-link]")]);
+    const tl = gsap.timeline({ onComplete: () => { closing.current = false; setNavOpen(false); } });
+    tl.to(el.querySelectorAll("[data-nav-link]"), { yPercent: 110, duration: .4, ease: "power3.in", stagger: { each: .035, from: "end" } });
+    tl.to(el, { clipPath: "circle(0% at 100% 0%)", duration: .6, ease: "expo.inOut" }, "-=.15");
+  };
+  const closeRef = useRef(closeMenu);
+  useEffect(() => { closeRef.current = closeMenu; });
+
   // Menu focus management + Escape.
   useEffect(() => {
     if (!navOpen) return;
     const btn = burgerRef.current;
     panelRef.current?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setNavOpen(false);
+      if (e.key === "Escape") closeRef.current();
       if (e.key === "Tab" && panelRef.current) {
         const f = panelRef.current.querySelectorAll<HTMLElement>("button,a[href]"); if (!f.length) return;
         const first = f[0], last = f[f.length - 1];
@@ -96,11 +112,11 @@ export default function Header() {
         <div ref={panelRef} role="dialog" aria-modal="true" aria-label="Menu" className={s.panel}>
           <div className={s.panelTop}>
             <span className={s.mark}>TV.</span>
-            <button type="button" onClick={() => setNavOpen(false)} aria-label="Close menu" className={`btn ${s.close} mono`}>Close ✕</button>
+            <button type="button" onClick={closeMenu} aria-label="Close menu" className={`btn ${s.close} mono`}>Close ✕</button>
           </div>
           <nav aria-label="Mobile" className={s.mnav}>
             {items.map((n) => (
-              <a key={n.id} href={`#${n.id}`} onClick={() => setNavOpen(false)} aria-current={n.current ? "true" : undefined} className={s.mlink}>
+              <a key={n.id} href={`#${n.id}`} onClick={closeMenu} aria-current={n.current ? "true" : undefined} className={s.mlink}>
                 <span data-nav-link="" className={s.mlinkIn}><span className={s.mlabel}>{n.label}</span><span className={`${s.mnum} serif`}>{n.num}</span></span>
               </a>
             ))}
