@@ -34,7 +34,7 @@ export default function Marquee() {
   }, { scope: ref, dependencies: [motion], revertOnUpdate: true });
 
   return (
-    <div ref={ref} data-marq="" aria-hidden="true" style={{ position: "relative", zIndex: 4, marginTop: -28, borderRadius: "32px 32px 0 0", background: "#14120f", height: "clamp(220px,24vw,320px)", overflow: "hidden" }}>
+    <div ref={ref} data-marq="" aria-hidden="true" style={{ position: "relative", zIndex: 4, marginTop: -28, borderRadius: "32px 32px 0 0", background: "#221f1a", height: "clamp(220px,24vw,320px)", overflow: "hidden" }}>
       <div style={{ position: "absolute", left: "-5%", right: "-5%", top: "26%", transform: "rotate(-4deg)", background: "var(--red)", color: "#14120f", padding: "18px 0" }}>
         <div data-skew="" style={{ overflow: "hidden" }}>
           <div data-tape="" style={{ display: "flex", width: "max-content" }}>

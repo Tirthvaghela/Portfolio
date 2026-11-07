@@ -19,8 +19,10 @@ export default function ScrollMotion({ scope }: { scope: React.RefObject<HTMLDiv
     sheets.forEach((sh, i) => {
       const next = sheets[i + 1];
       if (!next || sh.id === "work" || sh.id === "skills") return;
-      // The sheet directly before the marquee scales as the marquee slides over it.
-      const trigger = sh.nextElementSibling?.hasAttribute("data-marq") ? sh.nextElementSibling : next;
+      // The sheet right before the marquee (dark Key projects) doesn't scale: the marquee shares
+      // its background and reads as that section's closing band, so there's no edge to reveal.
+      if (sh.nextElementSibling?.hasAttribute("data-marq")) return;
+      const trigger = next;
       gsap.to(sh, { scale: .94, ease: "none", scrollTrigger: { trigger, start: "top bottom", end: "top 30%", scrub: true } });
     });
 
