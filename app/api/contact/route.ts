@@ -1,6 +1,7 @@
 import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 import { SITE } from "@/content/site";
+import { contactEmail } from "@/lib/contactEmail";
 
 /* Contact form → email via Resend (https://resend.com/docs/api-reference/emails/send-email).
    Env: RESEND_API_KEY (required). Optional: CONTACT_FROM once a domain is verified in Resend
@@ -13,8 +14,6 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const redisUrl = process.env.STORAGE_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
 const redisToken = process.env.STORAGE_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
 const redis = redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null;
-
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
@@ -43,19 +42,14 @@ export async function POST(req: Request) {
   const key = process.env.RESEND_API_KEY;
   if (!key) { console.error("contact: RESEND_API_KEY is not set"); return NextResponse.json({ error: "Not configured" }, { status: 500 }); }
 
-  const html = `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.5;color:#14120f">
-<p style="margin:0 0 12px"><b>${esc(name)}</b> &lt;<a href="mailto:${esc(email)}">${esc(email)}</a>&gt; sent a message from your portfolio:</p>
-<div style="white-space:pre-wrap;padding:14px 16px;border-left:3px solid #e8452f;background:#f6f2ea">${esc(message)}</div>
-<p style="margin:14px 0 0;color:#6b665c;font-size:13px">Hit Reply to answer ${esc(name)} directly.</p></div>`;
+  const { subject, html, text } = contactEmail({ name, email, message, site: SITE.url });
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: FROM, to: [TO], reply_to: email,
-      subject: `Portfolio enquiry from ${name}`,
-      text: `${name} <${email}> sent a message from your portfolio:\n\n${message}\n\nReply to this email to answer them directly.`,
-      html,
+      subject, text, html,
     }),
   }).catch(() => null);
 
