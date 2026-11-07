@@ -77,7 +77,7 @@ All copy lives in `content/`, so most updates don't touch a component.
 
 ## Motion and accessibility
 
-- A **Motion** switch in the header turns animation off (saved in `localStorage` as `tirthvaghela:motion`). It defaults to off when the system asks for reduced motion. With motion off there's no loader, pinning or scrubbing, and every section is visible and static.
+- Animation follows the visitor's system setting: with **reduce motion** turned on there's no loader, pinning or scrubbing, and every section is visible and static.
 - Keyboard: skip link, focus-trapped project dialog (← / → to switch projects, Esc to close), focus-trapped mobile menu, visible focus rings.
 - Mobile gets touch-adapted versions of every animation (touch ripples on the hero, stacked reel with tilt/parallax, pinned compact skills orbit, vertical pipeline).
 

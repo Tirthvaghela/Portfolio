@@ -15,7 +15,6 @@ export const SITE = {
   location: "Ahmedabad, Gujarat, India",
 };
 
-export const MOTION_KEY = "tirthvaghela:motion";
 
 export const SECTIONS: [string, string][] = [['about','About'],['key','Key projects'],['work','Work'],['skills','Skills'],['experience','Experience'],['contact','Contact']];
 

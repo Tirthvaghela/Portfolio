@@ -1,10 +1,9 @@
 "use client";
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { MOTION_KEY, fmtTime } from "@/content/site";
+import { fmtTime } from "@/content/site";
 
 type Ctx = {
   motion: boolean;
-  toggleMotion: () => void;
   fine: boolean;
   time: string;
   dialog: number;
@@ -61,16 +60,6 @@ export default function SiteProvider({ children }: { children: React.ReactNode }
     if (!loader) document.documentElement.removeAttribute("data-loading");
   }, [navOpen, dialog, loader]);
 
-  const toggleMotion = useCallback(() => {
-    setMotion((m) => {
-      const next = !m;
-      try { localStorage.setItem(MOTION_KEY, next ? "on" : "off"); } catch {}
-      document.documentElement.setAttribute("data-motion", next ? "on" : "off");
-      return next;
-    });
-    setLoader(false);
-  }, []);
-
   const openProject = useCallback((i: number) => {
     lastFocus.current = document.activeElement as HTMLElement | null;
     setDialog(i);
@@ -81,7 +70,7 @@ export default function SiteProvider({ children }: { children: React.ReactNode }
   }, []);
 
   return (
-    <SiteCtx.Provider value={{ motion, toggleMotion, fine, time, dialog, openProject, setDialog, returnFocus, navOpen, setNavOpen, loader, setLoader }}>
+    <SiteCtx.Provider value={{ motion, fine, time, dialog, openProject, setDialog, returnFocus, navOpen, setNavOpen, loader, setLoader }}>
       {children}
     </SiteCtx.Provider>
   );

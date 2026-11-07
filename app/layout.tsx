@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { bricolage, instrument, jetbrains } from "./fonts";
-import { MOTION_KEY, SITE } from "@/content/site";
+import { SITE } from "@/content/site";
 
 const DESCRIPTION =
   "Portfolio of Tirth Vaghela – Full-Stack Developer specializing in React, Next.js, Django, Flask, and AI/ML integrations.";
@@ -47,7 +47,7 @@ const personJsonLd = {
 
 /* Runs before paint: decides motion on/off so CSS (hero height, pinned reel layout)
    is correct on the very first frame — no layout shift once React hydrates. */
-const motionBoot = `(function(){try{var s=localStorage.getItem('${MOTION_KEY}');var on=s?s==='on':!matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',on?'on':'off');if(on)document.documentElement.setAttribute('data-loading','');}catch(e){document.documentElement.setAttribute('data-motion','on');}})();`;
+const motionBoot = `(function(){try{var on=!matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',on?'on':'off');if(on)document.documentElement.setAttribute('data-loading','');}catch(e){document.documentElement.setAttribute('data-motion','on');}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

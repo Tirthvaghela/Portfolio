@@ -6,7 +6,7 @@ import { useSite } from "./SiteProvider";
 import s from "./Header.module.css";
 
 export default function Header() {
-  const { motion, toggleMotion, navOpen, setNavOpen } = useSite();
+  const { motion, navOpen, setNavOpen } = useSite();
   const progressRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -67,7 +67,6 @@ export default function Header() {
     return () => { removeEventListener("keydown", onKey); btn?.focus({ preventScroll: true }); };
   }, [navOpen, setNavOpen]);
 
-  const knobX = motion ? "19px" : "3px";
   const items = SECTIONS.map(([id, label], i) => ({ id, label, num: pad(i + 1), current: active === id, op: !active || active === id ? 1 : .55 }));
 
   return (
@@ -85,9 +84,6 @@ export default function Header() {
             ))}
           </nav>
           <div className={s.tools}>
-            <button type="button" onClick={toggleMotion} aria-pressed={motion} className={`btn ${s.motion} mono`} style={{ display: undefined }}>
-              <span>Motion</span><span className={s.track}><span className={s.knob} style={{ left: knobX }} /></span>
-            </button>
             <a href={SITE.resume} target="_blank" rel="noopener noreferrer" data-magnetic="" className={`${s.resume} mono`}>Résumé ↗</a>
             <button ref={burgerRef} type="button" onClick={() => setNavOpen(true)} aria-label="Open menu" aria-expanded={navOpen} className={`btn ${s.burger}`}>
               <span /><span />
@@ -115,9 +111,6 @@ export default function Header() {
               <a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
             </div>
-            <button type="button" onClick={toggleMotion} aria-pressed={motion} className={`btn ${s.mmotion}`}>
-              <span>Motion {motion ? "on" : "off"}</span><span className={s.mtrack}><span className={s.mknob} style={{ left: knobX }} /></span>
-            </button>
           </div>
         </div>
       )}
