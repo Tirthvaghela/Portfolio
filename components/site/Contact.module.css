@@ -41,3 +41,4 @@
 .send:disabled { cursor: progress; opacity: .7; }
 .sendErr { color: var(--err); }
 .sendErr a { border-bottom: 1px solid currentColor; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }

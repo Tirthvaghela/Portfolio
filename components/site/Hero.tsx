@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, isMobileNow } from "@/lib/gsap";
+import { MOTION_KEY } from "@/content/site";
 import { bricolage } from "@/app/fonts";
 import { CLAIMS } from "@/content/projects";
 import { RED, TEAL, MUST, INK } from "@/content/palette";
@@ -51,22 +52,28 @@ export default function Hero() {
   /* Loader → hero intro (one timeline, exactly the reference's ordering). */
   useGSAP(() => {
     if (!motion) { hfx.current.intro = 1; covered.current = false; return; }
-    const runLoader = loader && !loaderPlayed;
+    // Returning visitors (flag set by the boot script) skip the loader entirely.
+    const returning = document.documentElement.hasAttribute("data-noloader");
+    if (returning && loader) setLoader(false);
+    const runLoader = loader && !loaderPlayed && !returning;
     const tl = gsap.timeline();
     let safety: ReturnType<typeof setTimeout> | undefined;
     if (runLoader) {
       loaderPlayed = true;
-      safety = setTimeout(() => { if (tl.progress() < 1) tl.progress(1); setLoader(false); }, 4200);
+      try { localStorage.setItem(`${MOTION_KEY}:seen`, "1"); } catch {}
+      // Phones get the same sequence at roughly half length (~1.7s instead of ~3.4s).
+      const k = isMobileNow() ? .5 : 1;
+      safety = setTimeout(() => { if (tl.progress() < 1) tl.progress(1); setLoader(false); }, 4200 * k);
       const o = { v: 0 };
-      tl.to(o, { v: 100, duration: 1.6, ease: "power3.inOut", onUpdate: () => { if (countRef.current) countRef.current.textContent = String(Math.round(o.v)).padStart(3, "0"); } });
-      tl.to("[data-lt]", { yPercent: -110, duration: .5, ease: "power3.in", stagger: .04 });
+      tl.to(o, { v: 100, duration: 1.6 * k, ease: "power3.inOut", onUpdate: () => { if (countRef.current) countRef.current.textContent = String(Math.round(o.v)).padStart(3, "0"); } });
+      tl.to("[data-lt]", { yPercent: -110, duration: .5 * k, ease: "power3.in", stagger: .04 * k });
       tl.to("[data-lbg]", { opacity: 0, duration: .01 });
       tl.call(() => { covered.current = false; });
-      tl.to("[data-lc]", { yPercent: -100, duration: 1, ease: "expo.inOut", stagger: .07 });
+      tl.to("[data-lc]", { yPercent: -100, duration: 1 * k, ease: "expo.inOut", stagger: .07 * k });
       tl.add(() => setLoader(false));
     }
     if (!runLoader) covered.current = false;
-    const at = runLoader ? "-=0.75" : 0;
+    const at = runLoader ? `-=${.75 * (isMobileNow() ? .5 : 1)}` : 0;
     tl.fromTo(hfx.current, { intro: 0 }, { intro: 1, duration: 2.2, ease: "expo.out" }, at);
     tl.from("[data-hov]", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: .1 }, "<0.6");
     return () => { if (safety) clearTimeout(safety); };

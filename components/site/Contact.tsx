@@ -37,7 +37,7 @@ export default function Contact() {
       const res = await fetch(SITE.formspree, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), _subject: `Portfolio enquiry from ${name.trim()}` }),
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), _gotcha: (ev.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>("[name=_gotcha]")?.value ?? "", _subject: `Portfolio enquiry from ${name.trim()}` }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setSentTo(email.trim()); setStatus("sent");
@@ -78,6 +78,8 @@ export default function Contact() {
         <div data-reveal="" className={s.card}>
           {!sent ? (
             <form onSubmit={submit} noValidate className={s.form}>
+              {/* Honeypot: invisible to people, bots fill it, Formspree drops those submissions. */}
+              <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" className={s.trap} />
               <label className={s.field}>
                 <span className="mono">Name</span>
                 <input type="text" name="name" autoComplete="name" value={name} aria-invalid={!!errors.name}
