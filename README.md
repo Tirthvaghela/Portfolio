@@ -2,7 +2,7 @@
 
 > **Live:** [tirthvaghela.in](https://tirthvaghela.in)
 
-Personal portfolio of **Tirth Vaghela**, a full-stack developer and MSc IT student at GLS University, Ahmedabad. It's a single long page built with Next.js and GSAP, with a WebGL hero, scroll-driven sections, and a contact form that delivers through Formspree.
+Personal portfolio of **Tirth Vaghela**, a full-stack developer and MSc IT student at GLS University, Ahmedabad. It's a single long page built with Next.js and GSAP, with a WebGL hero, scroll-driven sections, and a contact form that emails through Resend.
 
 ---
 
@@ -15,7 +15,7 @@ Personal portfolio of **Tirth Vaghela**, a full-stack developer and MSc IT stude
 | Motion | GSAP 3 + ScrollTrigger via `@gsap/react` (`useGSAP`); one shared `gsap.ticker` loop |
 | Hero | Raw WebGL1 fragment shader (the liquid "TIRTH VAGHELA" name) |
 | Fonts | `next/font/google`: Bricolage Grotesque (variable, `wght` + `wdth` axes), Instrument Serif, JetBrains Mono |
-| Contact form | [Formspree](https://formspree.io) |
+| Contact form | `/api/contact` → [Resend](https://resend.com) |
 | Visitor counter | Upstash Redis via `/api/visits` |
 | Hosting | Vercel (+ Vercel Analytics) |
 
@@ -31,10 +31,13 @@ npm run lint
 
 ### Environment variables
 
-Only the visitor counter needs them. Without them the site works and the footer simply hides the count.
+The contact form needs `RESEND_API_KEY`. The visitor counter (and the form's rate limit) use Redis; without Redis the site works, the footer hides the count and the form skips rate limiting.
 
 | Variable | Purpose |
 |---|---|
+| `RESEND_API_KEY` | Resend API key for the contact form (required for it to send) |
+| `CONTACT_FROM` | Optional sender once a domain is verified in Resend, e.g. `Portfolio <contact@tirthvaghela.in>` (default `onboarding@resend.dev`) |
+| `CONTACT_TO` | Optional inbox for messages (default `SITE.email`) |
 | `STORAGE_REDIS_REST_URL` or `KV_REST_API_URL` | Upstash Redis REST URL |
 | `STORAGE_REDIS_REST_TOKEN` or `KV_REST_API_TOKEN` | Upstash Redis REST token |
 
@@ -47,6 +50,7 @@ app/
   globals.css           design tokens + shared type classes
   projects/[slug]/      standalone case-study page per project
   api/visits/           visitor counter (Redis INCR)
+  api/contact/          contact form → Resend email (validation, honeypot, rate limit)
   opengraph-image.tsx   share card for WhatsApp / LinkedIn / X
   icon.tsx, apple-icon.tsx, manifest.ts, sitemap.ts, robots.ts
   og/                   static fonts used only by the share card and icons
@@ -72,7 +76,7 @@ All copy lives in `content/`, so most updates don't touch a component.
 
 - **Add or edit a project:** `content/projects.ts`. Each project can take an optional `image` (a path under `public/`); if it's set, that screenshot replaces the illustrated cover. Add the matching URL slug to `SLUGS` in the same file.
 - **Key projects:** `KEY_PROJECTS` in `content/site.ts`.
-- **Contact form endpoint:** `SITE.formspree` in `content/site.ts`.
+- **Contact form:** `app/api/contact/route.ts`. Messages go to `SITE.email` (override with `CONTACT_TO`).
 - **Résumé / certificates:** replace the PDFs in `public/` (keep the file names, or update the links in `content/site.ts`).
 
 ## Motion and accessibility

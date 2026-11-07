@@ -26,20 +26,20 @@ export default function Contact() {
     return e;
   };
 
-  // Sends through Formspree; the success state only appears once Formspree confirms delivery.
+  // Sends through our /api/contact route (Resend); success only shows once the email is accepted.
   const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     if (status === "sending") return;
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
-    // Only sent when a bot filled it, so real messages never carry the spam flag.
-    const trap = (ev.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>("[name=_gotcha]")?.value ?? "";
+    // Honeypot: real people never see this field; the server drops anything that fills it.
+    const trap = (ev.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>("[name=website]")?.value ?? "";
     setErrors({}); setStatus("sending");
     try {
-      const res = await fetch(SITE.formspree, {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), ...(trap ? { _gotcha: trap } : {}), _subject: `Portfolio enquiry from ${name.trim()}` }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), website: trap }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setSentTo(email.trim()); setStatus("sent");
@@ -80,8 +80,8 @@ export default function Contact() {
         <div data-reveal="" className={s.card}>
           {!sent ? (
             <form onSubmit={submit} noValidate className={s.form}>
-              {/* Honeypot: invisible to people, bots fill it, Formspree drops those submissions. */}
-              <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" className={s.trap} />
+              {/* Honeypot: invisible to people, bots fill it, the server drops those submissions. */}
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className={s.trap} />
               <label className={s.field}>
                 <span className="mono">Name</span>
                 <input type="text" name="name" autoComplete="name" value={name} aria-invalid={!!errors.name}
