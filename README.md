@@ -2,82 +2,85 @@
 
 > **Live:** [tirthvaghela.in](https://tirthvaghela.in)
 
----
-
-## 👋 About Me
-
-I'm **Tirth Vaghela**, a Full-Stack Developer and MSc IT student (Semester 9) at **GLS University, Ahmedabad**. I build modern web applications and AI-powered systems using React, Next.js, Django, Flask, and more.
-
-- 📍 Ahmedabad, Gujarat, India
-- 📧 vaghelatirth719@gmail.com
-- 🔗 [LinkedIn](https://www.linkedin.com/in/tirthvaghela/)
-- 🐙 [GitHub](https://github.com/Tirthvaghela)
-- 🌐 [tirthvaghela.in](https://tirthvaghela.in)
+Personal portfolio of **Tirth Vaghela**, a full-stack developer and MSc IT student at GLS University, Ahmedabad. It's a single long page built with Next.js and GSAP, with a WebGL hero, scroll-driven sections, and a contact form that delivers through Formspree.
 
 ---
 
-## 🎓 Education
+## Stack
 
-| Degree | Institution | Period | Status |
-|--------|------------|--------|--------|
-| MSc IT (Integrated) | GLS University | 2025 – 2027 | Pursuing — Sem 9 |
-| BSc IT | GLS University | 2022 – 2025 | Completed — CGPA 7.64, First Class with Distinction |
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router), React 19, TypeScript |
+| Styling | CSS Modules + a small global stylesheet (`app/globals.css`) |
+| Motion | GSAP 3 + ScrollTrigger via `@gsap/react` (`useGSAP`); one shared `gsap.ticker` loop |
+| Hero | Raw WebGL1 fragment shader (the liquid "TIRTH VAGHELA" name) |
+| Fonts | `next/font/google`: Bricolage Grotesque (variable, `wght` + `wdth` axes), Instrument Serif, JetBrains Mono |
+| Contact form | [Formspree](https://formspree.io) |
+| Visitor counter | Upstash Redis via `/api/visits` |
+| Hosting | Vercel (+ Vercel Analytics) |
 
----
+## Running it
 
-## 💼 Experience
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm start        # serve the production build
+npm run lint
+```
 
-### Full-Stack Web Development Intern — Prodigy InfoTech *(Remote, Feb 2026)*
+### Environment variables
 
-- **Task 1** — Built a production-ready enterprise authentication system using Django REST Framework and React with JWT, 2FA (TOTP), session management, audit logging, and role-based access control.
-- **Task 2** — Developed a full-featured MERN stack Employee Management System with JWT auth, profile picture upload, advanced search/filtering, CSV/PDF export, and a professional Electrox Design System UI.
-- **Task 3** — Created a PHP + MySQL e-commerce platform (Local Pantry) with product catalog, shopping cart, wishlist, order tracking, admin dashboard, and inventory analytics.
-- **Task 4** — Built Vois, a full-stack social media platform using React, FastAPI, and MongoDB with JWT auth, post/like/comment system, follow system, trending analytics, and responsive glassmorphism UI.
+Only the visitor counter needs them. Without them the site works and the footer simply hides the count.
 
----
+| Variable | Purpose |
+|---|---|
+| `STORAGE_REDIS_REST_URL` or `KV_REST_API_URL` | Upstash Redis REST URL |
+| `STORAGE_REDIS_REST_TOKEN` or `KV_REST_API_TOKEN` | Upstash Redis REST token |
 
-## 🛠️ Skills
+## Project structure
 
-| Category | Technologies |
-|----------|-------------|
-| **Languages** | Python, JavaScript, TypeScript, SQL |
-| **Frontend** | React, Next.js, HTML, CSS, Tailwind CSS, Flutter |
-| **Backend** | Django, Flask, Node.js, FastAPI, REST APIs |
-| **Databases** | MySQL, MongoDB, SQLite |
-| **AI / ML** | YOLOv4, YOLOv8, OpenCV, DeepFace, ArcFace |
-| **Tools** | Git, GitHub, VS Code, Vercel |
+```
+app/
+  layout.tsx            fonts, metadata/SEO, JSON-LD, motion boot script
+  page.tsx              renders <Site />
+  globals.css           design tokens + shared type classes
+  projects/[slug]/      standalone case-study page per project
+  api/visits/           visitor counter (Redis INCR)
+  opengraph-image.tsx   share card for WhatsApp / LinkedIn / X
+  icon.tsx, apple-icon.tsx, manifest.ts, sitemap.ts, robots.ts
+  og/                   static fonts used only by the share card and icons
+components/site/        every section, one component + CSS Module each
+  Hero.tsx              loader, WebGL name, scroll dive
+  KeyProjects.tsx       VoiceForm AI, FileFlow AI, ProjectMindAI
+  Work.tsx              pinned horizontal project reel + filters/search
+  Cover.tsx             illustrated project covers (SVG)
+  Systems.tsx, Skills.tsx, Experience.tsx, Contact.tsx, Footer.tsx, …
+  ScrollMotion.tsx      page-wide reveals, sheet scaling, counters
+  Micro.tsx             cursor, magnetic buttons, text scramble
+content/                all text and data, separate from the UI
+  site.ts               links, key projects, education, courses, contact channels
+  projects.ts           the 9 projects in the Work reel
+  skills.ts             skill groups for the orbit
+  palette.ts            colour constants
+lib/gsap.ts             GSAP + ScrollTrigger registration, breakpoints
+```
 
----
+## Editing content
 
-## 🚀 Projects
+All copy lives in `content/`, so most updates don't touch a component.
 
-| # | Project | Tech Stack | Category |
-|---|---------|-----------|----------|
-| 1 | [Urban Signal](https://github.com/Tirthvaghela/Urban_Signal) | Next.js, Flask, OpenCV, YOLOv4, MySQL | AI / ML |
-| 2 | [EventEase](https://github.com/Tirthvaghela/EventEase) | Django, Django REST Framework, SQLite | Web |
-| 3 | [FreshVault](https://github.com/Tirthvaghela/FreshValut) | PHP, MySQL, Tailwind CSS | Web |
-| 4 | [Vois](https://github.com/Tirthvaghela/Vois) | React, FastAPI, MongoDB, JWT | Full-Stack |
-| 5 | [Electrox-Mobile](https://github.com/Tirthvaghela/Electrox-Mobile) | Flutter, Node.js, Express, MongoDB | Mobile |
-| 6 | [RIGS](https://github.com/Tirthvaghela/RIGS) | React, Node.js, YOLOv8, OpenCV | AI / ML |
-| 7 | [Wedding Face Finder](https://github.com/Tirthvaghela/Wedding-Face-Finder) | Flask, DeepFace, ArcFace, RetinaFace | AI / ML |
-| 8 | [Electrox Web](https://github.com/Tirthvaghela/Electrox) | React, Flask, MongoDB, JWT | Full-Stack |
+- **Add or edit a project:** `content/projects.ts`. Each project can take an optional `image` (a path under `public/`); if it's set, that screenshot replaces the illustrated cover. Add the matching URL slug to `SLUGS` in the same file.
+- **Key projects:** `KEY_PROJECTS` in `content/site.ts`.
+- **Contact form endpoint:** `SITE.formspree` in `content/site.ts`.
+- **Résumé / certificates:** replace the PDFs in `public/` (keep the file names, or update the links in `content/site.ts`).
 
----
+## Motion and accessibility
 
-## 📜 Certifications
+- A **Motion** switch in the header turns animation off (saved in `localStorage` as `tirthvaghela:motion`). It defaults to off when the system asks for reduced motion. With motion off there's no loader, pinning or scrubbing, and every section is visible and static.
+- Keyboard: skip link, focus-trapped project dialog (← / → to switch projects, Esc to close), focus-trapped mobile menu, visible focus rings.
+- Mobile gets touch-adapted versions of every animation (touch ripples on the hero, stacked reel with tilt/parallax, pinned compact skills orbit, vertical pipeline).
 
-| Certificate | Issuer | Date |
-|------------|--------|------|
-| Developing Front-End Apps with React | IBM — Coursera | 2026 |
-| Master MongoDB Database Design | Udemy | Feb 2026 |
-| Claude Code in Action | Anthropic | March 2026 |
+## Deploying
 
----
-
-## 🏗️ Portfolio Tech Stack
-
-Built with **Next.js 16**, **TypeScript**, **Framer Motion**, **Space Grotesk** font, deployed on **Vercel**.
-
----
-
-*"Dream it. Code it. Deploy it."*
+Push to `main` and Vercel builds and deploys automatically. Set the Redis variables above in the Vercel project for the visitor counter.

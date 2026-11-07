@@ -1,9 +1,13 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-export default function Icon() {
+/* Browser-tab icon: the v8 "TV." mark — paper on ink, red dot. */
+export default async function Icon() {
+  const display = await readFile(join(process.cwd(), "app/og", "Bricolage-800.ttf"));
   return new ImageResponse(
     (
       <div
@@ -13,16 +17,18 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#fff",
-          fontSize: 22,
-          fontWeight: 900,
+          background: "#14120f",
+          borderRadius: 7,
+          fontSize: 19,
+          fontFamily: "Bricolage",
+          fontWeight: 800,
           letterSpacing: "-1px",
-          color: "#111",
+          color: "#efe9dc",
         }}
       >
-        TV<span style={{ color: "#2563eb" }}>.</span>
+        TV<span style={{ color: "#e8452f" }}>.</span>
       </div>
     ),
-    { ...size }
+    { ...size, fonts: [{ name: "Bricolage", data: display, weight: 800, style: "normal" }] }
   );
 }

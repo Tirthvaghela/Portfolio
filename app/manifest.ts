@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Portfolio of Tirth Vaghela – Full-Stack Developer specializing in React, Next.js, Django, Flask, and AI/ML integrations.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f7f7f5",
-    theme_color: "#2148d8",
+    background_color: "#14120f",
+    theme_color: "#14120f",
     icons: [
       { src: "/icon", sizes: "32x32", type: "image/png" },
       { src: "/apple-icon", sizes: "180x180", type: "image/png" },
