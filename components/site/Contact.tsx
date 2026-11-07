@@ -32,12 +32,14 @@ export default function Contact() {
     if (status === "sending") return;
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
+    // Only sent when a bot filled it, so real messages never carry the spam flag.
+    const trap = (ev.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>("[name=_gotcha]")?.value ?? "";
     setErrors({}); setStatus("sending");
     try {
       const res = await fetch(SITE.formspree, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), _gotcha: (ev.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>("[name=_gotcha]")?.value ?? "", _subject: `Portfolio enquiry from ${name.trim()}` }),
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim(), ...(trap ? { _gotcha: trap } : {}), _subject: `Portfolio enquiry from ${name.trim()}` }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setSentTo(email.trim()); setStatus("sent");

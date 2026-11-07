@@ -47,7 +47,7 @@ const personJsonLd = {
 
 /* Runs before paint: decides motion on/off so CSS (hero height, pinned reel layout)
    is correct on the very first frame — no layout shift once React hydrates. */
-const motionBoot = `(function(){try{var s=localStorage.getItem('${MOTION_KEY}');var on=s?s==='on':!matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',on?'on':'off');var seen=localStorage.getItem('${MOTION_KEY}:seen');if(on&&seen)document.documentElement.setAttribute('data-noloader','');if(on&&!seen)document.documentElement.setAttribute('data-loading','');}catch(e){document.documentElement.setAttribute('data-motion','on');}})();`;
+const motionBoot = `(function(){try{var s=localStorage.getItem('${MOTION_KEY}');var on=s?s==='on':!matchMedia('(prefers-reduced-motion: reduce)').matches;document.documentElement.setAttribute('data-motion',on?'on':'off');if(on)document.documentElement.setAttribute('data-loading','');}catch(e){document.documentElement.setAttribute('data-motion','on');}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

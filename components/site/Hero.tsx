@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP, isMobileNow } from "@/lib/gsap";
-import { MOTION_KEY } from "@/content/site";
 import { bricolage } from "@/app/fonts";
 import { CLAIMS } from "@/content/projects";
 import { RED, TEAL, MUST, INK } from "@/content/palette";
@@ -9,25 +8,34 @@ import { useSite } from "./SiteProvider";
 import s from "./Hero.module.css";
 
 const VS = "attribute vec2 p;varying vec2 vUv;void main(){vUv=p*.5+.5;gl_Position=vec4(p,0.,1.);}";
-/* Fragment shader — verbatim from the reference's initHeroGL(). */
+/* Fragment shader. Name at rest is still and crisp; the intro is a line-by-line mask reveal
+   (each line rises from behind its own band) while the red/teal split converges; the cursor
+   only adds a slight lens + colour split; the scroll dive zooms into the first letter. */
 const FS = `precision highp float;
-uniform sampler2D uTex;uniform vec2 uRes;uniform float uT;uniform float uZoom;uniform vec2 uFocus;uniform float uIntro;uniform float uWarp;uniform float uFill;uniform vec3 uP[16];
+uniform sampler2D uTex;uniform vec2 uRes;uniform float uT;uniform float uZoom;uniform vec2 uFocus;uniform float uIntro;uniform float uWarp;uniform float uFill;uniform vec3 uBand;uniform vec3 uP[16];
 varying vec2 vUv;
 float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){
   vec2 asp=vec2(uRes.x/uRes.y,1.);
   vec2 off=vec2(0.);float s=0.;
-  for(int i=0;i<16;i++){vec3 q=uP[i];vec2 d=(vUv-q.xy)*asp;float l=length(d);float k=q.z*exp(-l*l*22.);off+=normalize(d+1e-5)*k*.05/asp+vec2(sin(l*46.-uT*7.),cos(l*46.-uT*7.))*k*.01;s+=k;}
-  off+=vec2(sin(vUv.y*12.+uT*1.2),cos(vUv.x*9.+uT*.9))*(.0022+uWarp*.02);
-  float it=1.-uIntro;off.y+=it*it*.35*(.5+.5*sin(vUv.x*20.));off.x+=it*.05*sin(vUv.y*30.+uT*3.);
+  for(int i=0;i<16;i++){vec3 q=uP[i];vec2 d=(vUv-q.xy)*asp;float l=length(d);float k=q.z*exp(-l*l*14.);off-=d*k*.06/asp;s+=k;}
   vec2 uv=uFocus+(vUv-uFocus)/uZoom+off/uZoom;
-  float ca=.0035+s*.028+uWarp*.02+it*.04;
-  float r=texture2D(uTex,uv+vec2(ca,0.)).a;float g=texture2D(uTex,uv).a;float b=texture2D(uTex,uv-vec2(ca,ca*.4)).a;
+  float e0=clamp(uIntro/.8,0.,1.),e1=clamp((uIntro-.2)/.8,0.,1.);
+  e0=1.-pow(1.-e0,4.);e1=1.-pow(1.-e1,4.);
+  float m=1.;
+  if(uIntro<1.){
+    bool l0=uv.y>uBand.y;
+    float top=l0?uBand.x:uBand.y,bot=l0?uBand.y:uBand.z,e=l0?e0:e1;
+    float sy=uv.y+(1.-e)*(top-bot)*1.08;
+    m=step(sy,top)*step(bot,uv.y);uv.y=sy;
+  }
+  float ca=.0025+min(s,1.5)*.006+uWarp*.02+(1.-e1)*.02;
+  float r=texture2D(uTex,uv+vec2(ca,0.)).a*m;float g=texture2D(uTex,uv).a*m;float b=texture2D(uTex,uv-vec2(ca,ca*.4)).a*m;
   vec3 col=vec3(.078,.071,.059);
   col=mix(col,vec3(.86,.34,.25),clamp(r-g,0.,1.));
   col=mix(col,vec3(.17,.52,.48),clamp(b-g,0.,1.));
   col=mix(col,vec3(.937,.914,.863),g);
-  col+=(h(vUv*uRes+fract(uT)*91.)-.5)*.07*(1.-uFill);
+  col+=(h(vUv*uRes+fract(uT)*91.)-.5)*.04*(1.-uFill);
   col=mix(col,vec3(.937,.914,.863),uFill);
   gl_FragColor=vec4(col,1.);
 }`;
@@ -52,15 +60,11 @@ export default function Hero() {
   /* Loader → hero intro (one timeline, exactly the reference's ordering). */
   useGSAP(() => {
     if (!motion) { hfx.current.intro = 1; covered.current = false; return; }
-    // Returning visitors (flag set by the boot script) skip the loader entirely.
-    const returning = document.documentElement.hasAttribute("data-noloader");
-    if (returning && loader) setLoader(false);
-    const runLoader = loader && !loaderPlayed && !returning;
+    const runLoader = loader && !loaderPlayed;
     const tl = gsap.timeline();
     let safety: ReturnType<typeof setTimeout> | undefined;
     if (runLoader) {
       loaderPlayed = true;
-      try { localStorage.setItem(`${MOTION_KEY}:seen`, "1"); } catch {}
       // Phones get the same sequence at roughly half length (~1.7s instead of ~3.4s).
       const k = isMobileNow() ? .5 : 1;
       safety = setTimeout(() => { if (tl.progress() < 1) tl.progress(1); setLoader(false); }, 4200 * k);
@@ -74,7 +78,7 @@ export default function Hero() {
     }
     if (!runLoader) covered.current = false;
     const at = runLoader ? `-=${.75 * (isMobileNow() ? .5 : 1)}` : 0;
-    tl.fromTo(hfx.current, { intro: 0 }, { intro: 1, duration: 2.2, ease: "expo.out" }, at);
+    tl.fromTo(hfx.current, { intro: 0 }, { intro: 1, duration: 1.7, ease: "none" }, at);
     tl.from("[data-hov]", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: .1 }, "<0.6");
     return () => { if (safety) clearTimeout(safety); };
   }, { scope, dependencies: [motion], revertOnUpdate: true });
@@ -99,7 +103,7 @@ export default function Hero() {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const U = (n: string) => gl.getUniformLocation(pr, n);
-    const u = { res: U("uRes"), t: U("uT"), zoom: U("uZoom"), focus: U("uFocus"), intro: U("uIntro"), warp: U("uWarp"), fill: U("uFill"), p: U("uP") };
+    const u = { res: U("uRes"), t: U("uT"), zoom: U("uZoom"), focus: U("uFocus"), intro: U("uIntro"), warp: U("uWarp"), fill: U("uFill"), band: U("uBand"), p: U("uP") };
     const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -122,7 +126,11 @@ export default function Hero() {
       const total = sizes.reduce((a, b) => a + b * .8, 0), maxH = H * (W < 700 * dpr ? .5 : .66), k = Math.min(1, maxH / total);
       sizes = sizes.map((sz) => sz * k);
       let y = H * .5 - (sizes[0] * .8 + sizes[1] * .8) / 2 - H * .03;
-      lines.forEach((l, i) => { tx.font = `800 ${sizes[i]}px ${FF}`; const w = tx.measureText(l).width; y += sizes[i] * .8; tx.fillText(l, (W - w) / 2, y); });
+      const base: number[] = [];
+      lines.forEach((l, i) => { tx.font = `800 ${sizes[i]}px ${FF}`; const w = tx.measureText(l).width; y += sizes[i] * .8; base.push(y); tx.fillText(l, (W - w) / 2, y); });
+      // Mask bands for the intro reveal (GL uv, y up): top of line 1, gap between lines, bottom of line 2.
+      const top0 = base[0] - sizes[0] * .8, split = (base[0] + base[1] - sizes[1] * .74) / 2, bot1 = base[1] + sizes[1] * .03;
+      gl.uniform3f(u.band, 1 - top0 / H, 1 - split / H, 1 - bot1 / H);
       gl.bindTexture(gl.TEXTURE_2D, tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
       // Auto-find a focus point inside the first letter's ink for the scroll dive.
       // Same search as the reference, but only the pixels it can reach are read back
@@ -158,7 +166,7 @@ export default function Hero() {
     const moveTo = (cx: number, cy: number) => {
       const [x, y] = at(cx, cy); if (x < 0 || x > 1 || y < 0 || y > 1) return;
       const sp = last ? Math.hypot(x - last[0], y - last[1]) : 0; last = [x, y];
-      if (motionRef.current) push(x, y, Math.min(1.6, .25 + sp * 28));
+      if (motionRef.current) push(x, y, Math.min(.6, .08 + sp * 10));
     };
     const move = (e: PointerEvent) => moveTo(e.clientX, e.clientY);
     // Touch: the browser takes the pointer for vertical panning, so follow touchmove too.
@@ -167,7 +175,7 @@ export default function Hero() {
       if ((e.target as Element).closest?.("a,button")) return;
       if (!motionRef.current) return;
       const [x, y] = at(e.clientX, e.clientY);
-      for (let i = 0; i < 3; i++) push(x, y, 2.6);
+      push(x, y, .5);
     };
     addEventListener("pointermove", move, { passive: true });
     box.addEventListener("touchmove", tmove, { passive: true });
@@ -179,7 +187,7 @@ export default function Hero() {
     const ready = document.fonts?.load ? document.fonts.load(`800 100px ${FF}`) : Promise.resolve();
     ready.then(queueDraw, queueDraw);
 
-    let idle = 0, frozenT = -1, lastMotion = motionRef.current;
+    let frozenT = -1, lastMotion = motionRef.current;
     const hovs = () => Array.from(document.querySelectorAll<HTMLElement & { _o?: string }>("[data-hov]"));
     let hovEls = hovs();
     const loop = (time: number) => {
@@ -202,9 +210,8 @@ export default function Hero() {
       frozenT = -1;
       if (covered.current) { if (!dirty) return; dirty = false; }
       const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
-      for (let i = 0; i < 16; i++) pts[i * 3 + 2] *= .93;
+      for (let i = 0; i < 16; i++) pts[i * 3 + 2] *= .9;
       // Idle (and always on touch): a ripple drifts along a Lissajous path.
-      if (!fineRef.current || !last) { idle += .016; if ((t | 0) % 3 === 0) push(.5 + .34 * Math.sin(idle * .9), .5 + .22 * Math.sin(idle * 1.7), .45); }
       const zoom = 1 + Math.pow(Math.max(0, (p - .12) / .88), 3) * 90; // reference: × 70; a little deeper so the letter fills the screen
       const ho = String(Math.max(0, 1 - p / .18));
       hovEls.forEach((el) => { if (el._o !== ho) { el._o = ho; el.style.opacity = ho; } });
@@ -270,7 +277,7 @@ export default function Hero() {
               <a href="#contact" data-magnetic="" className={`${s.ctaLine} mono`} style={{ fontSize: 13 }}>Contact</a>
             </div>
           </div>
-          {fine && motion && <span data-hov="" className={`${s.hint} mono11`}>Move · Click · Scroll</span>}
+          {fine && motion && <span data-hov="" className={`${s.hint} mono11`}>Scroll</span>}
         </div>
       </section>
     </div>
