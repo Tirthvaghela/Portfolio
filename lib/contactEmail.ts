@@ -57,7 +57,7 @@ export function contactEmail({ name, email, message, site, when = new Date() }: 
 
       <!-- headline -->
       <tr><td class="pad" style="padding:36px 36px 8px">
-        ${label(`From your portfolio &middot; ${esc(stamp(when))}`)}
+        ${label(`From your portfolio &#183; ${esc(stamp(when))}`)}
         <h1 class="h1" style="margin:14px 0 0;font-family:${DISPLAY};font-size:44px;line-height:1;font-weight:900;letter-spacing:-1.5px;text-transform:uppercase;color:${INK}">
           ${esc(first)} wants<br>to <span style="font-family:${SERIF};font-style:italic;font-weight:400;text-transform:none;letter-spacing:-1px;color:${RED}">talk.</span>
         </h1>
@@ -79,15 +79,15 @@ export function contactEmail({ name, email, message, site, when = new Date() }: 
 
       <!-- reply -->
       <tr><td class="pad btn" style="padding:28px 36px 36px">
-        <a href="${replyHref}" style="display:inline-block;background:${INK};color:${MUST};font-family:${MONO};font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:16px 28px;border-radius:99px">Reply to ${esc(first)} &rarr;</a>
-        <p style="margin:14px 0 0;font-family:${SANS};font-size:13px;line-height:1.5;color:${MUTED}">Or just hit Reply &mdash; it goes straight to ${esc(email)}.</p>
+        <a href="${replyHref}" style="display:inline-block;background:${INK};color:${MUST};font-family:${MONO};font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:16px 28px;border-radius:99px">Reply to ${esc(first)} &#8594;</a>
+        <p style="margin:14px 0 0;font-family:${SANS};font-size:13px;line-height:1.5;color:${MUTED}">Or just hit Reply &#8212; it goes straight to <a href="mailto:${esc(email)}" style="color:${MUTED};text-decoration:underline">${esc(email)}</a>.</p>
       </td></tr>
 
       <!-- footer -->
       <tr><td class="pad" style="background:${INK};padding:20px 36px">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
           <td style="font-family:${SERIF};font-style:italic;font-size:15px;color:${PAPER}">Sent from the contact form</td>
-          <td align="right"><a href="${esc(site)}" style="font-family:${MONO};font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:${PAPER};text-decoration:none">${esc(host)} &nearr;</a></td>
+          <td align="right"><a href="${esc(site)}" style="font-family:${MONO};font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:${PAPER};text-decoration:none">${esc(host)} &#8599;</a></td>
         </tr></table>
       </td></tr>
 
