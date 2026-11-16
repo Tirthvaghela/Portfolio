@@ -43,7 +43,7 @@ export default function Micro() {
       const t = e.target as Element;
       const m = t.closest?.<HTMLElement>("[data-magnetic]");
       if (m) { const b = m.getBoundingClientRect(); gsap.to(m, { x: (e.clientX - b.left - b.width / 2) * .3, y: (e.clientY - b.top - b.height / 2) * .3, duration: .4, ease: "power3.out" }); lastMag = m; }
-      else if (lastMag) { gsap.to(lastMag, { x: 0, y: 0, duration: .9, ease: "elastic.out(1,.35)" }); lastMag = null; }
+      else if (lastMag) { gsap.to(lastMag, { x: 0, y: 0, duration: .9, ease: "expo.out" }); lastMag = null; }
       const box = t.closest?.<HTMLElement>("[data-panel]");
       const tilt = box?.querySelector<HTMLElement>("[data-tilt]");
       if (box && tilt && matchMedia("(min-width: 900px)").matches) {
@@ -78,7 +78,7 @@ export default function Micro() {
     const onUp = (e: PointerEvent) => {
       if (e.pointerType === "mouse") return;
       const btn = (e.target as Element).closest?.<HTMLElement>("[data-magnetic], button");
-      if (btn) gsap.to(btn, { scale: 1, duration: .6, ease: "elastic.out(1,.4)" });
+      if (btn) gsap.to(btn, { scale: 1, duration: .6, ease: "expo.out" });
     };
 
     addEventListener("pointermove", onMove, { passive: true });
