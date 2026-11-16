@@ -1,6 +1,9 @@
 /** Site-wide content — every string here is copied verbatim from the v8 reference. */
 import { MUST, PAPER } from "./palette";
 
+/** Résumé link, versioned by the PDF's fingerprint (set in next.config.ts) so updates show immediately. */
+const RESUME = `/TV_Resume.pdf?v=${process.env.NEXT_PUBLIC_RESUME_V ?? "1"}`;
+
 export const SITE = {
   name: "Tirth Vaghela",
   url: "https://tirthvaghela.in",
@@ -8,7 +11,7 @@ export const SITE = {
   github: "https://github.com/Tirthvaghela",
   linkedin: "https://www.linkedin.com/in/tirthvaghela/",
   collaborator: "https://www.linkedin.com/in/dhruv-sadrawala22/",
-  resume: "/TV_Resume.pdf",
+  resume: RESUME,
   githubChart: "https://ghchart.rshah.org/2a7a6f/Tirthvaghela",
   location: "Ahmedabad, Gujarat, India",
 };
@@ -76,7 +79,7 @@ export const CHANNELS = [
   { label: 'Email', value: 'vaghelatirth719@gmail.com', href: 'mailto:vaghelatirth719@gmail.com', target: '_self' },
   { label: 'GitHub', value: '@Tirthvaghela', href: 'https://github.com/Tirthvaghela', target: '_blank' },
   { label: 'LinkedIn', value: 'in/tirthvaghela', href: 'https://www.linkedin.com/in/tirthvaghela/', target: '_blank' },
-  { label: 'Résumé', value: 'TV_Resume.pdf', href: '/TV_Resume.pdf', target: '_blank' },
+  { label: 'Résumé', value: 'TV_Resume.pdf', href: RESUME, target: '_blank' },
 ];
 
 export const pad = (n: number) => String(n).padStart(2, '0');
