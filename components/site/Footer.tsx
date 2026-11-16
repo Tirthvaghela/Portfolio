@@ -60,7 +60,9 @@ export default function Footer() {
         if (isLive) {
           const b = rects![i], d = Math.hypot(L.gp!.x - (b.left + b.width / 2), L.gp!.y - (b.top + b.height / 2));
           f = Math.max(0, 1 - d / R); f = f * f * (3 - 2 * f);
-        } else f = L.motion ? (Math.sin(t * .0016 - i * .55) + 1) / 2 * .85 : .6;
+        } else f = L.motion && L.fine ? (Math.sin(t * .0016 - i * .55) + 1) / 2 * .85 : .6;
+        // Touch screens: no idle wave (re-laying out every letter each frame was the main
+        // source of mobile jank near the footer); letters rest at .6 until a finger drags.
         const prev = el._f == null ? -1 : el._f;
         const v = prev < 0 ? f : prev + (f - prev) * .14;
         if (Math.abs(v - prev) > .003) {
