@@ -64,6 +64,13 @@ export const KEY_PROJECTS: KeyProject[] = [
   },
 ];
 
+/** Hero sentence: "I build software that …" — each phrase links to its Key project panel. */
+export const KEY_CLAIMS: [string, string][] = [
+  ['fills paper forms by voice', 'voiceform'],
+  ['sorts your files on autopilot', 'fileflow'],
+  ['turns ideas into projects', 'projectmind'],
+];
+
 export const EDUCATION = [
   { years: '2025 – 2027', status: 'Pursuing', chipBg: MUST, degree: 'Master of Science in Information Technology (MSc IT)', note: "Integrated Master's — Currently in Semester 9", cgpa: '' },
   { years: '2022 – 2025', status: 'Completed', chipBg: PAPER, degree: 'Bachelor of Science in Information Technology (BSc IT)', note: 'Completed as part of IMSC IT integrated program', cgpa: 'CGPA 7.64 · First Class with Distinction' },

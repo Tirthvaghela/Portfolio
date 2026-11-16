@@ -31,7 +31,6 @@ export const PROJECTS: Project[] = [
 /** Indexes into PROJECTS that have a system-flow pipeline (Systems tabs). */
 export const PIPES = [0, 3, 6];
 /** Hero claims: [text, project index]. */
-export const CLAIMS: [string, number][] = [['reads traffic', 0], ['catches helmetless riders', 3], ['counts votes', 7], ['finds you in wedding photos', 6]];
 export const CATS = ['All','AI / ML','Full-Stack','Web','Mobile'];
 
 /** URL slugs for /projects/[slug], by PROJECTS index — kept identical to the previous site's URLs. */

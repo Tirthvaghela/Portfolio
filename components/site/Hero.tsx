@@ -2,8 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP, isMobileNow } from "@/lib/gsap";
 import { bricolage } from "@/app/fonts";
-import { CLAIMS } from "@/content/projects";
 import { RED, TEAL, MUST, INK } from "@/content/palette";
+import { KEY_CLAIMS } from "@/content/site";
 import { useSite } from "./SiteProvider";
 import s from "./Hero.module.css";
 
@@ -43,7 +43,7 @@ void main(){
 let loaderPlayed = false;
 
 export default function Hero() {
-  const { motion, fine, time, loader, setLoader, openProject } = useSite();
+  const { motion, fine, time, loader, setLoader } = useSite();
   const scope = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -264,11 +264,11 @@ export default function Hero() {
             </div>
             <p className={s.claim}>
               I build software that{" "}
-              {CLAIMS.map(([text, i], k) => (
+              {KEY_CLAIMS.map(([text, id], k) => (
                 <span key={text}>
-                  <a href="#work" data-cursor="Open" className={s.claimLink} onClick={(e) => { e.preventDefault(); openProject(i); }}>{text}</a>
+                  <a href={`#key-${id}`} data-cursor="View" className={s.claimLink}>{text}</a>
                   <sup>{k + 1}</sup>
-                  {k < CLAIMS.length - 2 ? ", " : k === CLAIMS.length - 2 ? " and " : "."}
+                  {k < KEY_CLAIMS.length - 2 ? ", " : k === KEY_CLAIMS.length - 2 ? " and " : "."}
                 </span>
               ))}
             </p>

@@ -3,7 +3,7 @@
 .l2 > * { color: var(--red); padding-left: clamp(0px, 8vw, 160px); }
 
 .list { display: flex; flex-direction: column; gap: clamp(16px, 2vw, 24px); margin-top: clamp(40px, 6vw, 80px); }
-.panel { border-radius: 32px; background: var(--bg); color: var(--fg); padding: clamp(20px, 3vw, 44px); display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px); }
+.panel { scroll-margin-top: 88px; border-radius: 32px; background: var(--bg); color: var(--fg); padding: clamp(20px, 3vw, 44px); display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px); }
 
 .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
 .panel[data-flip="true"] .info { order: 2; }
