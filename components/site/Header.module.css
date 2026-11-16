@@ -6,7 +6,7 @@
 .navLink { display: flex; align-items: baseline; gap: 6px; padding: 12px; transition: opacity .3s; }
 .navNum { font-size: 10px; }
 .tools { display: flex; align-items: center; gap: 8px; }
-.resume { display: flex; align-items: center; height: 42px; padding: 0 18px; border: 1px solid #fff; border-radius: 99px; white-space: nowrap; }
+.resume { display: flex; align-items: center; height: 42px; padding: 0 18px; border: 1px solid #fff; border-radius: 99px; white-space: nowrap; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease); }
 .resume:hover { background: #fff; color: #000; opacity: 1; }
 .burger { width: 44px; height: 44px; display: none; flex-direction: column; justify-content: center; align-items: center; gap: 7px; }
 .burger span { width: 24px; height: 2px; background: #fff; }

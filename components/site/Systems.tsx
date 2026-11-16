@@ -20,7 +20,7 @@ export default function Systems() {
   }, []);
   const pp = PROJECTS[PIPES[pipe]];
 
-  // Looping pipeline: the fill runs 2.6s while each step pops (y −10, mustard, back.out(2)),
+  // Looping pipeline: the fill runs 2.6s while each step lifts (y −10, mustard, expo.out),
   // then everything resets; repeats every 1.2s. Vertical (scaleY) under 900px. Rebuilt per tab.
   useGSAP(() => {
     const fill = ref.current?.querySelector<HTMLElement>("[data-pfill]");
@@ -32,12 +32,21 @@ export default function Systems() {
     tl.set(fill, { scaleX: vertical ? 1 : 0, scaleY: vertical ? 0 : 1, opacity: 1 });
     tl.set(steps, { y: 0, background: PAPER });
     tl.to(fill, { [prop]: 1, duration: 2.6, ease: "none" }, 0);
-    steps.forEach((st, i) => tl.to(st, { y: -10, background: MUST_RGB, duration: .35, ease: "back.out(2)" }, i * (2.6 / Math.max(1, steps.length - 1)) * .98));
+    steps.forEach((st, i) => tl.to(st, { y: -10, background: MUST_RGB, duration: .35, ease: "expo.out" }, i * (2.6 / Math.max(1, steps.length - 1)) * .98));
     tl.to(steps, { y: 0, background: PAPER, duration: .5, stagger: .05 }, "+=1");
     tl.to(fill, { opacity: 0, duration: .4 }, "<");
     // Starts once the pipeline scrolls into view (top 80%).
     ScrollTrigger.create({ trigger: "[data-pipe]", start: "top 80%", once: true, onEnter: () => { tl.play(); } });
   }, { scope: ref, dependencies: [motion, pipe, vertical], revertOnUpdate: true });
+
+  // Tab switch: the new pipeline's step text (and override line) rises in, so the change reads
+  // as new content rather than a hard cut. Skipped on first render.
+  const switched = useRef(false);
+  useGSAP(() => {
+    if (!switched.current) { switched.current = true; return; }
+    if (!motion) return;
+    gsap.from("[data-step] > span, [data-ovr]", { y: 12, opacity: 0, duration: .5, ease: "expo.out", stagger: .03, clearProps: "transform,opacity" });
+  }, { scope: ref, dependencies: [pipe] });
 
   return (
     <section id="systems" ref={ref} aria-labelledby="sys-h" data-sheet="" className={`sheet secPad ${s.sys}`}>
@@ -64,7 +73,7 @@ export default function Systems() {
         ))}
       </ol>
       {pp.override && (
-        <p className={s.override}><span className={`${s.overrideTag} mono11`}>Override</span>{pp.override}</p>
+        <p data-ovr="" className={s.override}><span className={`${s.overrideTag} mono11`}>Override</span>{pp.override}</p>
       )}
       <button type="button" onClick={() => openProject(PIPES[pipe])} className={`btn ${s.openCase}`}>Open the {pp.title} case →</button>
     </section>

@@ -45,7 +45,7 @@
 .claimLink:hover { opacity: 1; background-size: 100% 100%; color: #14120f; }
 .claim sup { font-family: var(--mono); font-size: .45em; color: var(--must); margin-left: .1em; }
 .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
-.ctaFill, .ctaLine { display: flex; align-items: center; height: 52px; border-radius: 99px; font-size: 13px; }
+.ctaFill, .ctaLine { display: flex; align-items: center; height: 52px; border-radius: 99px; font-size: 13px; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease); }
 .ctaFill { padding: 0 22px; background: #efe9dc; color: #14120f; }
 .ctaFill:hover { opacity: 1; background: var(--must); }
 .ctaLine { padding: 0 20px; border: 1px solid rgba(239, 233, 220, .45); }

@@ -22,7 +22,7 @@
 }
 .override { margin: 20px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 20px; background: var(--red); color: #14120f; font-size: 17px; font-weight: 600; }
 .overrideTag { padding: 4px 10px; border-radius: 99px; background: #14120f; color: var(--red); }
-.openCase { margin-top: 24px; display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px; border-radius: 99px; border: 1px solid rgba(239, 233, 220, .6); font-weight: 600; }
+.openCase { margin-top: 24px; display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px; border-radius: 99px; border: 1px solid rgba(239, 233, 220, .6); font-weight: 600; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease); }
 .openCase:hover { background: #efe9dc; color: #14120f; }
 
 /* Small screens: the pill can't hold all three names on one line — use an even

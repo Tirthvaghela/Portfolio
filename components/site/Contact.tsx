@@ -108,13 +108,13 @@ export default function Contact() {
                 </button>
                 <p className={s.sendNote} aria-live="polite">
                   {status === "error"
-                    ? <span className={s.sendErr}>✕ Couldn&apos;t send right now. Try again, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> directly.</span>
+                    ? <span className={`${s.sendErr} swapIn`}>✕ Couldn&apos;t send right now. Try again, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> directly.</span>
                     : "Goes straight to Tirth's inbox."}
                 </p>
               </div>
             </form>
           ) : (
-            <div role="status" className={s.sent}>
+            <div role="status" className={`${s.sent} swapIn`}>
               <span className={`${s.sentTag} mono`}>Message sent</span>
               <p className={s.sentBig}>Thanks — your message reached Tirth. You&apos;ll get a reply at {sentTo}.</p>
               <p className={s.sentSmall}>Need to add something? Write directly to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>

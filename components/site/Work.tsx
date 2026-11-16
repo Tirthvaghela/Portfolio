@@ -38,8 +38,13 @@ export default function Work() {
   const filtered = useRef(false);
   useEffect(() => {
     if (!filtered.current) { filtered.current = true; return; } // initial layout is refreshed by ScrollMotion
-    const id = requestAnimationFrame(() => ScrollTrigger.refresh()); return () => cancelAnimationFrame(id);
-  }, [filter, query]);
+    const id = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      // Filter/search changed: the matching projects rise in, confirming the result updated.
+      if (motion) gsap.fromTo(trackRef.current?.querySelectorAll("[data-panel]") ?? [], { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "expo.out", stagger: .05, overwrite: true });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [filter, query]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useGSAP(() => {
     if (!motion) return;
@@ -77,7 +82,7 @@ export default function Work() {
 
       // Press state: scale .98 on touch, spring back.
       const down = (e: TouchEvent) => { const p = (e.target as Element).closest?.("[data-panel]"); if (p) gsap.to(p, { scale: .98, duration: .2, ease: "power2.out" }); };
-      const up = () => gsap.to(panels, { scale: 1, duration: .8, ease: "elastic.out(1,.4)", overwrite: "auto" });
+      const up = () => gsap.to(panels, { scale: 1, duration: .8, ease: "expo.out", overwrite: "auto" });
       sec?.addEventListener("touchstart", down, { passive: true });
       sec?.addEventListener("touchend", up); sec?.addEventListener("touchcancel", up);
       return () => {
