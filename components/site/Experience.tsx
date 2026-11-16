@@ -1,10 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useSite } from "./SiteProvider";
 import { COURSES, EDUCATION, TASKS, pad } from "@/content/site";
 import s from "./Experience.module.css";
 
 export default function Experience() {
+  const { motion } = useSite();
   const [open, setOpen] = useState(true);
+  const tasksRef = useRef<HTMLDivElement>(null);
+  // Re-opening the internship tasks: they rise in one after another instead of appearing at once.
+  const toggled = useRef(false);
+  useGSAP(() => {
+    if (!toggled.current) { toggled.current = true; return; }
+    if (!motion || !open) return;
+    gsap.fromTo("#tasks > li", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "expo.out", stagger: .05 });
+  }, { scope: tasksRef, dependencies: [open] });
   return (
     <section id="experience" aria-labelledby="exp-h" data-sheet="" className={`sheet secPad ${s.exp}`}>
       <div data-reveal="" className="secHead mono"><span>(06) Experience</span><span>Work · Education · Training</span></div>
@@ -26,7 +37,7 @@ export default function Experience() {
             <figcaption className="mono11">— Deven Chopra, Software Engineering Manager at Prodigy InfoTech</figcaption>
           </figure>
         </div>
-        <div className={s.tasksCol}>
+        <div ref={tasksRef} className={s.tasksCol}>
           <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="tasks" className={`btn ${s.toggle} mono`}>
             {open ? "Hide internship tasks" : "Show internship tasks"} <span className={s.toggleIcon}>{open ? "−" : "+"}</span>
           </button>
@@ -47,10 +58,10 @@ export default function Experience() {
             <a href="https://www.glsuniversity.ac.in" target="_blank" rel="noopener noreferrer" className={s.uni}>GLS University ↗</a>
             <span className={`${s.eduKind} serif`}>Integrated IMSc IT · Ahmedabad</span>
           </div>
-          <div className={s.track} aria-hidden="true">
-            <span className={s.trackDone} />
-            <span className={s.trackNow} />
-            <span className={s.marker}><span className={`${s.markerTag} mono11`}>Semester 9</span></span>
+          <div data-progress="" className={s.track} aria-hidden="true">
+            <span data-seg="" className={s.trackDone} />
+            <span data-seg="" className={s.trackNow} />
+            <span data-mark="" className={s.marker}><span className={`${s.markerTag} mono11`}>Semester 9</span></span>
           </div>
           <div className={`${s.years} mono`} aria-hidden="true"><span>2022</span><span>2025</span><span>2027</span></div>
           <div className={s.phases}>

@@ -36,6 +36,19 @@ export default function ScrollMotion({ scope }: { scope: React.RefObject<HTMLDiv
     const words = gsap.utils.toArray<HTMLElement>("[data-word]");
     if (words.length) gsap.fromTo(words, { opacity: .14 }, { opacity: 1, ease: "none", stagger: .05, scrollTrigger: { trigger: "[data-words]", start: "top 85%", end: "bottom 55%", scrub: true } });
 
+    // [data-stagger]: a list whose items rise in one after another as the list itself arrives —
+    // used inside tall panels where the panel's own reveal has long finished by then.
+    gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((list) =>
+      gsap.from(list.children, { y: 24, opacity: 0, duration: .8, ease: "expo.out", stagger: .07, scrollTrigger: { trigger: list, start: "top 88%" } }));
+
+    // [data-progress]: a progress track draws in order — completed segment, current segment, then
+    // the "you are here" marker — so the timeline reads as progress rather than a static bar.
+    gsap.utils.toArray<HTMLElement>("[data-progress]").forEach((track) => {
+      const tl = gsap.timeline({ scrollTrigger: { trigger: track, start: "top 85%" } });
+      tl.from(track.querySelectorAll("[data-seg]"), { scaleX: 0, transformOrigin: "0% 50%", duration: .8, ease: "expo.out", stagger: .45 })
+        .from(track.querySelectorAll("[data-mark]"), { opacity: 0, y: 6, duration: .5, ease: "expo.out" }, "-=.35");
+    });
+
     const counts = gsap.utils.toArray<HTMLElement>("[data-count]");
     counts.forEach((el) => {
       const end = +(el.getAttribute("data-count") || 0), o = { v: 0 };

@@ -52,13 +52,13 @@ export default function KeyProjects() {
               </div>
               <div className={s.bottom}>
                 <span className={`${s.label} mono`}>Key features</span>
-                <ol className={s.features}>
+                <ol data-stagger="" className={s.features}>
                   {p.features.map((f, i) => (
                     <li key={i}><span className={`${s.fn} serif`}>{pad(i + 1)}</span><span>{f}</span></li>
                   ))}
                 </ol>
                 <span className={`${s.label} mono`}>Technology</span>
-                <ul className={s.tech}>{p.tech.map((t) => <li key={t}>{t}</li>)}</ul>
+                <ul data-stagger="" className={s.tech}>{p.tech.map((t) => <li key={t}>{t}</li>)}</ul>
               </div>
             </article>
           );
