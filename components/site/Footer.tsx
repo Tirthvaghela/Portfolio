@@ -40,7 +40,8 @@ export default function Footer() {
     const footer = ref.current; if (!footer) return;
     const els = Array.from(footer.querySelectorAll<VF>("[data-vf]"));
     let visible = false;
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { rootMargin: "300px 0px" });
+    // Only animate while the footer is actually on screen (no work while it's still below the fold).
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
     io.observe(footer);
     const onMove = (e: PointerEvent) => { live.current.gp = { x: e.clientX, y: e.clientY }; };
     const onTouch = (e: TouchEvent) => { const t = e.touches[0]; if (t) { live.current.gp = { x: t.clientX, y: t.clientY }; live.current.touchAt = performance.now(); } };
@@ -60,9 +61,7 @@ export default function Footer() {
         if (isLive) {
           const b = rects![i], d = Math.hypot(L.gp!.x - (b.left + b.width / 2), L.gp!.y - (b.top + b.height / 2));
           f = Math.max(0, 1 - d / R); f = f * f * (3 - 2 * f);
-        } else f = L.motion && L.fine ? (Math.sin(t * .0016 - i * .55) + 1) / 2 * .85 : .6;
-        // Touch screens: no idle wave (re-laying out every letter each frame was the main
-        // source of mobile jank near the footer); letters rest at .6 until a finger drags.
+        } else f = L.motion ? (Math.sin(t * .0016 - i * .55) + 1) / 2 * .85 : .6;
         const prev = el._f == null ? -1 : el._f;
         const v = prev < 0 ? f : prev + (f - prev) * .14;
         if (Math.abs(v - prev) > .003) {

@@ -1,5 +1,5 @@
 "use client";
-import { gsap, ScrollTrigger, useGSAP, DESKTOP_MQ, MOBILE_MQ } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useSite } from "./SiteProvider";
 
 /**
@@ -44,19 +44,7 @@ export default function ScrollMotion({ scope }: { scope: React.RefObject<HTMLDiv
     });
 
     const cw = gsap.utils.toArray<HTMLElement>("[data-cw]");
-    if (cw.length) {
-      // Desktop: words thicken/widen with scroll (variable font). Phones: the same words just
-      // rise in with transform + opacity — scrubbing font axes re-lays out a 12vw headline every
-      // frame, which mobile GPUs/CPUs can't keep at 60fps.
-      const mm = gsap.matchMedia();
-      mm.add(DESKTOP_MQ, () => {
-        gsap.fromTo(cw, { fontVariationSettings: "'wght' 200, 'wdth' 75" }, { fontVariationSettings: "'wght' 800, 'wdth' 100", ease: "none", stagger: .25, scrollTrigger: { trigger: "[data-cwords]", start: "top 85%", end: "top 25%", scrub: true } });
-      });
-      mm.add(MOBILE_MQ, () => {
-        gsap.set(cw, { fontVariationSettings: "'wght' 800, 'wdth' 100" });
-        gsap.from(cw, { yPercent: 40, opacity: 0, duration: 1, ease: "expo.out", stagger: .12, scrollTrigger: { trigger: "[data-cwords]", start: "top 85%" } });
-      });
-    }
+    if (cw.length) gsap.fromTo(cw, { fontVariationSettings: "'wght' 200, 'wdth' 75" }, { fontVariationSettings: "'wght' 800, 'wdth' 100", ease: "none", stagger: .25, scrollTrigger: { trigger: "[data-cwords]", start: "top 85%", end: "top 25%", scrub: true } });
 
     ScrollTrigger.sort();
     ScrollTrigger.refresh();
