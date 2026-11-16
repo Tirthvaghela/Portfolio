@@ -36,17 +36,30 @@ export default function ScrollMotion({ scope }: { scope: React.RefObject<HTMLDiv
     const words = gsap.utils.toArray<HTMLElement>("[data-word]");
     if (words.length) gsap.fromTo(words, { opacity: .14 }, { opacity: 1, ease: "none", stagger: .05, scrollTrigger: { trigger: "[data-words]", start: "top 85%", end: "bottom 55%", scrub: true } });
 
-    // [data-stagger]: a list whose items rise in one after another as the list itself arrives —
-    // used inside tall panels where the panel's own reveal has long finished by then.
-    gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((list) =>
-      gsap.from(list.children, { y: 24, opacity: 0, duration: .8, ease: "expo.out", stagger: .07, scrollTrigger: { trigger: list, start: "top 88%" } }));
+    // [data-stagger]: list items inside tall panels (where the panel's own reveal has long finished)
+    // rise in as each one arrives; items arriving together (a desktop row) go one after another.
+    // Per-item, so stacked mobile layouts never animate off-screen.
+    gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((list) => {
+      const items = Array.from(list.children) as HTMLElement[];
+      gsap.set(items, { y: 24, opacity: 0 });
+      ScrollTrigger.batch(items, { start: "top 90%", once: true, onEnter: (b) => { gsap.to(b, { y: 0, opacity: 1, duration: .8, ease: "expo.out", stagger: .07, overwrite: true }); } });
+    });
 
-    // [data-progress]: a progress track draws in order — completed segment, current segment, then
-    // the "you are here" marker — so the timeline reads as progress rather than a static bar.
+    // [data-progress]: the progress track draws as ONE continuous stroke — completed segment then
+    // current segment — and the "you are here" marker appears as the stroke reaches it.
+    // Velocity is matched at the joint: segment 1 accelerates (power1.in, end speed 2·d1/t1) and
+    // segment 2 decelerates (power3.out, start speed 3·d2/t2), with t2 = 1.5·d2·t1/d1 so the speeds
+    // are equal — no stop-and-lurch where the colours meet. d = each segment's share of the track.
     gsap.utils.toArray<HTMLElement>("[data-progress]").forEach((track) => {
+      const [s1, s2] = Array.from(track.querySelectorAll<HTMLElement>("[data-seg]"));
+      const mark = track.querySelectorAll("[data-mark]");
+      if (!s1) return;
+      const W = track.offsetWidth || 1, d1 = s1.offsetWidth / W, d2 = s2 ? s2.offsetWidth / W : 0;
+      const t1 = .6, t2 = d2 ? Math.max(.2, 1.5 * d2 * t1 / d1) : 0;
       const tl = gsap.timeline({ scrollTrigger: { trigger: track, start: "top 85%" } });
-      tl.from(track.querySelectorAll("[data-seg]"), { scaleX: 0, transformOrigin: "0% 50%", duration: .8, ease: "expo.out", stagger: .45 })
-        .from(track.querySelectorAll("[data-mark]"), { opacity: 0, y: 6, duration: .5, ease: "expo.out" }, "-=.35");
+      tl.from(s1, { scaleX: 0, transformOrigin: "0% 50%", duration: t1, ease: "power1.in" });
+      if (s2) tl.from(s2, { scaleX: 0, transformOrigin: "0% 50%", duration: t2, ease: "power3.out" });
+      tl.from(mark, { opacity: 0, y: 6, duration: .4, ease: "expo.out" }, "-=.06");
     });
 
     const counts = gsap.utils.toArray<HTMLElement>("[data-count]");
