@@ -11,6 +11,7 @@
 .meta { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
 .num { font-size: clamp(64px, 7vw, 120px); line-height: .8; }
 .status { padding: 6px 12px; border-radius: 99px; background: var(--fg); color: var(--bg); }
+.days { padding: 5px 11px; border-radius: 99px; border: 1px solid currentColor; }
 .title { margin: 6px 0 0; font-weight: 800; font-stretch: 75%; font-size: clamp(56px, 7.4vw, 136px); line-height: .82; letter-spacing: -.03em; text-transform: uppercase; overflow-wrap: anywhere; }
 .cat { opacity: .85; }
 .sub { margin: 0; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.1; }
@@ -37,10 +38,20 @@
 .tech { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
 .tech li { padding: 6px 12px; border-radius: 99px; border: 1.5px solid currentColor; font-family: var(--mono); font-size: 12px; }
 
+/* Real screenshots: same window frame as the cover, full image (no crop), caption under it. */
+.shots { margin: 0 0 12px; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 14px; align-items: start; }
+.shots li { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.shotLink { display: block; border-radius: 20px; }
+.shotLink:hover { opacity: 1; }
+.shotLink .card { box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .45); }
+.shotImg { display: block; width: 100%; height: auto; }
+.shotCap { margin: 0; opacity: .85; line-height: 1.5; text-transform: none; letter-spacing: .02em; }
+
 @media (max-width: 899px) {
   .top { grid-template-columns: minmax(0, 1fr); }
   .coverCol { order: -1; }
   .panel[data-flip="true"] .info { order: 0; }
   .features { grid-template-columns: minmax(0, 1fr); }
+  .shots { grid-template-columns: minmax(0, 1fr); }
   .panel { border-radius: 28px; }
 }

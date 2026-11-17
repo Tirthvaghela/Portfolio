@@ -1,14 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { PROJECTS, PIPES } from "@/content/projects";
 import { MUST_RGB, PAPER } from "@/content/palette";
-import { pad } from "@/content/site";
+import { KEY_PROJECTS, pad } from "@/content/site";
 import { useSite } from "./SiteProvider";
 import s from "./Systems.module.css";
 
 export default function Systems() {
-  const { motion, openProject } = useSite();
+  const { motion } = useSite();
   const ref = useRef<HTMLElement>(null);
   const [pipe, setPipe] = useState(0);
   const [vertical, setVertical] = useState(false);
@@ -18,7 +17,7 @@ export default function Systems() {
     apply(); mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
   }, []);
-  const pp = PROJECTS[PIPES[pipe]];
+  const pp = KEY_PROJECTS[pipe];
 
   // Looping pipeline: the fill runs 2.6s while each step lifts (y −10, mustard, expo.out),
   // then everything resets; repeats every 1.2s. Vertical (scaleY) under 900px. Rebuilt per tab.
@@ -53,18 +52,18 @@ export default function Systems() {
       <div data-reveal="" className="secHead mono"><span>(04) Inside the systems</span><span>System flow</span></div>
       <div className={s.headRow}>
         <h2 id="sys-h" data-lines="" className={s.h2}>
-          <span className="mask"><span data-line="">How the vision</span></span>
-          <span className={`mask ${s.l2}`}><span data-line="" className="accent">pipelines run</span></span>
+          <span className="mask"><span data-line="">How the key</span></span>
+          <span className={`mask ${s.l2}`}><span data-line="" className="accent">systems run</span></span>
         </h2>
         <div role="tablist" aria-label="Choose a system" className={s.tabs}>
-          {PIPES.map((pi, k) => (
-            <button key={pi} type="button" role="tab" aria-selected={pipe === k} onClick={() => setPipe(k)} className={`btn ${s.tab}`}>{PROJECTS[pi].title}</button>
+          {KEY_PROJECTS.map((kp, k) => (
+            <button key={kp.id} type="button" role="tab" aria-selected={pipe === k} onClick={() => setPipe(k)} className={`btn ${s.tab}`}>{kp.title}</button>
           ))}
         </div>
       </div>
       <ol data-pipe="" className={s.pipe}>
         <li role="presentation" aria-hidden="true" className={s.line}><span data-pfill="" className={s.fill} /></li>
-        {pp.pipeline!.map((x, k) => (
+        {pp.pipeline.map((x, k) => (
           <li key={`${pipe}-${k}`} data-step="" className={s.step}>
             <span className={s.n}>{pad(k + 1)}</span>
             <span className={s.label}>{x[0]}</span>
@@ -72,10 +71,10 @@ export default function Systems() {
           </li>
         ))}
       </ol>
-      {pp.override && (
-        <p data-ovr="" className={s.override}><span className={`${s.overrideTag} mono11`}>Override</span>{pp.override}</p>
+      {pp.highlight && (
+        <p data-ovr="" className={s.override}><span className={`${s.overrideTag} mono11`}>{pp.highlight[0]}</span>{pp.highlight[1]}</p>
       )}
-      <button type="button" onClick={() => openProject(PIPES[pipe])} className={`btn ${s.openCase}`}>Open the {pp.title} case →</button>
+      <a href={`#key-${pp.id}`} className={`btn ${s.openCase}`}>See the {pp.title} project ↑</a>
     </section>
   );
 }

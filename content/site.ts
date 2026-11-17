@@ -31,6 +31,8 @@ export type KeyProject = {
   id: "voiceform" | "fileflow" | "projectmind";
   title: string;
   status: string;
+  /** Build time in days (shown as "N days to build", like the Work reel). */
+  days: number;
   cat: string;
   sub: string;
   desc: string;
@@ -39,11 +41,25 @@ export type KeyProject = {
   tease?: string;
   /** Public source repository. */
   github: string;
+  /** Real application screenshots (files in /public, original pixel size). */
+  shots: Shot[];
+  /** System flow for the Systems section: [step, how] × 4, plus one highlighted behaviour [tag, text]. */
+  pipeline: [string, string][];
+  highlight?: [string, string];
 };
+
+export type Shot = { src: string; w: number; h: number; caption: string };
 
 export const KEY_PROJECTS: KeyProject[] = [
   {
-    id: 'voiceform', title: 'VoiceForm AI', status: 'Completed', github: 'https://github.com/Tirthvaghela/VoiceForm.Ai', cat: 'AI / ML',
+    id: 'voiceform', title: 'VoiceForm AI', status: 'Completed', days: 90, github: 'https://github.com/Tirthvaghela/VoiceForm.Ai',
+    shots: [
+      { src: '/voice-form ss/10.review-detected-fields.png', w: 1919, h: 955, caption: 'Reads the real form layout: 25 fields look right, 4 flagged for a check' },
+      { src: '/voice-form ss/13.voice-asking-field.png', w: 1919, h: 956, caption: 'Asks for each field by voice, then confirms what it heard' },
+      { src: '/voice-form ss/14.form-verification-complete.png', w: 1919, h: 955, caption: 'All 9 answers verified and overlaid onto the original form' },
+    ],
+    pipeline: [['Add the form', 'Photo, PDF or Google Form link'], ['Detect fields', 'PaddleOCR reads the real layout'], ['Voice interview', 'Gujarati, Hindi or English'], ['Fill the PDF', 'Answers overlaid onto the original']],
+    highlight: ['Voice fix', 'Spotted a typo? Say "edit email" and the field is corrected by voice'], cat: 'AI / ML',
     sub: 'Multilingual Voice-to-Form Accessibility Engine',
     desc: 'Point your camera at any paper form. VoiceForm reads its exact layout, holds a real voice conversation with you in Gujarati, Hindi, or English, and hands back a print-ready PDF filled in perfectly — no typing, no OCR guesswork.',
     features: ['Understands arbitrary form layouts — not OCR guesswork, actual document structure.','Holds a real multilingual voice conversation to collect every answer, field by field.','Writes responses back onto the original PDF — pixel-perfect, box by box, font-matched.'],
@@ -51,14 +67,26 @@ export const KEY_PROJECTS: KeyProject[] = [
     tease: 'You talk. It listens. And then...',
   },
   {
-    id: 'fileflow', title: 'FileFlow AI', status: 'Completed', github: 'https://github.com/Tirthvaghela/FileFlow', cat: 'Automation / RPA',
+    id: 'fileflow', title: 'FileFlow AI', status: 'Completed', days: 54, github: 'https://github.com/Tirthvaghela/FileFlow',
+    shots: [
+      { src: '/fileflow ss/dashboard-light.png', w: 1440, h: 2124, caption: 'Dashboard: files organised today, rule matches and recent moves' },
+      { src: '/fileflow ss/rules-light.png', w: 1440, h: 2082, caption: 'Rules: the configurable rules that decide where every file goes' },
+    ],
+    pipeline: [['Watch folders', 'Agent watches Downloads'], ['Match rules', 'Your rules classify each file'], ['Organise', 'Moved to the right folder'], ['Report', 'Activity log and reports']],
+    highlight: ['Undo', 'Wrong move? Any automated action can be undone'], cat: 'Automation / RPA',
     sub: 'Your files. On autopilot.',
     desc: 'An RPA-oriented tool that automatically sorts and manages files based on configurable rules, reducing manual file cleanup.',
     features: ['Rule-based file classification across multiple folders.','Undo support for automated actions.','Authenticated dashboard with activity reports.'],
     tech: ['React','Vite','Tailwind CSS','FastAPI','MongoDB','UiPath','Windows agent'],
   },
   {
-    id: 'projectmind', title: 'ProjectMindAI', status: 'Completed', github: 'https://github.com/Tirthvaghela/ProjectMindAi', cat: 'NLP / Search',
+    id: 'projectmind', title: 'ProjectMindAI', status: 'Completed', days: 45, github: 'https://github.com/Tirthvaghela/ProjectMindAi',
+    shots: [
+      { src: '/projectmind ss/2.semantic-search-results.png', w: 1440, h: 900, caption: 'Hybrid search: meaning (sentence-transformers) plus keywords (BM25), ranked together' },
+      { src: '/projectmind ss/6.project-detail.png', w: 1440, h: 900, caption: 'Project detail: stack, required skills, learning resources and your skill gap' },
+    ],
+    pipeline: [['Describe it', 'Plain-language project query'], ['Semantic search', 'Sentence-Transformer embeddings'], ['Keyword search', 'BM25 over the same catalogue'], ['Hybrid ranking', 'Meaning + keywords combined']],
+    highlight: ['AI assistant', 'Ask follow-up questions; it stays aware of the project context'], cat: 'NLP / Search',
     sub: 'Turn ideas into projects.',
     desc: "Helps navigate and query project content by combining semantic search, keyword search, and an AI assistant that stays aware of the project's context.",
     features: ['Semantic search using sentence-transformer embeddings.','Keyword search using BM25, combined with semantic results.','Project/context-aware AI assistant for querying workspace content.'],
