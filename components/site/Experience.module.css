@@ -36,31 +36,9 @@
 .note { font-size: 19px; }
 .cgpa { align-self: flex-start; margin-top: 4px; padding: 6px 12px; border-radius: 99px; background: var(--must); color: #14120f; font-size: 12px; text-transform: none; letter-spacing: .02em; }
 
-/* 04 · Training: certificate sheets — paper, inset frame, issuer seal in the course's colour */
-.certs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.cert { --seal: var(--red); --sealInk: #14120f; padding: 8px; border-radius: 28px; background: #efe9dc; color: #14120f; }
-.cert[data-tone="1"] { --seal: oklch(0.49 0.1 180); --sealInk: #efe9dc; } /* deep teal: 4.84:1 */
-.cert[data-tone="2"] { --seal: var(--must); }
-.certFrame { position: relative; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; padding: clamp(18px, 2vw, 26px); border-radius: 22px; border: 1.5px solid rgba(20, 18, 15, .22); transition: border-color var(--dur-hover) var(--ease); }
-.cert:hover .certFrame { border-color: #14120f; }
-.certTop { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(20, 18, 15, .18); }
-.certTitle { margin: 6px 0 0; padding-right: 84px; font-weight: 800; font-stretch: 75%; font-size: clamp(30px, 2.6vw, 44px); line-height: .9; letter-spacing: -.02em; text-transform: uppercase; }
-.certDetail { margin: 0; font-size: 19px; line-height: 1.2; }
-.certIssuer { margin: auto 0 0; padding-top: 14px; }
-.certIssuer b { font-weight: 700; }
-.certLinks { display: flex; flex-wrap: wrap; gap: 6px; }
-.certBtn { display: flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 99px; border: 1.5px solid #14120f; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease); }
-.certBtn:first-child { background: #14120f; color: #efe9dc; }
-.certBtn:hover { opacity: 1; background: var(--seal); color: var(--sealInk); border-color: var(--seal); }
-.seal { position: absolute; top: 58px; right: clamp(16px, 1.8vw, 24px); width: 76px; height: 76px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 50%; background: var(--seal); color: var(--sealInk); box-shadow: inset 0 0 0 4px var(--seal), inset 0 0 0 5.5px var(--sealInk); text-align: center; line-height: 1.1; transform: rotate(-12deg); transition: transform .5s var(--ease); }
-.seal span { max-width: 58px; font-size: 9px; letter-spacing: .08em; }
-.seal b { font-weight: 700; font-size: 12px; }
-.cert:hover .seal { transform: rotate(-4deg); }
-.cert :focus-visible { outline-color: #14120f; }
 
 @media (max-width: 899px) {
   .phases { grid-template-columns: minmax(0, 1fr); }
-  .certs { grid-template-columns: minmax(0, 1fr); }
 
   .uni { display: inline-flex; align-items: center; min-height: 44px; }
 }

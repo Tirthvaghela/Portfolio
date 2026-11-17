@@ -230,9 +230,9 @@ export const EDUCATION = [
 ];
 
 export const COURSES = [
-  { title: 'Claude Code in Action', meta: 'Anthropic · Mar 2026', links: [{ label: 'Certificate', href: '/claude-code-certificate.pdf' }] },
-  { title: 'Master MongoDB Database Design', meta: 'Udemy · Compass + Mongosh + PyMongo · Feb 2026', links: [{ label: 'Certificate', href: '/mongodb-udemy.pdf' }] },
-  { title: 'Developing Front-End Apps with React', meta: 'IBM — Coursera · 4 modules · 2026', links: [{ label: 'Certificate', href: '/ibm-react-certificate.pdf' }, { label: 'Badge', href: 'https://www.credly.com/badges/89cb78a8-a849-4529-99f6-70603ec5349c/public_url' }] },
+  { title: 'Claude Code in Action', meta: 'Anthropic · Mar 2026', img: { src: '/certificates/claude.png', w: 1200, h: 910 }, links: [{ label: 'Certificate', href: '/claude-code-certificate.pdf' }] },
+  { title: 'Master MongoDB Database Design', meta: 'Udemy · Compass + Mongosh + PyMongo · Feb 2026', img: { src: '/certificates/mongodb.png', w: 1200, h: 883 }, links: [{ label: 'Certificate', href: '/mongodb-udemy.pdf' }] },
+  { title: 'Developing Front-End Apps with React', meta: 'IBM — Coursera · 4 modules · Apr 2026', img: { src: '/certificates/ibm.png', w: 1200, h: 927 }, links: [{ label: 'Certificate', href: '/ibm-react-certificate.pdf' }, { label: 'Badge', href: 'https://www.credly.com/badges/89cb78a8-a849-4529-99f6-70603ec5349c/public_url' }] },
 ];
 
 export const CHANNELS = [
