@@ -92,7 +92,7 @@ html[data-motion="on"] .tick:not([data-on])::after { transform: scaleX(0); }
 .chrome { display: flex; gap: 6px; padding: 10px 12px; background: #14120f; }
 .chrome i { width: 8px; height: 8px; border-radius: 50%; background: rgba(239, 233, 220, .35); }
 .shotImg { display: block; width: 100%; height: auto; transition: transform .9s var(--ease); }
-.app:hover .shotImg, .launch:hover .shotImg { transform: scale(1.025); }
+.app:hover .shotImg { transform: scale(1.025); }
 .cap { opacity: .75; }
 
 /* ── 03 · Help Desk: launch header ───────────────────── */
@@ -118,8 +118,45 @@ html[data-motion="on"] .tick:not([data-on])::after { transform: scaleX(0); }
 .repoBtn { border: 1.5px solid #14120f; }
 .repoBtn:hover { opacity: 1; background: #14120f; color: #efe9dc; }
 .qa { margin: 14px 0 0; opacity: .72; }
-.figure[data-ink] { margin: 0; }
-.figure[data-ink] .shot { box-shadow: 0 0 0 1.5px #14120f; }
+
+/* Ticket stub — the project at a glance, typography + CSS only */
+.stub { position: relative; display: flex; flex-direction: column; border-radius: 28px; background: #14120f; color: #efe9dc; }
+.stubMain { position: relative; padding: clamp(22px, 2.6vw, 36px); }
+.stubTop { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; padding-right: 108px; opacity: .7; }
+.stubLife { list-style: none; margin: clamp(18px, 2vw, 28px) 0 0; padding: 0; }
+.stubLife li { display: flex; align-items: baseline; gap: 16px; padding: 12px 0; border-top: 1px dashed rgba(239, 233, 220, .25); font-weight: 800; font-stretch: 75%; font-size: clamp(40px, 4.6vw, 84px); line-height: .9; letter-spacing: -.02em; text-transform: uppercase; }
+.stubLife li .mono11 { flex: none; width: 2.4em; font-weight: 400; color: var(--must); }
+.stubLife li:last-child { color: var(--must); }
+.stamp { position: absolute; top: clamp(18px, 2vw, 28px); right: clamp(18px, 2vw, 28px); width: 92px; height: 92px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid var(--must); box-shadow: inset 0 0 0 4px #14120f, inset 0 0 0 5.5px var(--must); color: var(--must); font-size: 15px; letter-spacing: .2em; transform: rotate(-12deg); }
+.perf { position: relative; height: 0; margin: 0 22px; border-top: 2px dashed rgba(239, 233, 220, .3); }
+.perf::before, .perf::after { content: ""; position: absolute; top: -13px; width: 24px; height: 24px; border-radius: 50%; background: #efe9dc; }
+.perf::before { left: -35px; }
+.perf::after { right: -35px; }
+.stubStats { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: clamp(18px, 2vw, 28px) clamp(22px, 2.6vw, 36px); gap: 12px; }
+.stubStats div { display: flex; flex-direction: column; gap: 4px; }
+.stubStats dt { opacity: .7; }
+.stubStats dd { margin: 0; font-family: var(--serif); font-style: italic; font-size: clamp(44px, 4.4vw, 72px); line-height: .9; color: var(--must); }
+
+/* ── Stage 03 opener: Ship together ──────────────────── */
+.ship { position: relative; display: flex; flex-direction: column; gap: 16px; margin-bottom: 14px; padding: clamp(24px, 3vw, 48px); border-radius: 32px; background: var(--must); color: #14120f; }
+.shipNode { top: 30px; }
+.shipTop { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.shipLive { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; background: #14120f; color: var(--must); }
+.shipLive i { width: 7px; height: 7px; border-radius: 50%; background: var(--must); }
+.shipTitle { margin: 4px 0 0; overflow: hidden; font-weight: 800; font-stretch: 75%; font-size: clamp(64px, 11vw, 200px); line-height: .9; letter-spacing: -.035em; text-transform: uppercase; white-space: nowrap; }
+.shipN { margin-right: .16em; font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; font-size: .5em; letter-spacing: 0; text-transform: none; vertical-align: .45em; }
+.together { color: var(--red); }
+.shipSub { margin: 0; font-size: clamp(22px, 2.2vw, 32px); line-height: 1.1; }
+.recap { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.recap li { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 22px; border: 1.5px solid #14120f; }
+.recap li + li::before { content: "→"; position: absolute; left: -10px; top: 50%; transform: translate(-50%, -50%); font-family: var(--mono); font-size: 14px; }
+.recap b { font-weight: 800; font-stretch: 75%; font-size: clamp(30px, 3vw, 48px); line-height: .9; text-transform: uppercase; letter-spacing: -.015em; }
+.recap .serif { font-size: 19px; }
+.recap li[data-now] { background: #14120f; color: #efe9dc; }
+.recap li[data-now] .mono11 { color: var(--must); }
+.facts { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.facts li { padding: 7px 13px; border-radius: 99px; background: rgba(20, 18, 15, .1); }
+.facts li:first-child { background: #14120f; color: var(--must); }
 .stack { margin: clamp(28px, 3vw, 44px) 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 24px; padding-top: 16px; border-top: 1.5px solid #14120f; }
 .stack div { display: flex; flex-direction: column; gap: 6px; }
 .stack dt { opacity: .7; }
@@ -229,6 +266,9 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
   .bandFoot { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; text-align: left; }
 
   /* how it works: a vertical path; the ticket rides down the spine */
+  .recap { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .recap li + li::before { content: "↓"; left: 28px; top: -11px; }
+  .shipTitle { white-space: normal; }
   .track { display: none; }
   .stagesWrap { padding-left: 34px; }
   .spine { display: block; position: absolute; left: 10px; top: 24px; bottom: 0; width: 2px; background: rgba(20, 18, 15, .15); }
@@ -256,6 +296,11 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
   .arrow { width: 1.5px; height: 20px; margin: 4px 0 4px 22px; transform: scaleY(var(--a, 1)); transform-origin: 50% 0; }
   .arrow::after { right: auto; top: auto; left: -2.75px; bottom: 0; transform: rotate(135deg); }
   .actions { grid-template-columns: minmax(0, 1fr); }
+  .stubTop { padding-right: 76px; }
+  .stamp { width: 66px; height: 66px; font-size: 12px; }
+  .stubLife li { flex-wrap: wrap; gap: 4px 12px; font-size: 34px; }
+  .stubLife li .mono11 { width: auto; }
+  .stubStats dt { font-size: 10px; }
   .stack { grid-template-columns: minmax(0, 1fr); }
   .mPoints { padding-left: 0; }
 }

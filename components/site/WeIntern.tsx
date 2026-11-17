@@ -68,6 +68,26 @@ export default function WeIntern() {
         .from(shot.querySelector("img"), { scale: 1.12, duration: 1.4, ease: "expo.out" }, 0);
     });
 
+    // Stage 03: the mustard panel opens from the rail, the recap steps in (solo, solo, five people),
+    // and "together" pulls its letters in as you scroll through it.
+    const ship = one("[data-ship]");
+    if (ship) {
+      gsap.timeline({ scrollTrigger: { trigger: ship, start: "top 82%" } })
+        .from(ship, { clipPath: "inset(0% 100% 0% 0% round 32px)", duration: 1.2, ease: "expo.inOut" })
+        .from(q("[data-recap]"), { y: 36, opacity: 0, duration: .9, ease: "expo.out", stagger: .14 }, "-=.35")
+        .from(q("[data-fact]"), { y: 14, opacity: 0, duration: .6, ease: "expo.out", stagger: .06 }, "-=.6");
+      gsap.fromTo(q("[data-together]"), { letterSpacing: ".42em", opacity: .35 }, { letterSpacing: "-.03em", opacity: 1, ease: "none", scrollTrigger: { trigger: ship, start: "top 80%", end: "top 25%", scrub: .6 } });
+    }
+
+    // Ticket stub: the lifecycle lines rise in order, then the "Live" stamp lands.
+    const stub = one("[data-stub]");
+    if (stub) {
+      gsap.timeline({ scrollTrigger: { trigger: stub, start: "top 80%" } })
+        .from(stub, { clipPath: "inset(0% 0% 100% 0% round 28px)", duration: 1, ease: "expo.out" })
+        .from(q("[data-stub-part]"), { y: 30, opacity: 0, duration: .8, ease: "expo.out", stagger: .09 }, .2)
+        .from(q("[data-stamp]"), { scale: 1.6, rotate: -30, opacity: 0, duration: .6, ease: "power4.out" }, "-=.3");
+    }
+
     // Help Desk sheet opens out to full width as it arrives (the site's rounded-sheet motif).
     const hd = one("[data-hd]");
     if (hd) gsap.fromTo(hd, { clipPath: "inset(0% 5% 0% 5% round 32px)" }, { clipPath: "inset(0% 0% 0% 0% round 32px)", ease: "none", scrollTrigger: { trigger: hd, start: "top bottom", end: "top 35%", scrub: true } });
@@ -191,7 +211,7 @@ export default function WeIntern() {
 
         {/* 03 — Ship together */}
         <section id="wi-ship" data-tone="ship" className={s.stage} aria-labelledby="wi-ship-h">
-          <StageHead n="03" label="Ship" week="Final minor project" title="Built together, taken live" id="ship" count={1} sub="together" />
+          <ShipHead />
 
           <article data-hd="" className={s.hd} aria-labelledby="hd-title">
             {/* Launch header */}
@@ -217,7 +237,7 @@ export default function WeIntern() {
                 </div>
                 <p className={`${s.qa} mono11`}>{HD.statusNote} · some live checks are still pending</p>
               </div>
-              <Shot src={HD.shot.src} w={HD.shot.w} h={HD.shot.h} caption={HD.shot.caption} sizes="(max-width: 899px) 92vw, 52vw" ink />
+              <TicketStub />
             </div>
             <dl className={s.stack}>
               {HD.stack.map(([k, v]) => <div key={k}><dt className="mono11">{k}</dt><dd>{v}</dd></div>)}
@@ -315,7 +335,7 @@ export default function WeIntern() {
   );
 }
 
-function StageHead({ n, label, week, title, id, count, sub }: { n: string; label: string; week: string; title: string; id: string; count: number; sub?: string }) {
+function StageHead({ n, label, week, title, id, count }: { n: string; label: string; week: string; title: string; id: string; count: number }) {
   return (
     <header data-node="" className={s.stageHead}>
       <span className={s.node} aria-hidden="true" />
@@ -328,16 +348,70 @@ function StageHead({ n, label, week, title, id, count, sub }: { n: string; label
         )}
       </div>
       <h4 id={`wi-${id}-h`} data-lines="" className={s.stageTitle}>
-        <span className="mask"><span data-line=""><span className={s.stageN}>{n}</span>{label}{sub && <> <span className={`accent ${s.acc}`}>{sub}</span></>}</span></span>
+        <span className="mask"><span data-line=""><span className={s.stageN}>{n}</span>{label}</span></span>
       </h4>
       <span className={`${s.stageSub} serif`}>{title}</span>
     </header>
   );
 }
 
-function Shot({ src, w, h, caption, sizes, ink }: { src: string; w: number; h: number; caption: string; sizes: string; ink?: boolean }) {
+/** Stage 03 opener: the journey so far (solo → solo → five people) and the facts of the final project.
+ *  "together" draws its letters in as the panel scrolls through (see the useGSAP block). */
+function ShipHead() {
+  const solo = WI.stages.map((st) => st.tasks.length);
   return (
-    <figure className={s.figure} data-ink={ink ? "" : undefined}>
+    <header data-node="" data-ship="" className={s.ship}>
+      <span className={`${s.node} ${s.shipNode}`} aria-hidden="true" />
+      <div className={`${s.shipTop} mono`}>
+        <span>Stage 03 · Final minor project</span>
+        <span className={s.shipLive}><i aria-hidden="true" />{HD.status}</span>
+      </div>
+      <h4 id="wi-ship-h" className={s.shipTitle}>
+        <span className={s.shipN}>03</span>Ship <span data-together="" className={`accent ${s.together}`}>together</span>
+      </h4>
+      <p className={`${s.shipSub} serif`}>From solo assignments to one deployed product, built by five.</p>
+      <ol className={s.recap} aria-label="The journey so far">
+        <li data-recap=""><span className="mono11">Week 01</span><b>{solo[0]} builds</b><span className="serif">Solo · frontend</span></li>
+        <li data-recap=""><span className="mono11">Week 02</span><b>{solo[1]} builds</b><span className="serif">Solo · applications</span></li>
+        <li data-recap="" data-now=""><span className="mono11">Final project</span><b>1 product</b><span className="serif">{HD.team.length} people · deployed</span></li>
+      </ol>
+      <ul className={`${s.facts} mono11`} aria-label="My part">
+        <li data-fact="">Team leader</li>
+        <li data-fact="">{HD.team.length}-member team</li>
+        <li data-fact="">Deployed on Vercel</li>
+        <li data-fact="">Backend integration · Admin backend · DevOps</li>
+      </ul>
+    </header>
+  );
+}
+
+/** The Help Desk "at a glance" as a ticket stub — typography and CSS only (no screenshot): the real
+ *  lifecycle, and counts taken from the README (3 roles, 5 members, frontend + API on Vercel). */
+function TicketStub() {
+  return (
+    <div data-stub="" className={s.stub}>
+      <div className={s.stubMain}>
+        <div className={`${s.stubTop} mono11`}><span>Help Desk · Ticket lifecycle</span><span>Team 01</span></div>
+        <ol className={s.stubLife}>
+          {HD.flow.map((f, i) => (
+            <li key={f.status} data-stub-part=""><span className="mono11">{pad(i + 1)}</span>{f.status}</li>
+          ))}
+        </ol>
+        <span data-stamp="" className={`${s.stamp} mono`} aria-hidden="true">Live</span>
+      </div>
+      <div className={s.perf} aria-hidden="true" />
+      <dl className={s.stubStats}>
+        <div data-stub-part=""><dt className="mono11">Roles</dt><dd data-count="3">3</dd></div>
+        <div data-stub-part=""><dt className="mono11">Members</dt><dd data-count={String(HD.team.length)}>{HD.team.length}</dd></div>
+        <div data-stub-part=""><dt className="mono11">Vercel projects</dt><dd data-count="2">2</dd></div>
+      </dl>
+    </div>
+  );
+}
+
+function Shot({ src, w, h, caption, sizes }: { src: string; w: number; h: number; caption: string; sizes: string }) {
+  return (
+    <figure className={s.figure}>
       <div data-shot="" className={s.shot}>
         <div className={s.chrome} aria-hidden="true"><i /><i /><i /></div>
         <Image src={src} width={w} height={h} alt={caption} sizes={sizes} className={s.shotImg} />
