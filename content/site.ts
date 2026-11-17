@@ -130,13 +130,13 @@ export const WEINTERN = {
       tasks: [
         { title: 'Personal portfolio', desc: 'A responsive six-page portfolio: Home, About, Projects, Skills, Resume and Contact.',
           points: ['Semantic HTML structure', 'Projects with a category filter', 'Responsive navigation', 'Contact form validation', 'Dark and light theme switch', 'Accessibility and reduced-motion support'],
-          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W1}/portfolio-website/README.md` },
+          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W1}/portfolio-website/README.md`, live: 'https://tirth-portfolio-website.vercel.app' },
         { title: 'AURA Studio', note: 'Fictional studio', desc: 'Landing page for an invented architecture and interior design studio.',
           points: ['Editorial, architecture-inspired layout', 'CSS Grid and Flexbox', 'Interactive services accordion', 'Stacked project panels and viewer', 'Scroll word reveal and number counters', 'Validated contact form'],
-          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W1}/business-landing-page/README.md` },
+          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W1}/business-landing-page/README.md`, live: 'https://aura-studio-khaki.vercel.app' },
         { title: 'Nimbus', note: 'Static demo data', desc: 'A fictional analytics product site, built to show CSS layout and animation.',
           points: ['Flexbox and CSS Grid', 'Responsive dashboard layout', 'Transitions and transforms', 'Keyframe animation', 'Semantic, accessible markup'],
-          tech: ['HTML5', 'CSS3'], readme: `${W1}/css-challenge/README.md` },
+          tech: ['HTML5', 'CSS3'], readme: `${W1}/css-challenge/README.md`, live: 'https://nimbus-css-challenge.vercel.app' },
       ],
     },
     {
@@ -144,7 +144,7 @@ export const WEINTERN = {
       tasks: [
         { title: 'Larkfield Systems', note: 'Fictional company', desc: 'A four-page website for an invented managed IT support provider.',
           points: ['Home, About, Services and Contact', 'Responsive navigation and mobile menu', 'Six numbered features, four-step onboarding', 'Service cards and plans', 'Client-side form validation'],
-          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W2}/task-1-company-website/README.md` },
+          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W2}/task-1-company-website/README.md`, live: 'https://larkfield-systems.vercel.app' },
         { title: 'Employee Management', desc: 'A full-stack CRUD app: a React frontend on a Flask REST API, with records stored in MongoDB.',
           points: ['Create, edit and delete employees', 'Department filter, search, sort and pages', 'Headcount and payroll summaries', 'Validation in the API and the database'],
           tech: ['React 19', 'Vite', 'Flask 3', 'MongoDB', 'PyMongo', 'pytest'], readme: `${W2}/task-2-employee-management/README.md`,

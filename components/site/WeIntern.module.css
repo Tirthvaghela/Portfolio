@@ -64,6 +64,9 @@ html[data-motion="on"] .tick:not([data-on])::after { transform: scaleX(0); }
 .tech { opacity: .72; line-height: 1.6; }
 .readme { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 99px; border: 1.5px solid currentColor; white-space: nowrap; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease); }
 .readme:hover { opacity: 1; background: #efe9dc; color: #14120f; border-color: #efe9dc; }
+.taskLinks { display: flex; flex-wrap: wrap; gap: 8px; }
+.liveLight { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 99px; background: #efe9dc; color: #14120f; white-space: nowrap; transition: background-color var(--dur-hover) var(--ease); }
+.liveLight:hover { opacity: 1; background: var(--tone); }
 
 /* Week 2: the static site is a slim band; the two full-stack apps get the weight + screenshots */
 .builds { grid-template-columns: repeat(2, minmax(0, 1fr)); }

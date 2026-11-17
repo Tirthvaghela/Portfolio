@@ -167,7 +167,7 @@ export default function WeIntern() {
                 <Points t={t} />
                 <div className={s.taskFoot}>
                   <span className={`${s.tech} mono11`}>{t.tech.join(" · ")}</span>
-                  <Readme t={t} />
+                  <span className={s.taskLinks}><LiveDemo t={t} /><Readme t={t} /></span>
                 </div>
               </li>
             ))}
@@ -189,7 +189,7 @@ export default function WeIntern() {
               </div>
               <div className={s.bandFoot}>
                 <span className={`${s.tech} mono11`}>{band.tech.join(" · ")}</span>
-                <Readme t={band} />
+                <span className={s.taskLinks}><LiveDemo t={band} /><Readme t={band} /></span>
               </div>
             </li>
             {apps.map((t, k) => (
@@ -432,6 +432,12 @@ function TaskTop({ i, note }: { i: number; note?: string }) {
 
 function Points({ t }: { t: BuildTask }) {
   return <ul className={s.points} aria-label={`${t.title} features`}>{t.points.map((p) => <li key={p}>{p}</li>)}</ul>;
+}
+
+/** Live demo on a dark card (paper pill); only rendered when the README lists a deployed URL. */
+function LiveDemo({ t }: { t: BuildTask }) {
+  if (!t.live) return null;
+  return <a href={t.live} {...ext} data-magnetic="" className={`${s.liveLight} mono`} aria-label={`${t.title} live demo (opens in a new tab)`}>Live demo ↗</a>;
 }
 
 function Readme({ t }: { t: BuildTask }) {
