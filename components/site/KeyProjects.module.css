@@ -16,6 +16,11 @@
 .sub { margin: 0; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.1; }
 .desc { margin: 0; max-width: 56ch; font-size: 18px; line-height: 1.6; }
 .tease { margin: 0; font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+.code {
+  align-self: flex-start; display: flex; align-items: center; height: 46px; padding: 0 20px; border-radius: 99px; border: 1.5px solid var(--fg); color: var(--fg);
+  transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
+}
+.code:hover { opacity: 1; background: var(--fg); color: var(--bg); }
 
 .coverCol { min-width: 0; }
 .card { display: flex; flex-direction: column; background: #14120f; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .45); }

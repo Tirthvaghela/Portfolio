@@ -37,11 +37,13 @@ export type KeyProject = {
   features: string[];
   tech: string[];
   tease?: string;
+  /** Public source repository. */
+  github: string;
 };
 
 export const KEY_PROJECTS: KeyProject[] = [
   {
-    id: 'voiceform', title: 'VoiceForm AI', status: 'Coming soon', cat: 'AI / ML',
+    id: 'voiceform', title: 'VoiceForm AI', status: 'Completed', github: 'https://github.com/Tirthvaghela/VoiceForm.Ai', cat: 'AI / ML',
     sub: 'Multilingual Voice-to-Form Accessibility Engine',
     desc: 'Point your camera at any paper form. VoiceForm reads its exact layout, holds a real voice conversation with you in Gujarati, Hindi, or English, and hands back a print-ready PDF filled in perfectly — no typing, no OCR guesswork.',
     features: ['Understands arbitrary form layouts — not OCR guesswork, actual document structure.','Holds a real multilingual voice conversation to collect every answer, field by field.','Writes responses back onto the original PDF — pixel-perfect, box by box, font-matched.'],
@@ -49,14 +51,14 @@ export const KEY_PROJECTS: KeyProject[] = [
     tease: 'You talk. It listens. And then...',
   },
   {
-    id: 'fileflow', title: 'FileFlow AI', status: 'Active / In development', cat: 'Automation / RPA',
+    id: 'fileflow', title: 'FileFlow AI', status: 'Completed', github: 'https://github.com/Tirthvaghela/FileFlow', cat: 'Automation / RPA',
     sub: 'Your files. On autopilot.',
     desc: 'An RPA-oriented tool that automatically sorts and manages files based on configurable rules, reducing manual file cleanup.',
     features: ['Rule-based file classification across multiple folders.','Undo support for automated actions.','Authenticated dashboard with activity reports.'],
     tech: ['React','Vite','Tailwind CSS','FastAPI','MongoDB','UiPath','Windows agent'],
   },
   {
-    id: 'projectmind', title: 'ProjectMindAI', status: 'Completed', cat: 'NLP / Search',
+    id: 'projectmind', title: 'ProjectMindAI', status: 'Completed', github: 'https://github.com/Tirthvaghela/ProjectMindAi', cat: 'NLP / Search',
     sub: 'Turn ideas into projects.',
     desc: "Helps navigate and query project content by combining semantic search, keyword search, and an AI assistant that stays aware of the project's context.",
     features: ['Semantic search using sentence-transformer embeddings.','Keyword search using BM25, combined with semantic results.','Project/context-aware AI assistant for querying workspace content.'],

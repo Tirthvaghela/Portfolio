@@ -26,7 +26,7 @@ export default function About() {
             <div className={s.nowHead}><span className={`${s.nowTitle} serif`}>Now</span><span className="mono11" suppressHydrationWarning>{time} IST</span></div>
             <dl className={s.dl}>
               <div><dt>Studying</dt><dd>Master of Science in Information Technology, until 2027</dd></div>
-              <div><dt>Building</dt><dd><a href="#key-voiceform">VoiceForm AI · Multilingual Voice-to-Form Accessibility Engine</a></dd></div>
+              <div><dt>Latest project</dt><dd><a href="#key-voiceform">VoiceForm AI · Multilingual Voice-to-Form Accessibility Engine</a></dd></div>
               <div><dt>Looking for</dt><dd>Work and internship offers, and project ideas worth building</dd></div>
             </dl>
           </div>
