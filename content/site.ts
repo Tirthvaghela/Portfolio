@@ -186,9 +186,9 @@ export const HELP_DESK = {
   team: [
     { name: 'Tirth Vaghela', lead: true, side: 'Backend', role: 'Backend integration, admin backend & DevOps', github: 'https://github.com/Tirthvaghela',
       points: ['Backend architecture and API integration', 'Admin backend APIs', 'Shared database and API coordination', 'Integration across customer, agent and admin modules', 'Integration testing and deployment coordination'] },
-    { name: 'Mimansa Narendra Patle', side: 'Frontend', role: 'Customer frontend & landing page', github: 'https://github.com/MimansaPatle',
+    { name: 'Mimansa Patle', side: 'Frontend', role: 'Customer frontend & landing page', github: 'https://github.com/MimansaPatle',
       points: ['Landing page', 'Sign-up and login', 'Customer dashboard', 'Create-ticket form and ticket history', 'Loading, validation and error states'] },
-    { name: 'Swatismita', side: 'Backend', role: 'Tickets & authentication', github: 'https://github.com/Swatismita05',
+    { name: 'Swatismita Parija', side: 'Backend', role: 'Tickets & authentication', github: 'https://github.com/Swatismita05',
       points: ['Authentication and JWT', 'User, Ticket and Category models', 'Ticket creation', 'Customer ticket history', 'Ticket ownership and access checks'] },
     { name: 'Shwetaleena Kundu', side: 'Frontend', role: 'Agent / admin frontend', github: 'https://github.com/Shwetaleena-Kundu',
       points: ['Agent dashboard', 'Ticket filters and replies', 'Ticket assignment and status updates', 'Admin user and category screens'] },
