@@ -1,11 +1,22 @@
 "use client";
-import { COURSES, EDUCATION } from "@/content/site";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useSite } from "./SiteProvider";
+import { COURSES, EDUCATION, pad } from "@/content/site";
 import WeIntern from "./WeIntern";
 import Prodigy from "./Prodigy";
 import s from "./Experience.module.css";
 
-/** Experience & education: 01 WeIntern (current) → 02 Prodigy InfoTech → 03 Education → courses. */
+/** Experience & education: 01 WeIntern (current) → 02 Prodigy InfoTech → 03 Education → 04 Training (certificates). */
 export default function Experience() {
+  const { motion } = useSite();
+  const certRef = useRef<HTMLDivElement>(null);
+  // Each certificate's seal stamps on just after its sheet rises in (the sheets use [data-reveal]).
+  useGSAP(() => {
+    if (!motion || document.documentElement.dataset.motion === "off") return;
+    gsap.utils.toArray<HTMLElement>("[data-cert]").forEach((cert) =>
+      gsap.from(cert.querySelector("[data-seal]"), { scale: 1.5, rotate: -40, opacity: 0, duration: .6, ease: "power4.out", delay: .45, scrollTrigger: { trigger: cert, start: "top 92%" } }));
+  }, { scope: certRef, dependencies: [motion], revertOnUpdate: true });
   return (
     <section id="experience" aria-labelledby="exp-h" data-sheet="" className={`sheet secPad ${s.exp}`}>
       <div data-reveal="" className="secHead mono"><span>(06) Experience</span><span>Work · Education · Training</span></div>
@@ -43,25 +54,34 @@ export default function Experience() {
         </div>
       </div>
 
-      {/* Training / courses — one colour tile each */}
-      <div className={s.block}>
-        <h4 className={`${s.listHead} mono`}>Training / courses</h4>
-        <div className={s.courses}>
+      {/* 04 · Training — each course as a certificate sheet with the issuer's seal */}
+      <div ref={certRef} className={`${s.block} ${s.eduBlock}`}>
+        <div className={`${s.chapter} mono`}><h3 className={s.chapterH}>04 · Training</h3><span>{COURSES.length} certificates</span></div>
+        <ol className={s.certs}>
           {COURSES.map((c, i) => {
             const parts = c.meta.split(" · ");
             const issuer = parts[0], date = parts[parts.length - 1], detail = parts.slice(1, -1).join(" · ");
+            const year = date.match(/\d{4}/)?.[0] ?? "";
             return (
-              <div key={c.title} data-reveal="" className={s.course} data-tone={i % 3}>
-                <div className={`${s.courseTop} mono`}><span>{issuer}</span><span>{date}</span></div>
-                <span className={s.courseTitle}>{c.title}</span>
-                {detail && <span className={`${s.courseDetail} serif`}>{detail}</span>}
-                <div className={s.courseLinks}>
-                  {c.links.map((l) => <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className={`${s.courseBtn} mono`}>{l.label} ↗</a>)}
+              <li key={c.title} data-reveal="" data-cert="" className={s.cert} data-tone={i % 3}>
+                <div className={s.certFrame}>
+                  <div className={`${s.certTop} mono11`}><span>Certificate · {pad(i + 1)}</span><span>{date}</span></div>
+                  <h4 className={s.certTitle}>{c.title}</h4>
+                  {detail && <p className={`${s.certDetail} serif`}>{detail}</p>}
+                  <p className={`${s.certIssuer} mono11`}>Issued by <b>{issuer}</b></p>
+                  <div className={s.certLinks}>
+                    {c.links.map((l) => (
+                      <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className={`${s.certBtn} mono`} aria-label={`${c.title}: ${l.label.toLowerCase()} (opens in a new tab)`}>{l.label} ↗</a>
+                    ))}
+                  </div>
+                  <span data-seal="" className={`${s.seal} mono11`} aria-hidden="true">
+                    <span>{issuer.split(/\s+[—-]\s+/)[0]}</span><b>{year}</b>
+                  </span>
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </div>
     </section>
   );
