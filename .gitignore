@@ -47,6 +47,14 @@ skills-lock.json
 
 # unused raw intro frames (not referenced by the app — public/intro-sequence is what's actually loaded)
 /ezgif-45fa0bce168d47c4-jpg
-/public/voice-form ss
-/public/projectmind ss
-/public/fileflow ss
+# raw screenshot folders: only the images shown on the site are committed
+/public/voice-form ss/*
+!/public/voice-form ss/10.review-detected-fields.png
+!/public/voice-form ss/13.voice-asking-field.png
+!/public/voice-form ss/14.form-verification-complete.png
+/public/projectmind ss/*
+!/public/projectmind ss/2.semantic-search-results.png
+!/public/projectmind ss/6.project-detail.png
+/public/fileflow ss/*
+!/public/fileflow ss/dashboard-light.png
+!/public/fileflow ss/rules-light.png
