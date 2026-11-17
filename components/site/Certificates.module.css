@@ -44,7 +44,9 @@
   .pile { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(-1 * var(--gut)); padding: 30px var(--gut) 24px; scrollbar-width: none; }
   .pile::-webkit-scrollbar { display: none; }
   .paper { flex: 0 0 min(84%, 420px); scroll-snap-align: center; }
-  .print { rotate: calc(var(--tilt, 0deg) * .5); }
-  .paper:hover .print { translate: 0 0; rotate: calc(var(--tilt, 0deg) * .5); }
+  /* --near (0–1, set while swiping with motion on): the print in the middle straightens and comes
+     up to full size. Without it the deck rests at half tilt, full size. */
+  .print { rotate: calc(var(--tilt, 0deg) * .5 * (1 - var(--near, 0))); scale: calc(.93 + .07 * var(--near, 1)); transition: translate .55s var(--ease), rotate .35s var(--ease), scale .35s var(--ease), box-shadow .55s var(--ease); }
+  .paper:hover .print { translate: 0 0; rotate: calc(var(--tilt, 0deg) * .5 * (1 - var(--near, 0))); }
   .open { display: none; }
 }

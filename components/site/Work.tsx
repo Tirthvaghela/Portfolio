@@ -55,11 +55,45 @@ export default function Work() {
       const dist = () => Math.max(0, track.scrollWidth - innerWidth);
       gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: pin, pin: true, start: "top top", end: () => "+=" + dist(), scrub: .8, invalidateOnRefresh: true } });
     });
-    // Mobile: panels stack and rise in; covers tilt with device orientation or get a scroll parallax.
+    // Mobile: panels rise in, then stack like the page's sheets — each sticks once its bottom reaches
+    // the screen and the next slides over it while it sinks back (scale .94, dimmed). Covers open
+    // from a window as they arrive; the ghost number drifts up. Covers also tilt with device
+    // orientation (or get a scroll parallax).
     mm.add(MOBILE_MQ, () => {
       const panels = gsap.utils.toArray<HTMLElement>("[data-panel]");
       gsap.set(panels, { y: 80, opacity: 0 });
       ScrollTrigger.batch(panels, { start: "top 92%", once: true, onEnter: (b) => { gsap.to(b, { y: 0, opacity: 1, duration: 1.1, ease: "expo.out", stagger: .08 }); } });
+
+      // Stack: one scale per panel = (sink while covered) × (touch press), so the two never fight.
+      const state = panels.map(() => ({ sink: 0, press: 1 }));
+      const render = (i: number) => {
+        const st = state[i], p = panels[i];
+        gsap.set(p, { scale: (1 - .06 * st.sink) * st.press, transformOrigin: "50% 0%" });
+        p.style.setProperty("--dim", String(st.sink * .55));
+      };
+      // Sticky offset: short panels stick under the header; tall ones once their bottom is on screen.
+      const stickTop = (p: HTMLElement) => Math.min(72, innerHeight - p.offsetHeight - 12);
+      // While ScrollTrigger measures, panels sit in normal flow (a stuck panel would skew every
+      // trigger measured inside or after it); sticky comes back once the refresh is done.
+      const unstick = () => panels.forEach((p) => { p.style.position = "relative"; });
+      const setSticks = () => panels.forEach((p) => { p.style.setProperty("--stick", `${stickTop(p)}px`); p.style.position = ""; });
+      unstick(); setSticks();
+      ScrollTrigger.addEventListener("refreshInit", unstick);
+      ScrollTrigger.addEventListener("refresh", setSticks);
+      panels.forEach((p, i) => {
+        const next = (panels[i + 1] ?? p.parentElement?.querySelector<HTMLElement>("[data-reel-end]")) || null;
+        if (!next) return;
+        ScrollTrigger.create({
+          // sinks from the moment the next sheet enters until it settles at the top
+          trigger: next, start: "top bottom", end: () => `top ${next.hasAttribute("data-panel") ? Math.max(0, stickTop(next)) : 0}px`, scrub: true, invalidateOnRefresh: true,
+          onUpdate: (self) => { state[i].sink = self.progress; render(i); },
+        });
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-tilt]").forEach((c) =>
+        gsap.fromTo(c, { clipPath: "inset(14% 10% 14% 10% round 16px)" }, { clipPath: "inset(0% 0% 0% 0% round 16px)", ease: "none", scrollTrigger: { trigger: c, start: "top bottom", end: "top 55%", scrub: true } }));
+      gsap.utils.toArray<HTMLElement>("[data-ghost]").forEach((g) =>
+        gsap.fromTo(g, { yPercent: 35 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: g.parentElement, start: "top bottom", end: "bottom 60%", scrub: true } }));
 
       const covers = gsap.utils.toArray<HTMLElement>("[data-tilt]");
       const parallax = covers.map((c) => gsap.fromTo(c, { y: -20 }, { y: 20, ease: "none", scrollTrigger: { trigger: c, start: "top bottom", end: "bottom top", scrub: true } }));
@@ -81,11 +115,16 @@ export default function Work() {
       else if (DO) listen();
 
       // Press state: scale .98 on touch, spring back.
-      const down = (e: TouchEvent) => { const p = (e.target as Element).closest?.("[data-panel]"); if (p) gsap.to(p, { scale: .98, duration: .2, ease: "power2.out" }); };
-      const up = () => gsap.to(panels, { scale: 1, duration: .8, ease: "expo.out", overwrite: "auto" });
+      const press = (i: number, v: number, duration: number, ease: string) =>
+        gsap.to(state[i], { press: v, duration, ease, overwrite: true, onUpdate: () => render(i) });
+      const down = (e: TouchEvent) => { const i = panels.indexOf((e.target as Element).closest?.("[data-panel]") as HTMLElement); if (i >= 0) press(i, .98, .2, "power2.out"); };
+      const up = () => state.forEach((st, i) => { if (st.press !== 1) press(i, 1, .8, "expo.out"); });
       sec?.addEventListener("touchstart", down, { passive: true });
       sec?.addEventListener("touchend", up); sec?.addEventListener("touchcancel", up);
       return () => {
+        ScrollTrigger.removeEventListener("refreshInit", unstick);
+        ScrollTrigger.removeEventListener("refresh", setSticks);
+        panels.forEach((p) => { p.style.removeProperty("--stick"); p.style.removeProperty("--dim"); p.style.position = ""; });
         removeEventListener("deviceorientation", onOrient);
         sec?.removeEventListener("touchend", ask); sec?.removeEventListener("touchstart", down);
         sec?.removeEventListener("touchend", up); sec?.removeEventListener("touchcancel", up);
@@ -128,7 +167,7 @@ export default function Work() {
             const open = () => openProject(p.i);
             return (
               <article key={p.i} data-panel="" data-cursor="Open" className={s.panel} style={vars}>
-                <span aria-hidden="true" className={`${s.ghost} serif`}>{pad(p.i + 1)}</span>
+                <span aria-hidden="true" data-ghost="" className={`${s.ghost} serif`}>{pad(p.i + 1)}</span>
                 <div className={s.info}>
                   <div className={`${s.meta} mono`}>
                     <span className={s.catPill}>{p.cat}</span>
@@ -173,7 +212,7 @@ export default function Work() {
             </div>
           )}
 
-          <a href={SITE.github} target="_blank" rel="noopener noreferrer" data-cursor="GitHub" className={s.end}>
+          <a href={SITE.github} target="_blank" rel="noopener noreferrer" data-cursor="GitHub" data-reel-end="" className={s.end}>
             <span className="mono">End of reel</span>
             <span className={s.endTitle}>
               <span className={s.endBig}>More on <span className={`accent ${s.must}`}>GitHub</span></span>

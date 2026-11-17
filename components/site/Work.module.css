@@ -68,3 +68,12 @@
 .must { color: var(--must); }
 .endHandle { font-family: var(--mono); font-size: 13px; }
 @media (max-width: 899px) { .tab { height: 44px; } }
+
+/* Mobile with motion: panels stack like sheets (sticky; Work.tsx sets --stick and the --dim of a
+   covered panel). overflow: clip instead of hidden so sticky still sees the page scroll. */
+@media (max-width: 899px), (max-height: 679px) {
+  :global(html[data-motion="on"]) .pin { overflow: clip; }
+  :global(html[data-motion="on"]) .panel { position: sticky; top: var(--stick, 72px); }
+  :global(html[data-motion="on"]) .panel::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; background: #14120f; opacity: var(--dim, 0); pointer-events: none; }
+  :global(html[data-motion="on"]) .end, :global(html[data-motion="on"]) .empty { position: relative; }
+}

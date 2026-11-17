@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRef } from "react";
-import { DESKTOP_MQ, gsap, useGSAP } from "@/lib/gsap";
+import { DESKTOP_MQ, MOBILE_MQ, gsap, useGSAP } from "@/lib/gsap";
 import { useSite } from "./SiteProvider";
 import { COURSES, pad } from "@/content/site";
 import s from "./Certificates.module.css";
@@ -50,6 +50,38 @@ export default function Certificates() {
         tl.fromTo(p.querySelector("[data-cap]"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .3, ease: "power2.out" }, .7 + i * .12);
         tl.fromTo(p.querySelector("[data-tape]"), { scaleX: 0 }, { scaleX: 1, duration: .25, ease: "power3.out" }, .8 + i * .12);
       });
+    });
+    // Phones: the prints are dealt onto the table from the right (each lands askew, then its tape
+    // presses on); while swiping, the print in the middle is picked up (straight, full size) and the
+    // others rest tilted and slightly smaller (--near, read by the CSS).
+    mm.add(MOBILE_MQ, () => {
+      const pile = el.querySelector<HTMLElement>("[data-pile]");
+      const prints = gsap.utils.toArray<HTMLElement>("[data-paper]", el);
+      if (!pile || !prints.length) return;
+      const tl = gsap.timeline({ scrollTrigger: { trigger: pile, start: "top 85%", once: true } });
+      prints.forEach((p, i) => {
+        tl.fromTo(p, { x: () => innerWidth * .9, y: 30, "--tilt": `${PILE[i] + 10}deg` }, { x: 0, y: 0, "--tilt": `${REST[i]}deg`, duration: 1.1, ease: "expo.out" }, i * .14);
+        tl.fromTo(p.querySelector("[data-cap]"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .6, ease: "power2.out" }, .35 + i * .14);
+        tl.fromTo(p.querySelector("[data-tape]"), { scaleX: 0 }, { scaleX: 1, duration: .35, ease: "power3.out" }, .5 + i * .14);
+      });
+      let raf = 0;
+      const focus = () => {
+        raf = 0;
+        const mid = pile.offsetLeft + pile.scrollLeft + pile.clientWidth / 2; // offsetLeft is relative to .wrap
+        prints.forEach((p) => {
+          const d = Math.abs(p.offsetLeft + p.offsetWidth / 2 - mid) / p.offsetWidth;
+          p.style.setProperty("--near", String(Math.max(0, 1 - d).toFixed(3)));
+        });
+      };
+      const onScroll = () => { if (!raf) raf = requestAnimationFrame(focus); };
+      focus();
+      pile.addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+      return () => {
+        cancelAnimationFrame(raf);
+        pile.removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll);
+        prints.forEach((p) => p.style.removeProperty("--near"));
+      };
     });
     return () => mm.revert();
   }, { scope: root, dependencies: [motion], revertOnUpdate: true });
