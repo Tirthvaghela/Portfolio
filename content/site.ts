@@ -44,6 +44,8 @@ export type KeyProject = {
   /** System flow for the Systems section: [step, how] × 4, plus one highlighted behaviour [tag, text]. */
   pipeline: [string, string][];
   highlight?: [string, string];
+  /** Built together with — shown as "Built with <name>", linking to their profile. */
+  collab?: { name: string; href: string };
 };
 
 export type Shot = { src: string; w: number; h: number; caption: string };
@@ -79,6 +81,7 @@ export const KEY_PROJECTS: KeyProject[] = [
   },
   {
     id: 'projectmind', title: 'ProjectMindAI', status: 'Completed', days: 45, github: 'https://github.com/Tirthvaghela/ProjectMindAi',
+    collab: { name: 'Sakshi Patel', href: 'https://www.linkedin.com/in/sakshi-patel-74a645412' },
     shots: [
       { src: '/projectmind ss/2.semantic-search-results.png', w: 1440, h: 900, caption: 'Hybrid search: meaning (sentence-transformers) plus keywords (BM25), ranked together' },
       { src: '/projectmind ss/6.project-detail.png', w: 1440, h: 900, caption: 'Project detail: stack, required skills, learning resources and your skill gap' },

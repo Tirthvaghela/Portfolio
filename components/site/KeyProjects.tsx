@@ -41,6 +41,7 @@ export default function KeyProjects() {
                   <p className={`${s.sub} serif`}>{p.sub}</p>
                   <p className={s.desc}>{p.desc}</p>
                   {p.tease && <p className={s.tease}>{p.tease}</p>}
+                  {p.collab && <p className={s.with}>Built with <a href={p.collab.href} target="_blank" rel="noopener noreferrer">{p.collab.name}</a></p>}
                   <a href={p.github} target="_blank" rel="noopener noreferrer" data-magnetic="" aria-label={`${p.title} source code on GitHub`} className={`${s.code} mono`}>Source code ↗</a>
                 </div>
                 <div className={s.coverCol}>
