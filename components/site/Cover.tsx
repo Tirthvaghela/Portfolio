@@ -102,63 +102,161 @@ function EventEase() {
   );
 }
 
-/* 03 Vois — feed posts, likes, follow graph, trending */
+/* 03 Vois — the app itself, in its glassmorphism style: frosted panels over soft colour glows
+   (radial gradients, not blur filters — cheap to repaint while the Work panels scale). Nav rail,
+   composer, a post with like / comment / share, profile + follow, trending. No invented numbers. */
 function Vois() {
-  const post = (x: number, y: number, c: string, liked = false) => (
-    <g>
-      <rect x={x} y={y} width={300} height={120} rx={20} fill={PAPER} />
-      <circle cx={x + 34} cy={y + 34} r={16} fill={c} />
-      <Lines x={x + 60} y={y + 24} w={[120, 80]} n={2} gap={14} color="rgba(20,18,15,.35)" />
-      <Lines x={x + 22} y={y + 66} w={[250, 200]} n={2} gap={14} color="rgba(20,18,15,.14)" />
-      <path className={liked ? s.beat : undefined} transform={`translate(${x + 240} ${y + 92})`} d="M0 6 C0 0 8 -2 10 4 C12 -2 20 0 20 6 C20 13 10 18 10 18 C10 18 0 13 0 6Z" fill={liked ? RED : "rgba(20,18,15,.25)"} />
-    </g>
-  );
+  const glass = { fill: "rgba(239,233,220,.07)", stroke: "rgba(239,233,220,.2)", strokeWidth: 1.5 };
+  const soft = "rgba(239,233,220,.35)";
+  const heart = "M0 6 C0 0 8 -2 10 4 C12 -2 20 0 20 6 C20 13 10 18 10 18 C10 18 0 13 0 6Z";
   return (
     <>
-      {post(60, 60, RED, true)}{post(100, 200, TEAL)}{post(60, 340, MUST)}
-      {/* follow graph */}
-      {[[560, 120], [700, 170], [620, 260], [740, 320], [560, 380]].map(([x, y], i, a) => (
-        <g key={i}>{i > 0 && <line x1={a[0][0]} y1={a[0][1]} x2={x} y2={y} stroke={LINE} strokeWidth={2} />}{i === 2 && <line x1={x} y1={y} x2={a[3][0]} y2={a[3][1]} stroke={LINE} strokeWidth={2} />}</g>
+      <defs>
+        {[["vois-r", RED], ["vois-t", TEAL], ["vois-m", MUST]].map(([id, c]) => (
+          <radialGradient key={id} id={id}><stop offset="0" stopColor={c} stopOpacity={.55} /><stop offset="1" stopColor={c} stopOpacity={0} /></radialGradient>
+        ))}
+      </defs>
+      <circle cx={250} cy={150} r={230} fill="url(#vois-r)" />
+      <circle cx={660} cy={360} r={250} fill="url(#vois-t)" />
+      <circle cx={420} cy={500} r={180} fill="url(#vois-m)" />
+
+      {/* nav rail */}
+      <rect x={24} y={24} width={64} height={452} rx={22} {...glass} />
+      <circle cx={56} cy={62} r={19} fill={PAPER} />
+      <text x={56} y={71} textAnchor="middle" fontSize={24} fill={INK} style={disp}>V</text>
+      <rect x={38} y={112} width={36} height={36} rx={12} fill={MUST} />
+      <path d="M47 132 l9 -9 l9 9 v8 h-18 Z" fill="none" stroke={INK} strokeWidth={2.5} strokeLinejoin="round" />
+      <circle cx={55} cy={186} r={8} fill="none" stroke={PAPER} strokeWidth={2.5} opacity={.7} /><path d="M61 192 l6 6" stroke={PAPER} strokeWidth={2.5} strokeLinecap="round" opacity={.7} />
+      <path transform="translate(46 236)" d={heart} fill="none" stroke={PAPER} strokeWidth={2.2} opacity={.7} />
+      <circle cx={56} cy={290} r={7} fill="none" stroke={PAPER} strokeWidth={2.5} opacity={.7} /><path d="M44 310 q12 -14 24 0" fill="none" stroke={PAPER} strokeWidth={2.5} strokeLinecap="round" opacity={.7} />
+
+      {/* composer */}
+      <rect x={104} y={24} width={380} height={56} rx={18} {...glass} />
+      <circle cx={132} cy={52} r={14} fill={MUST} />
+      <rect x={156} y={49} width={170} height={7} rx={3.5} fill={LINE} />
+      <rect x={410} y={38} width={60} height={28} rx={14} fill={PAPER} />
+      <text x={440} y={56} textAnchor="middle" fontSize={11} fill={INK} style={mono}>POST</text>
+
+      {/* post: author, text, photo, like / comment / share */}
+      <rect x={104} y={96} width={380} height={262} rx={22} {...glass} />
+      <circle cx={136} cy={128} r={16} fill={RED} />
+      <Lines x={162} y={118} w={[110, 64]} n={2} gap={13} color={soft} />
+      <Lines x={124} y={160} w={[332, 270]} n={2} gap={15} color="rgba(239,233,220,.22)" />
+      <rect x={124} y={196} width={340} height={112} rx={14} fill={TEAL} opacity={.75} />
+      <circle cx={420} cy={226} r={14} fill={MUST} />
+      <path d="M124 308 L196 246 L244 284 L292 238 L364 308 Z" fill={INK} opacity={.35} />
+      <g transform="translate(124 322)"><g className={s.beat}><path d={heart} fill={RED} /></g></g>
+      <path d="M176 324 h22 a6 6 0 0 1 6 6 v8 a6 6 0 0 1 -6 6 h-12 l-7 6 v-6 h-3 a6 6 0 0 1 -6 -6 v-8 a6 6 0 0 1 6 -6 Z" fill="none" stroke={PAPER} strokeWidth={2.2} opacity={.75} />
+      <path d="M230 340 l20 -12 M250 328 l-8 0 M250 328 l-1 8" fill="none" stroke={PAPER} strokeWidth={2.2} strokeLinecap="round" opacity={.75} />
+
+      {/* next post, running off the bottom */}
+      <rect x={104} y={374} width={380} height={140} rx={22} {...glass} />
+      <circle cx={136} cy={406} r={16} fill={TEAL} />
+      <Lines x={162} y={396} w={[124, 80]} n={2} gap={13} color={soft} />
+      <Lines x={124} y={440} w={[320, 250]} n={2} gap={15} color="rgba(239,233,220,.22)" />
+
+      {/* profile + follow */}
+      <rect x={504} y={24} width={272} height={180} rx={22} {...glass} />
+      <circle cx={548} cy={70} r={26} fill={MUST} />
+      <Lines x={588} y={58} w={[120, 76]} n={2} gap={14} color={soft} />
+      {["POSTS", "FOLLOWERS", "FOLLOWING"].map((l, i) => (
+        <g key={l}><rect x={524 + i * 84} y={110} width={34} height={9} rx={4.5} fill={PAPER} opacity={.6} /><text x={524 + i * 84} y={138} fontSize={9.5} fill={PAPER} opacity={.6} style={mono}>{l}</text></g>
       ))}
-      {[[560, 120, RED], [700, 170, PAPER], [620, 260, MUST], [740, 320, TEAL], [560, 380, PAPER]].map(([x, y, c], i) => <circle key={i} cx={x as number} cy={y as number} r={i === 0 ? 26 : 16} fill={c as string} />)}
-      <Tag x={520} y={60} text="follow" bg={PAPER} />
-      <rect x={470} y={420} width={300} height={50} rx={14} fill={INK} />
-      <text x={488} y={450} fontSize={11} fill={MUST} style={mono}>TRENDING</text>
-      <polyline points="580,455 610,446 640,450 670,436 700,440 730,426 755,430" fill="none" stroke={MUST} strokeWidth={3} strokeLinejoin="round" />
+      <rect x={524} y={154} width={232} height={34} rx={17} fill={PAPER} />
+      <text x={640} y={176} textAnchor="middle" fontSize={11} fill={INK} style={mono}>+ FOLLOW</text>
+
+      {/* trending */}
+      <rect x={504} y={220} width={272} height={256} rx={22} {...glass} />
+      <text x={524} y={252} fontSize={11} fill={MUST} style={mono}>TRENDING</text>
+      {[0, 1, 2, 3].map((i) => {
+        const y = 270 + i * 50, hot = i === 0;
+        return (
+          <g key={i}>
+            <text x={524} y={y + 22} fontSize={24} fill={hot ? MUST : PAPER} style={disp}>#</text>
+            <Lines x={546} y={y + 6} w={[104, 64]} n={2} gap={13} color={hot ? "rgba(233,196,92,.7)" : soft} />
+            <polyline points={`690,${y + 24} 704,${y + 18} 716,${y + 21} 730,${y + (hot ? 4 : 12)} 744,${y + (hot ? 8 : 14)} 756,${y + (hot ? -2 : 9)}`} fill="none" stroke={hot ? MUST : PAPER} strokeWidth={2.5} strokeLinejoin="round" opacity={hot ? 1 : .45} />
+          </g>
+        );
+      })}
     </>
   );
 }
 
-/* 04 RIGS — rider, helmet check, plate OCR, e-challan */
+/* 04 RIGS — the monitoring dashboard: live roadside feed with YOLOv8 detections (no helmet, plate),
+   the plate read → e-challan emailed, a violations log and analytics. Plate characters masked. */
 function Rigs() {
+  const FEED = "#1a1814", CARD = "#2e2a24";
   return (
     <>
-      <rect x={0} y={400} width={800} height={100} fill="#2e2a24" />
-      {/* bike + rider */}
-      <circle cx={190} cy={390} r={52} fill="none" stroke={PAPER} strokeWidth={14} />
-      <circle cx={420} cy={390} r={52} fill="none" stroke={PAPER} strokeWidth={14} />
-      <path d="M190 390 L260 300 L360 300 L420 390" fill="none" stroke={TEAL} strokeWidth={14} strokeLinejoin="round" />
-      <path d="M250 300 L300 250 L380 260 L400 300 Z" fill={TEAL} />
-      <path d="M300 250 L270 170 L330 160 L360 250 Z" fill={RED} />
-      <circle cx={300} cy={128} r={30} fill={PAPER} />
-      <path d="M300 180 L380 220" stroke={RED} strokeWidth={14} strokeLinecap="round" />
-      <rect x={400} y={318} width={74} height={32} rx={4} fill={PAPER} />
-      <text x={437} y={340} textAnchor="middle" fontSize={13} fill={INK} style={mono}>GJ ·· ··</text>
-      {/* detections */}
-      <rect x={258} y={88} width={84} height={84} fill="none" stroke={RED} strokeWidth={3} strokeDasharray="9 5" />
-      <Tag x={258} y={62} text="no helmet" bg={RED} />
-      <rect x={392} y={310} width={90} height={48} fill="none" stroke={MUST} strokeWidth={3} strokeDasharray="9 5" />
-      <Tag x={492} y={322} text="ocr" />
-      {/* scan line */}
-      <g className={s.scan}><rect x={150} y={70} width={360} height={3} fill={MUST} opacity={.8} /></g>
-      {/* challan */}
-      <g transform="translate(600 120)">
-        <rect width={160} height={110} rx={14} fill={PAPER} />
-        <path d="M0 14 L80 66 L160 14" fill="none" stroke={INK} strokeWidth={3} />
-        <text x={80} y={140} textAnchor="middle" fontSize={11} fill={PAPER} style={mono}>E-CHALLAN</text>
+      <defs><clipPath id="rigs-feed"><rect x={24} y={24} width={496} height={300} rx={20} /></clipPath></defs>
+
+      {/* live feed */}
+      <rect x={24} y={24} width={496} height={300} rx={20} fill={FEED} />
+      <g clipPath="url(#rigs-feed)">
+        <rect x={24} y={262} width={496} height={62} fill={CARD} />
+        {[0, 1, 2, 3, 4].map((i) => <rect key={i} x={40 + i * 104} y={290} width={56} height={6} rx={3} fill={PAPER} opacity={.25} />)}
+        {/* rider (the original side view, scaled into the frame) */}
+        <g transform="translate(104 57) scale(.55)">
+          <circle cx={190} cy={390} r={52} fill="none" stroke={PAPER} strokeWidth={14} />
+          <circle cx={420} cy={390} r={52} fill="none" stroke={PAPER} strokeWidth={14} />
+          <path d="M190 390 L260 300 L360 300 L420 390" fill="none" stroke={TEAL} strokeWidth={14} strokeLinejoin="round" />
+          <path d="M250 300 L300 250 L380 260 L400 300 Z" fill={TEAL} />
+          <path d="M300 250 L270 170 L330 160 L360 250 Z" fill={RED} />
+          <circle cx={300} cy={128} r={30} fill={PAPER} />
+          <path d="M300 180 L380 220" stroke={RED} strokeWidth={14} strokeLinecap="round" />
+          <rect x={400} y={318} width={74} height={32} rx={4} fill={PAPER} />
+        </g>
+        {/* detections */}
+        <rect x={240} y={100} width={58} height={58} fill="none" stroke={RED} strokeWidth={2.5} strokeDasharray="8 5" />
+        <Tag x={240} y={74} text="no helmet" bg={RED} />
+        <rect x={316} y={222} width={58} height={36} fill="none" stroke={MUST} strokeWidth={2.5} strokeDasharray="8 5" />
+        <Tag x={382} y={229} text="ocr" />
+        <g transform="translate(24 30)"><g className={s.scan}><rect width={496} height={2} fill={MUST} opacity={.7} /></g></g>
       </g>
-      <path d="M520 175 C 560 175, 560 175, 590 175" stroke={MUST} strokeWidth={3} strokeDasharray="6 6" fill="none" />
-      <path d="M582 167 L594 175 L582 183" fill="none" stroke={MUST} strokeWidth={3} />
+      {/* HUD */}
+      <g className={s.blink}><circle cx={48} cy={50} r={6} fill={RED} /></g>
+      <text x={62} y={54} fontSize={11} fill={PAPER} style={mono}>LIVE</text>
+      <Tag x={412} y={39} text="yolov8" bg={PAPER} />
+      {[[36, 36, 1, 1], [508, 36, -1, 1], [36, 312, 1, -1], [508, 312, -1, -1]].map(([x, y, dx, dy], i) => (
+        <path key={i} d={`M${x} ${y + 18 * dy} V${y} H${x + 18 * dx}`} fill="none" stroke={PAPER} strokeWidth={2} opacity={.35} />
+      ))}
+
+      {/* plate read → e-challan */}
+      <rect x={24} y={340} width={236} height={136} rx={20} fill={CARD} />
+      <text x={44} y={368} fontSize={11} fill={MUST} style={mono}>PLATE READ</text>
+      <rect x={44} y={384} width={196} height={52} rx={8} fill={PAPER} />
+      <text x={142} y={418} textAnchor="middle" fontSize={22} fill={INK} style={mono}>GJ ·· ··</text>
+      <rect x={44} y={450} width={90} height={7} rx={3.5} fill={LINE} />
+      <path d="M262 408 h16 M272 401 l7 7 l-7 7" fill="none" stroke={MUST} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+      <rect x={284} y={340} width={236} height={136} rx={20} fill={PAPER} />
+      <rect x={304} y={360} width={56} height={40} rx={6} fill="none" stroke={INK} strokeWidth={3} />
+      <path d="M304 364 L332 384 L360 364" fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" />
+      <text x={374} y={376} fontSize={11} fill={INK} style={mono}>E-CHALLAN</text>
+      <Lines x={374} y={386} w={[110, 72]} n={2} gap={12} color="rgba(20,18,15,.25)" />
+      <g className={s.pulse}><Tag x={304} y={432} text="emailed ✓" bg={TEAL} fg={PAPER} /></g>
+
+      {/* violations log */}
+      <rect x={536} y={24} width={240} height={300} rx={20} fill={CARD} />
+      <text x={556} y={54} fontSize={11} fill={RED} style={mono}>VIOLATIONS</text>
+      {[0, 1, 2, 3].map((i) => {
+        const y = 70 + i * 62;
+        return (
+          <g key={i}>
+            <rect x={556} y={y} width={50} height={44} rx={8} fill={FEED} />
+            <circle cx={581} cy={y + 20} r={8} fill={PAPER} opacity={.85} />
+            <circle cx={581} cy={y + 20} r={13} fill="none" stroke={RED} strokeWidth={2} strokeDasharray="4 3" />
+            <Lines x={618} y={y + 10} w={[78, 52]} n={2} gap={13} color={LINE} />
+            <Tag x={i === 0 ? 714 : 708} y={y + 11} text={i === 0 ? "new" : "sent"} bg={i === 0 ? RED : TEAL} fg={i === 0 ? INK : PAPER} />
+          </g>
+        );
+      })}
+
+      {/* analytics */}
+      <rect x={536} y={340} width={240} height={136} rx={20} fill={CARD} />
+      <text x={556} y={368} fontSize={11} fill={MUST} style={mono}>ANALYTICS</text>
+      {[30, 44, 36, 58, 48, 66, 54].map((h, i) => (
+        <rect key={i} x={560 + i * 30} y={456 - h} width={18} height={h} rx={4} fill={i === 5 ? RED : PAPER} opacity={i === 5 ? 1 : .35} />
+      ))}
     </>
   );
 }
