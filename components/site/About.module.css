@@ -15,7 +15,7 @@
 .dl > div:last-child { padding-bottom: 0; }
 .dl dt { font-weight: 700; font-size: 20px; letter-spacing: -.02em; }
 .dl dd { margin: 4px 0 0; font-size: 16px; line-height: 1.5; }
-.dl dd a { border-bottom: 1px solid currentColor; }
+.dl dd a { border-bottom: 1px solid currentColor; padding: 12px 0; } /* taller tap area; inline padding doesn't move the text */
 .stats { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; background: #14120f; border: 2px solid #14120f; border-radius: 24px; overflow: hidden; }
 .stat { background: #efe9dc; padding: 18px 20px; display: flex; flex-direction: column-reverse; gap: 4px; }
 .stat dd { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(52px, 5vw, 84px); line-height: .85; letter-spacing: -.03em; }

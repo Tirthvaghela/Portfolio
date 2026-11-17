@@ -126,9 +126,26 @@ export default function Hero() {
       const pad = W * (W < 700 * dpr ? .045 : .03), lines = ["TIRTH", "VAGHELA"];
       tx.font = `800 100px ${FF}`;
       let sizes = lines.map((l) => 100 * (W - pad * 2) / tx.measureText(l).width);
-      const total = sizes.reduce((a, b) => a + b * .8, 0), maxH = H * (W < 700 * dpr ? .5 : .66), k = Math.min(1, maxH / total);
+      // Short screens (a phone held sideways): the name gets about a third of the height, so the
+      // location bar above and the intro + buttons below still fit on screen with it.
+      const short = cv.clientHeight < 500;
+      const total = sizes.reduce((a, b) => a + b * .8, 0), maxH = H * (short ? .3 : W < 700 * dpr ? .5 : .66), k = Math.min(1, maxH / total);
       sizes = sizes.map((sz) => sz * k);
-      let y = H * .5 - (sizes[0] * .8 + sizes[1] * .8) / 2 - H * .03;
+      let y = H * (short ? .43 : .47) - (sizes[0] * .8 + sizes[1] * .8) / 2;
+      // Never under the text: if the name would overlap the location bar above or the intro block
+      // below (narrow + short phones, where that block wraps tall), fit it into the gap between them.
+      // Layout offsets (not rects), so the blocks' intro transforms don't skew the measurement.
+      const topEl = cv.parentElement?.querySelector<HTMLElement>("[data-hero-top]");
+      const botEl = cv.parentElement?.querySelector<HTMLElement>("[data-hero-bottom]");
+      if (topEl && botEl) {
+        const gapTop = (topEl.offsetTop + topEl.offsetHeight + 14) * dpr, gapBot = (botEl.offsetTop - 14) * dpr;
+        const nameH = (sizes[0] + sizes[1]) * .8 + sizes[1] * .03;
+        if (gapBot > gapTop && (y < gapTop || y + nameH > gapBot)) {
+          const fit = Math.min(1, (gapBot - gapTop) / nameH);
+          sizes = sizes.map((sz) => sz * fit);
+          y = gapTop + (gapBot - gapTop - nameH * fit) / 2;
+        }
+      }
       const base: number[] = [];
       lines.forEach((l, i) => { tx.font = `800 ${sizes[i]}px ${FF}`; const w = tx.measureText(l).width; y += sizes[i] * .8; base.push(y); tx.fillText(l, (W - w) / 2, y); });
       // Mask bands for the intro reveal (GL uv, y up): top of line 1, gap between lines, bottom of line 2.
@@ -187,6 +204,8 @@ export default function Hero() {
     let drawQueued = 0;
     const queueDraw = () => { if (!drawQueued) drawQueued = requestAnimationFrame(() => { drawQueued = 0; draw(); }); };
     const ro = new ResizeObserver(queueDraw); ro.observe(cv);
+    // the name fits between these two blocks, so re-fit when either changes size (rewrap, font load)
+    cv.parentElement?.querySelectorAll<HTMLElement>("[data-hero-top], [data-hero-bottom]").forEach((el) => ro.observe(el));
     const ready = document.fonts?.load ? document.fonts.load(`800 100px ${FF}`) : Promise.resolve();
     ready.then(queueDraw, queueDraw);
 
@@ -255,12 +274,12 @@ export default function Hero() {
         <div className={s.stage}>
           <canvas ref={canvasRef} data-hgl="" aria-hidden="true" className={s.canvas} />
           <h1 className={s.fallback} style={{ opacity: glOk ? 0 : 1 }}>Tirth<br />Vaghela</h1>
-          <div data-hov="" className={`${s.topbar} mono`}>
+          <div data-hov="" data-hero-top="" className={`${s.topbar} mono`}>
             <span>Ahmedabad, Gujarat, India</span>
             <span className={s.open}><span className={s.dot} />Open to work</span>
             <span className={s.deskOnly} suppressHydrationWarning>{time} IST</span>
           </div>
-          <div data-hov="" className={s.bottom}>
+          <div data-hov="" data-hero-bottom="" className={s.bottom}>
             <div className={s.roleCol}>
               <span className={`${s.chips} mono11`}><span className={s.chipRed}>Designer</span><span className={s.chipLine}>Full-Stack Developer</span></span>
               <span className={`${s.stackLine} mono11`}>React · Next.js · Django · Flask · Python</span>

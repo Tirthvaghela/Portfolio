@@ -9,6 +9,8 @@
 .lBottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
 .welcome { font-size: clamp(72px, 14vw, 240px); line-height: .9; }
 .count { font-family: var(--mono); font-size: clamp(40px, 6vw, 96px); line-height: 1; color: var(--must); }
+/* Very narrow phones: "Welcome" + the count must fit side by side */
+@media (max-width: 359px) { .welcome { font-size: 17vw; } .count { font-size: 10vw; } }
 
 /* Hero */
 .hero { position: relative; z-index: 1; height: 230svh; background: #14120f; color: #efe9dc; }
@@ -53,3 +55,13 @@
 .hint { position: absolute; right: var(--gut); top: 122px; opacity: .55; pointer-events: none; }
 .deskOnly { }
 @media (max-width: 899px) { .deskOnly, .hint { display: none; } }
+/* Short landscape screens (phone held sideways): the stage fits the screen instead of a 560px
+   minimum, and the bottom block tightens so the name, intro and buttons all show at once. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .stage { min-height: 0; }
+  .topbar { top: 76px; }
+  .fallback { font-size: min(19vw, 17svh); }
+  .bottom { bottom: 14px; gap: 10px 28px; }
+  .roleCol { gap: 6px; }
+  .claim { font-size: 16px; }
+}

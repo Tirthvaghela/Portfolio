@@ -23,7 +23,8 @@ export default function Site() {
   const root = useRef<HTMLDivElement>(null);
   return (
     <SiteProvider>
-      <div ref={root}>
+      {/* overflow-x: clip (not hidden) — nothing can ever widen the page sideways, and sticky still works */}
+      <div ref={root} style={{ overflowX: "clip" }}>
         <Header />
         <main id="main">
           <Hero />

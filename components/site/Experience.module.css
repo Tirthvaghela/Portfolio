@@ -1,4 +1,6 @@
 .exp { z-index: 8; background: #14120f; color: #efe9dc; }
+/* Clip sideways only: tilted certificate prints (phones, before they settle) must never widen the page */
+.exp { overflow-x: clip; }
 .h2 { margin: 28px 0 clamp(36px, 5vw, 64px); }
 .l2 { padding-bottom: .08em; }
 .l2 > * { color: var(--red); }

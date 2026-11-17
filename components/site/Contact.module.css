@@ -1,6 +1,8 @@
 .contact { z-index: 9; background: #14120f; color: #efe9dc; padding: clamp(64px, 9vw, 140px) var(--gut) clamp(64px, 8vw, 120px); }
 .h2 { margin: 28px 0 0; font-weight: 400; font-size: clamp(60px, 12vw, 220px); line-height: .86; letter-spacing: -.02em; text-transform: uppercase; }
 .cw { display: inline-block; }
+/* Small phones: the heading's min size (60px) would make "SOMETHING" wider than the screen */
+@media (max-width: 359px) { .h2 { font-size: 15.5vw; } }
 .build { font-family: var(--serif); font-style: italic; text-transform: none; letter-spacing: -.03em; color: var(--must); }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 40px 64px; margin-top: clamp(40px, 6vw, 80px); align-items: start; }
 .left { display: flex; flex-direction: column; gap: 24px; }
@@ -42,3 +44,10 @@
 .sendErr { color: var(--err); }
 .sendErr a { border-bottom: 1px solid currentColor; }
 .trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+/* Small phones: the label sits above the value so the address / handles get the full row and
+   no longer break mid-word ("@Tirthvaghel/a") */
+@media (max-width: 419px) {
+  .ch { grid-template-columns: minmax(0, 1fr) 28px; gap: 6px 12px; }
+  .ch > :first-child { grid-column: 1 / -1; }
+  .chValue { font-size: clamp(16px, 5vw, 20px); }
+}
