@@ -75,5 +75,5 @@
   :global(html[data-motion="on"]) .pin { overflow: clip; }
   :global(html[data-motion="on"]) .panel { position: sticky; top: var(--stick, 72px); }
   :global(html[data-motion="on"]) .panel::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; background: #14120f; opacity: var(--dim, 0); pointer-events: none; }
-  :global(html[data-motion="on"]) .end, :global(html[data-motion="on"]) .empty { position: relative; }
+  :global(html[data-motion="on"]) .end, :global(html[data-motion="on"]) .empty { position: relative; background: #14120f; } /* solid, so the stuck panel underneath never shows through */
 }
