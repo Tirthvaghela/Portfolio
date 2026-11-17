@@ -218,10 +218,10 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
 .teamLabel { opacity: .75; }
 .teamTitle { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(48px, 5.4vw, 100px); line-height: .86; letter-spacing: -.03em; text-transform: uppercase; }
 .comp { display: flex; gap: 4px; margin-top: 8px; }
-.seg { flex: 1; height: 44px; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; border-radius: 10px; opacity: .45; transition: opacity .45s var(--ease), transform .45s var(--ease); }
-.seg[data-side="Backend"] { background: var(--teal); color: #efe9dc; }
-.seg[data-side="Frontend"] { background: var(--red); color: #14120f; }
-.seg[data-active] { opacity: 1; transform: translateY(-6px); }
+.seg { --c: var(--teal); flex: 1; height: 44px; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; border-radius: 10px; border: 1.5px solid var(--c); color: rgba(239, 233, 220, .8); transition: background-color .45s var(--ease), color .45s var(--ease), transform .45s var(--ease); }
+.seg[data-side="Frontend"] { --c: var(--red); }
+.seg[data-active] { background: var(--c); color: #efe9dc; transform: translateY(-6px); }
+.seg[data-side="Frontend"][data-active] { color: #14120f; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; opacity: .85; }
 .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 7px; border-radius: 3px; vertical-align: -1px; }
 .legend i[data-side="Backend"] { background: var(--teal); }
@@ -231,7 +231,7 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
 .roster { --p: 1; position: relative; list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--lineC); }
 .roster::before { content: ""; position: absolute; left: 23.25px; top: 42px; bottom: 42px; width: 1.5px; background: rgba(239, 233, 220, .35); transform: scaleY(var(--p)); transform-origin: 50% 0; }
 .member { position: relative; padding: 18px 0; border-top: 1px solid var(--lineC); }
-.mRow { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto auto; align-items: center; gap: 12px 20px; }
+.mRow { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: center; gap: 12px 20px; }
 .marker { position: relative; z-index: 1; width: 48px; height: 48px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid rgba(239, 233, 220, .4); background: #14120f; transition: background-color .45s var(--ease), color .45s var(--ease), border-color .45s var(--ease); }
 .member[data-active] .marker { background: #efe9dc; border-color: #efe9dc; color: #14120f; }
 .member[data-lead] .marker { background: var(--must); border-color: var(--must); color: #14120f; }
@@ -239,7 +239,8 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
 .mNameText { font-weight: 800; font-stretch: 75%; font-size: clamp(30px, 3vw, 52px); line-height: .9; letter-spacing: -.02em; text-transform: uppercase; transition: color .45s var(--ease); }
 .member[data-active] .mNameText { color: var(--must); }
 .mRole { font-size: 20px; line-height: 1.15; opacity: .85; }
-.mTags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.mActs { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 6px; }
+.mActs .gh { margin-left: 8px; }
 .leadChip { padding: 4px 10px; border-radius: 99px; background: var(--must); color: #14120f; }
 .sideChip { padding: 4px 10px; border-radius: 99px; border: 1px solid rgba(239, 233, 220, .4); }
 .gh { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 99px; border: 1.5px solid rgba(239, 233, 220, .4); white-space: nowrap; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease); }
@@ -290,8 +291,13 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
   .mRow { grid-template-columns: 40px minmax(0, 1fr); align-items: start; }
   .marker { width: 40px; height: 40px; }
   .roster::before { left: 19.25px; }
-  .mTags, .gh { grid-column: 2; justify-self: start; justify-content: flex-start; }
-  .mPoints { padding-left: 60px; }
+  .mRow { gap: 10px; }
+  .mActs { grid-column: 2; justify-content: flex-start; }
+  .mActs .gh { margin-left: 0; height: 34px; padding: 0 12px; font-size: 11px; }
+  .mPoints { flex-direction: column; flex-wrap: nowrap; gap: 7px; padding: 14px 0 2px 52px; }
+  .mPoints li, .member[data-lead] .mPoints li { position: relative; padding: 0 0 0 14px; border-radius: 0; background: none; font-size: 14.5px; }
+  .mPoints li::before { content: ""; position: absolute; left: 0; top: .5em; width: 5px; height: 5px; border-radius: 50%; background: rgba(239, 233, 220, .55); }
+  .member[data-lead] .mPoints li::before { background: var(--must); }
 }
 @media (max-width: 599px) {
   .nav { flex-direction: column; align-items: flex-start; }
@@ -305,5 +311,4 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
   .stubLife li .mono11 { width: auto; }
   .stubStats dt { font-size: 10px; }
   .stack { grid-template-columns: minmax(0, 1fr); }
-  .mPoints { padding-left: 0; }
 }

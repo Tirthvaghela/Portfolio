@@ -310,11 +310,11 @@ export default function WeIntern() {
                       <span className={s.mNameText}>{m.name}</span>
                       <span className={`${s.mRole} serif`}>{m.role}</span>
                     </button>
-                    <span className={s.mTags}>
+                    <span className={s.mActs}>
                       {m.lead && <span className={`${s.leadChip} mono11`}>Team leader</span>}
                       <span className={`${s.sideChip} mono11`} data-side={m.side}>{m.side}</span>
+                      <a href={m.github} {...ext} className={`${s.gh} mono`} aria-label={`${m.name} on GitHub (opens in a new tab)`}>GitHub ↗</a>
                     </span>
-                    <a href={m.github} {...ext} className={`${s.gh} mono`} aria-label={`${m.name} on GitHub (opens in a new tab)`}>GitHub ↗</a>
                   </div>
                   <div id={`mem-${i}`} className={s.mMore}>
                     <div className={s.mInner}><ul className={s.mPoints}>{m.points.map((p) => <li key={p}>{p}</li>)}</ul></div>
