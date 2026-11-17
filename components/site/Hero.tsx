@@ -65,19 +65,22 @@ export default function Hero() {
     let safety: ReturnType<typeof setTimeout> | undefined;
     if (runLoader) {
       loaderPlayed = true;
-      // Phones get the same sequence at roughly half length (~1.7s instead of ~3.4s).
-      const k = isMobileNow() ? .5 : 1;
-      safety = setTimeout(() => { if (tl.progress() < 1) tl.progress(1); setLoader(false); }, 4200 * k);
+      // Phones run the full-length count; their columns lift more slowly and evenly (power3, 1.4s,
+      // wider stagger) since expo's snap through the middle reads as a flash on a narrow screen.
+      const phone = isMobileNow();
+      safety = setTimeout(() => { if (tl.progress() < 1) tl.progress(1); setLoader(false); }, phone ? 5500 : 4200);
       const o = { v: 0 };
-      tl.to(o, { v: 100, duration: 1.6 * k, ease: "power3.inOut", onUpdate: () => { if (countRef.current) countRef.current.textContent = String(Math.round(o.v)).padStart(3, "0"); } });
-      tl.to("[data-lt]", { yPercent: -110, duration: .5 * k, ease: "power3.in", stagger: .04 * k });
+      tl.to(o, { v: 100, duration: 1.6, ease: "power3.inOut", onUpdate: () => { if (countRef.current) countRef.current.textContent = String(Math.round(o.v)).padStart(3, "0"); } });
+      tl.to("[data-lt]", { yPercent: -110, duration: .5, ease: "power3.in", stagger: .04 });
       tl.to("[data-lbg]", { opacity: 0, duration: .01 });
       tl.call(() => { covered.current = false; });
-      tl.to("[data-lc]", { yPercent: -100, duration: 1 * k, ease: "expo.inOut", stagger: .07 * k });
+      tl.to("[data-lc]", phone
+        ? { yPercent: -100, duration: 1.4, ease: "power3.inOut", stagger: .1 }
+        : { yPercent: -100, duration: 1, ease: "expo.inOut", stagger: .07 });
       tl.add(() => setLoader(false));
     }
     if (!runLoader) covered.current = false;
-    const at = runLoader ? `-=${.75 * (isMobileNow() ? .5 : 1)}` : 0;
+    const at = runLoader ? `-=${isMobileNow() ? 1 : .75}` : 0;
     tl.fromTo(hfx.current, { intro: 0 }, { intro: 1, duration: 1.7, ease: "none" }, at);
     tl.from("[data-hov]", { y: 30, opacity: 0, duration: 1, ease: "expo.out", stagger: .1 }, "<0.6");
     return () => { if (safety) clearTimeout(safety); };
