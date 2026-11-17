@@ -303,6 +303,11 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
   .mPoints li, .member[data-lead] .mPoints li { position: relative; padding: 0 0 0 14px; border-radius: 0; background: none; font-size: 14.5px; }
   .mPoints li::before { content: ""; position: absolute; left: 0; top: .5em; width: 5px; height: 5px; border-radius: 50%; background: rgba(239, 233, 220, .55); }
   .member[data-lead] .mPoints li::before { background: var(--must); }
+  /* Motion on: the faint line is drawn in full and a mustard thread (--p, scrubbed in Team) runs
+     down it; a marker the thread has reached (data-lit) takes the mustard outline. */
+  :global(html[data-motion="on"]) .roster::before { transform: none; }
+  :global(html[data-motion="on"]) .roster::after { content: ""; position: absolute; left: 19.25px; top: 42px; bottom: 42px; width: 2px; background: var(--must); transform: scaleY(var(--p)); transform-origin: 50% 0; }
+  .member[data-lit]:not([data-active]):not([data-lead]) .marker { border-color: var(--must); color: var(--must); }
 }
 @media (max-width: 599px) {
   /* stage path stays one horizontal row (same left-to-right arrow draw as desktop): tighter pills,

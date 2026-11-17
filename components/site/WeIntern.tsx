@@ -117,10 +117,13 @@ export default function WeIntern() {
       if (admin) ScrollTrigger.create({ trigger: admin, start: "top 80%", onEnter: () => admin.setAttribute("data-on", ""), onLeaveBack: () => admin.removeAttribute("data-on") });
     }
 
-    // Team roster: the connecting line draws down, then each member's row rises onto it.
+    // Team roster: the connecting line draws down (desktop: once; phones: scrubbed, in Team), then
+    // each member's row rises onto it.
     const roster = one("[data-roster]");
     if (roster) {
-      gsap.fromTo(roster, { "--p": 0 }, { "--p": 1, duration: 1.4, ease: "power3.inOut", scrollTrigger: { trigger: roster, start: "top 80%" } });
+      mm.add(DESKTOP_MQ, () => {
+        gsap.fromTo(roster, { "--p": 0 }, { "--p": 1, duration: 1.4, ease: "power3.inOut", scrollTrigger: { trigger: roster, start: "top 80%" } });
+      });
       const rows = q("[data-member]");
       gsap.set(rows, { y: 32, opacity: 0 });
       ScrollTrigger.batch(rows, { start: "top 90%", once: true, onEnter: (b) => { gsap.to(b, { y: 0, opacity: 1, duration: .9, ease: "expo.out", stagger: .1, overwrite: true }); } });
@@ -310,8 +313,38 @@ export default function WeIntern() {
  *  GitHub link takes keyboard focus. Touch screens show every row open. */
 function Team() {
   const [active, setActive] = useState(0);
+  const { motion } = useSite();
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Phones (no hover): scrolling takes the place of the pointer. A mustard thread runs down the
+  // roster with the scroll, each member's marker lights as the thread reaches it, the member in the
+  // middle of the screen becomes the active one (name, marker and composition strip — same states
+  // as hover on desktop), and their contributions rise in one after another.
+  useGSAP(() => {
+    const el = ref.current;
+    if (!motion || !el || document.documentElement.dataset.motion === "off") return;
+    const mm = gsap.matchMedia();
+    mm.add("(max-width: 899px)", () => {
+      const roster = el.querySelector<HTMLElement>("[data-roster]");
+      const rows = gsap.utils.toArray<HTMLElement>("[data-member]", el);
+      if (!roster) return;
+      gsap.fromTo(roster, { "--p": 0 }, { "--p": 1, ease: "none", scrollTrigger: { trigger: roster, start: "top 60%", end: "bottom 60%", scrub: .4 } });
+      rows.forEach((r, i) => {
+        ScrollTrigger.create({
+          trigger: r, start: "top 60%", end: "bottom 60%",
+          onToggle: (st) => { if (st.isActive) setActive(i); },
+          onEnter: () => r.setAttribute("data-lit", ""), onLeaveBack: () => r.removeAttribute("data-lit"),
+        });
+        const pts = r.querySelectorAll("[data-pts] > li");
+        if (pts.length) gsap.from(pts, { x: -14, opacity: 0, duration: .7, ease: "expo.out", stagger: .07, scrollTrigger: { trigger: pts[0], start: "top 88%" } });
+      });
+      return () => rows.forEach((r) => r.removeAttribute("data-lit"));
+    });
+    return () => mm.revert();
+  }, { scope: ref, dependencies: [motion], revertOnUpdate: true });
+
   return (
-    <div className={s.team}>
+    <div ref={ref} className={s.team}>
       <aside className={s.teamSide}>
         <span className={`${s.teamLabel} mono`}>The team · {HD.team.length} members</span>
         <h5 data-lines="" className={s.teamTitle}>
@@ -346,7 +379,7 @@ function Team() {
               </span>
             </div>
             <div className={s.mMore}>
-              <div className={s.mInner}><ul className={s.mPoints} aria-label={`${m.name}'s contributions`}>{m.points.map((p) => <li key={p}>{p}</li>)}</ul></div>
+              <div className={s.mInner}><ul data-pts="" className={s.mPoints} aria-label={`${m.name}'s contributions`}>{m.points.map((p) => <li key={p}>{p}</li>)}</ul></div>
             </div>
           </li>
         ))}
