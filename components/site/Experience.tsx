@@ -17,8 +17,8 @@ export default function Experience() {
       <Prodigy />
 
       {/* Education — one integrated programme, drawn as a single timeline 2022 → 2025 → 2027 */}
-      <div className={s.block}>
-        <span className={`${s.listHead} mono`}>03 · Education</span>
+      <div className={`${s.block} ${s.eduBlock}`}>
+        <div className={`${s.chapter} mono`}><h3 className={s.chapterH}>03 · Education</h3><span>2022 – 2027</span></div>
         <div data-reveal="" className={s.eduCard}>
           <div className={s.eduHead}>
             <a href="https://www.glsuniversity.ac.in" target="_blank" rel="noopener noreferrer" className={s.uni}>GLS University ↗</a>
@@ -45,7 +45,7 @@ export default function Experience() {
 
       {/* Training / courses — one colour tile each */}
       <div className={s.block}>
-        <span className={`${s.listHead} mono`}>Training / courses</span>
+        <h4 className={`${s.listHead} mono`}>Training / courses</h4>
         <div className={s.courses}>
           {COURSES.map((c, i) => {
             const parts = c.meta.split(" · ");

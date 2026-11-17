@@ -41,9 +41,9 @@ export default function Prodigy() {
     // Builds: each card's colour block wipes open, its motif words rise, then the details follow.
     q("[data-build]").forEach((card, i) => {
       gsap.timeline({ scrollTrigger: { trigger: card, start: "top 82%" } })
-        .from(card.querySelector("[data-motif-block]"), { clipPath: "inset(0% 100% 0% 0%)", duration: 1, ease: "expo.inOut" })
-        .from(card.querySelectorAll("[data-motif]"), { yPercent: 110, duration: .9, ease: "expo.out", stagger: .08 }, "-=.45")
-        .from(card.querySelectorAll("[data-build-part]"), { y: 26, opacity: 0, duration: .8, ease: "expo.out", stagger: .07 }, "-=.75");
+        .from(card.querySelector("[data-motif-block]"), { clipPath: "inset(0% 100% 0% 0%)", duration: .7, ease: "expo.out" })
+        .from(card.querySelectorAll("[data-motif]"), { yPercent: 110, duration: .7, ease: "expo.out", stagger: .06 }, .15)
+        .from(card.querySelectorAll("[data-build-part]"), { y: 22, opacity: 0, duration: .6, ease: "expo.out", stagger: .04 }, .05);
       // Desktop counter: roll to this build while it's the one in the middle of the screen.
       ScrollTrigger.create({
         trigger: card, start: "top 55%", end: "bottom 55%",
@@ -60,7 +60,7 @@ export default function Prodigy() {
     <section ref={root} className={s.pi} aria-labelledby="pi-h">
       <div className={`${s.top} mono`}>
         <span>02 · Work experience · Earlier internship</span>
-        <span>{P.dates}</span>
+        <span className={s.status}>Completed</span>
       </div>
 
       {/* Opening */}
@@ -108,7 +108,7 @@ export default function Prodigy() {
               </div>
               <div className={s.body}>
                 <span data-build-part="" className={`${s.kind} mono11`}>Build {pad(i + 1)} · {p.kind}</span>
-                <h4 data-build-part="" className={s.name}>{p.title}</h4>
+                <h4 data-build-part="" className={s.name}><Title text={p.title} /></h4>
                 <p data-build-part="" className={s.desc}>{p.desc}</p>
                 <ul data-build-part="" className={s.feats} aria-label={`${p.title} features`}>{p.points.map((f) => <li key={f}>{f}</li>)}</ul>
                 <div data-build-part="" className={s.foot}>
@@ -123,7 +123,7 @@ export default function Prodigy() {
 
       {/* Closing */}
       <figure data-pi-close="" className={s.close}>
-        <span data-close-part="" className={`${s.closeLabel} mono`}>How it ended</span>
+        <span data-close-part="" className={`${s.closeLabel} mono`}>Outcome</span>
         <blockquote data-close-part="" className="serif">“{P.quote}”</blockquote>
         <figcaption data-close-part="" className="mono11">— {P.quoteBy}</figcaption>
         <div data-close-part="" className={s.proof}>
@@ -133,4 +133,10 @@ export default function Prodigy() {
       </figure>
     </section>
   );
+}
+
+/** "Employee Management · MERN" → the qualifier set smaller in serif, so same-named projects read apart. */
+function Title({ text }: { text: string }) {
+  const [main, qual] = text.split(" · ");
+  return <>{main}{qual && <span className={`accent ${s.qual}`}> · {qual}</span>}</>;
 }

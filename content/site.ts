@@ -17,11 +17,11 @@ export const SITE = {
 };
 
 
-export const SECTIONS: [string, string][] = [['about','About'],['key','Key projects'],['work','Work'],['skills','Skills'],['experience','Experience'],['contact','Contact']];
+export const SECTIONS: [string, string][] = [['about','About'],['key','Key projects'],['work','Work'],['systems','Systems'],['skills','Skills'],['experience','Experience'],['contact','Contact']];
 
 export const LEAD = "I'm in Semester 9 of the integrated MSc IT programme at GLS University, Ahmedabad. The BSc IT half finished in 2025 with First Class with Distinction.";
 
-export const STATS = [{ n: 8, label: 'Projects shipped' }, { n: 5, label: 'Tech stacks' }, { n: 1, label: 'Internship' }, { n: 4, label: 'Years building' }];
+export const STATS = [{ n: 8, label: 'Projects shipped' }, { n: 5, label: 'Tech stacks' }, { n: 2, label: 'Internships' }, { n: 4, label: 'Years building' }];
 
 /** Key projects — VoiceForm copy from the v8 reference; FileFlow AI and ProjectMindAI
  * descriptions, features, stacks and statuses as supplied by Tirth (2026-11-07). */
@@ -145,7 +145,7 @@ export const WEINTERN = {
         { title: 'Larkfield Systems', note: 'Fictional company', desc: 'A four-page website for an invented managed IT support provider.',
           points: ['Home, About, Services and Contact', 'Responsive navigation and mobile menu', 'Six numbered features, four-step onboarding', 'Service cards and plans', 'Client-side form validation'],
           tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W2}/task-1-company-website/README.md`, live: 'https://larkfield-systems.vercel.app' },
-        { title: 'Employee Management', desc: 'A full-stack CRUD app: a React frontend on a Flask REST API, with records stored in MongoDB.',
+        { title: 'Employee Management · Flask', desc: 'A full-stack CRUD app: a React frontend on a Flask REST API, with records stored in MongoDB.',
           points: ['Create, edit and delete employees', 'Department filter, search, sort and pages', 'Headcount and payroll summaries', 'Validation in the API and the database'],
           tech: ['React 19', 'Vite', 'Flask 3', 'MongoDB', 'PyMongo', 'pytest'], readme: `${W2}/task-2-employee-management/README.md`,
           live: 'https://employee-management-app-theta-ivory.vercel.app',
@@ -165,7 +165,7 @@ export const WEINTERN = {
 export const HELP_DESK = {
   title: 'Help Desk',
   sub: 'Customer support ticket system',
-  kicker: 'Final minor project · Team 01 · MERN',
+  kicker: 'WeIntern · Team 01 · MERN',
   status: 'Live on Vercel',
   statusNote: 'Deployment QA in progress',
   desc: 'A MERN app where customers raise support tickets and follow them, agents work a shared queue, and admins run users, categories and ticket volume.',
@@ -175,14 +175,14 @@ export const HELP_DESK = {
   stack: [['Frontend', 'React 19 · Vite · React Router · Tailwind CSS'], ['Backend', 'Node.js · Express 5 · Mongoose · JWT'], ['Data', 'MongoDB · MongoDB Atlas'], ['DevOps', 'GitHub Actions · Vercel · Resend']] as [string, string][],
   /** How it works: one ticket's path. Each stage pairs a lifecycle status with who acts on it. */
   flow: [
-    { status: 'Open', n: '01', who: 'Customer', title: 'Create a support request',
+    { status: 'Open', who: 'Customer', title: 'Create a support request',
       steps: ['Signs in and creates a ticket', 'Picks a category, describes the issue', 'Tracks its status and the conversation'] },
-    { status: 'In progress', n: '02', who: 'Support agent', title: 'Claim it and reply',
+    { status: 'In progress', who: 'Support agent', title: 'Claim it and reply',
       steps: ['Works the queue with filters and search', 'Claims the ticket, sets its priority', 'Replies to the customer in the thread'] },
-    { status: 'Resolved', n: '02', who: 'Support agent', title: 'Close the loop',
+    { status: 'Resolved', who: 'Support agent', title: 'Close the loop',
       steps: ['Moves the status forward to Resolved', 'Customer is notified in the app and by email', 'Every change stays in the status history'] },
   ],
-  admin: { n: '03', who: 'Admin', title: 'Run the support system', steps: ['Manages users: roles and activation', 'Manages ticket categories', 'Reviews ticket volume, statistics and reports'] },
+  admin: { who: 'Admin', title: 'Run the support system', steps: ['Manages users: roles and activation', 'Manages ticket categories', 'Reviews ticket volume, statistics and reports'] },
   team: [
     { name: 'Tirth Vaghela', lead: true, side: 'Backend', role: 'Backend integration, admin backend & DevOps', github: 'https://github.com/Tirthvaghela',
       points: ['Backend architecture and API integration', 'Admin backend APIs', 'Shared database and API coordination', 'Integration across customer, agent and admin modules', 'Integration testing and deployment coordination'] },
@@ -212,7 +212,7 @@ export const PRODIGY = {
     { title: 'Prodigy Auth', kind: 'Authentication', tone: 'teal', motif: ['JWT', 'TOTP', 'RBAC'], desc: 'An authentication and user-management system built with Django REST Framework and React.',
       points: ['JWT auth and TOTP two-factor with QR and backup codes', 'Session management, account locking and audit logs', 'Role-based access control and an admin dashboard'],
       tech: ['Django 5.1', 'DRF', 'SimpleJWT', 'PyOTP', 'SQLite', 'React'], repo: 'https://github.com/Tirthvaghela/PRODIGY_FS_TASK01' },
-    { title: 'Employee Management', kind: 'HR system', tone: 'must', motif: ['CRUD', 'CSV', 'PDF'], desc: 'A MERN employee management app with Admin and HR roles.',
+    { title: 'Employee Management · MERN', kind: 'HR system', tone: 'must', motif: ['CRUD', 'CSV', 'PDF'], desc: 'A MERN employee management app with Admin and HR roles.',
       points: ['Employee CRUD with profile picture uploads', 'Search, filters and CSV / PDF export', 'Dashboard statistics and department analytics'],
       tech: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT', 'React'], repo: 'https://github.com/Tirthvaghela/PRODIGY-FS-TASK02' },
     { title: 'FreshValut — Local Pantry', kind: 'E-commerce', tone: 'red', motif: ['Cart', 'Order', 'Track'], desc: 'A PHP e-commerce platform for local grocery stores and small businesses.',

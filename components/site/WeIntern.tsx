@@ -1,13 +1,15 @@
 "use client";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { DESKTOP_MQ, gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useSite } from "./SiteProvider";
 import { HELP_DESK as HD, WEINTERN as WI, pad, type BuildTask } from "@/content/site";
 import s from "./WeIntern.module.css";
 
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 const STAGES: [string, string, string][] = [["01", "Learn", "learn"], ["02", "Build", "build"], ["03", "Ship", "ship"]];
+/** Per-stage colours for the path pills: [number text on ink, hover surface, text on that surface] — all ≥ 4.5:1. */
+const TONES = [["var(--red)", "var(--red)", "#14120f"], ["var(--teal-text)", "var(--teal-deep)", "#efe9dc"], ["var(--must)", "var(--must)", "#14120f"]];
 const BACKEND = HD.team.filter((m) => m.side === "Backend").length;
 
 /**
@@ -20,7 +22,6 @@ const BACKEND = HD.team.filter((m) => m.side === "Backend").length;
 export default function WeIntern() {
   const { motion } = useSite();
   const root = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
 
   useGSAP(() => {
     const el = root.current;
@@ -76,8 +77,16 @@ export default function WeIntern() {
         .from(ship, { clipPath: "inset(0% 100% 0% 0% round 32px)", duration: 1.2, ease: "expo.inOut" })
         .from(q("[data-recap]"), { y: 36, opacity: 0, duration: .9, ease: "expo.out", stagger: .14 }, "-=.35")
         .from(q("[data-fact]"), { y: 14, opacity: 0, duration: .6, ease: "expo.out", stagger: .06 }, "-=.6");
-      gsap.fromTo(q("[data-together]"), { letterSpacing: ".42em", opacity: .35 }, { letterSpacing: "-.03em", opacity: 1, ease: "none", scrollTrigger: { trigger: ship, start: "top 80%", end: "top 25%", scrub: .6 } });
     }
+    // "together": desktop draws its letters in with scroll; phones get a plain one-time reveal (no
+    // per-frame letter-spacing relayout).
+    const mm = gsap.matchMedia();
+    mm.add(DESKTOP_MQ, () => {
+      if (ship) gsap.fromTo(q("[data-together]"), { letterSpacing: ".42em", opacity: .35 }, { letterSpacing: "-.03em", opacity: 1, ease: "none", scrollTrigger: { trigger: ship, start: "top 80%", end: "top 25%", scrub: .6 } });
+    });
+    mm.add("(max-width: 899px), (max-height: 679px)", () => {
+      if (ship) gsap.from(q("[data-together]"), { y: 24, opacity: 0, duration: .8, ease: "expo.out", scrollTrigger: { trigger: ship, start: "top 75%" } });
+    });
 
     // Ticket stub: the lifecycle lines rise in order, then the "Live" stamp lands.
     const stub = one("[data-stub]");
@@ -88,9 +97,10 @@ export default function WeIntern() {
         .from(q("[data-stamp]"), { scale: 1.6, rotate: -30, opacity: 0, duration: .6, ease: "power4.out" }, "-=.3");
     }
 
-    // Help Desk sheet opens out to full width as it arrives (the site's rounded-sheet motif).
+    // Help Desk sheet opens out to full width once as it arrives (the site's rounded-sheet motif) —
+    // a one-time entrance, not scroll-linked, so the very tall sheet isn't repainted on every frame.
     const hd = one("[data-hd]");
-    if (hd) gsap.fromTo(hd, { clipPath: "inset(0% 5% 0% 5% round 32px)" }, { clipPath: "inset(0% 0% 0% 0% round 32px)", ease: "none", scrollTrigger: { trigger: hd, start: "top bottom", end: "top 35%", scrub: true } });
+    if (hd) gsap.fromTo(hd, { clipPath: "inset(0% 5% 0% 5% round 32px)" }, { clipPath: "inset(0% 0% 0% 0% round 32px)", duration: 1.1, ease: "expo.out", clearProps: "clipPath", scrollTrigger: { trigger: hd, start: "top 85%" } });
 
     // How it works: the ticket marker travels with scroll; each stage lights as the ticket reaches it.
     const flow = one("[data-flow]");
@@ -115,6 +125,7 @@ export default function WeIntern() {
       gsap.set(rows, { y: 32, opacity: 0 });
       ScrollTrigger.batch(rows, { start: "top 90%", once: true, onEnter: (b) => { gsap.to(b, { y: 0, opacity: 1, duration: .9, ease: "expo.out", stagger: .1, overwrite: true }); } });
     }
+    return () => mm.revert();
   }, { scope: root, dependencies: [motion], revertOnUpdate: true });
 
   const [learn, build] = WI.stages;
@@ -144,7 +155,7 @@ export default function WeIntern() {
         </div>
         <ol data-nav="" className={`${s.nav} mono`} aria-label="Internship stages">
           {STAGES.map(([n, label, id], i) => (
-            <li key={id} style={{ "--tone": `var(--${["red", "teal", "must"][i]})` } as React.CSSProperties}>
+            <li key={id} style={{ "--toneText": TONES[i][0], "--tone": TONES[i][1], "--onTone": TONES[i][2] } as React.CSSProperties}>
               <a href={`#wi-${id}`}><b>{n}</b> / {label}</a>
               {i < STAGES.length - 1 && <span data-arrow="" className={s.arrow} aria-hidden="true" />}
             </li>
@@ -195,7 +206,7 @@ export default function WeIntern() {
             {apps.map((t, k) => (
               <li key={t.title} data-task={`build-${k + 1}`} data-tone={k ? "must" : "teal"} className={s.app}>
                 <TaskTop i={k + 1} note={t.note} />
-                <h5 className={s.appTitle}>{t.title}</h5>
+                <h5 className={s.appTitle}><Title text={t.title} /></h5>
                 <p className={s.taskDesc}>{t.desc}</p>
                 {t.shot && <Shot src={t.shot.src} w={t.shot.w} h={t.shot.h} caption={t.shot.caption} sizes="(max-width: 899px) 92vw, 44vw" />}
                 <Points t={t} />
@@ -261,8 +272,7 @@ export default function WeIntern() {
                 <ol className={s.stages}>
                   {HD.flow.map((f) => (
                     <li key={f.status} data-stage="" className={s.flowStage}>
-                      <span className={`${s.stageStatus} mono11`}>Status: {f.status}</span>
-                      <span className={`${s.who} mono`}>{f.n} · {f.who}</span>
+                      <span className={`${s.who} mono`}>{f.status} · {f.who}</span>
                       <span className={s.flowTitle}>{f.title}</span>
                       <ul className={s.steps}>{f.steps.map((p) => <li key={p}>{p}</li>)}</ul>
                     </li>
@@ -272,7 +282,7 @@ export default function WeIntern() {
                 <div className={s.adminLinks} aria-hidden="true"><i /><i /><i /></div>
                 <div data-admin="" className={s.admin}>
                   <div className={s.adminHead}>
-                    <span className={`${s.who} mono`}>{HD.admin.n} · {HD.admin.who} · Every stage</span>
+                    <span className={`${s.who} mono`}>Every stage · {HD.admin.who}</span>
                     <span className={s.flowTitle}>{HD.admin.title}</span>
                   </div>
                   <ul className={s.adminSteps}>{HD.admin.steps.map((p) => <li key={p}>{p}</li>)}</ul>
@@ -281,48 +291,7 @@ export default function WeIntern() {
             </div>
           </article>
 
-          {/* Team */}
-          <div className={s.team}>
-            <aside className={s.teamSide}>
-              <span className={`${s.teamLabel} mono`}>The team · {HD.team.length} members</span>
-              <h5 data-lines="" className={s.teamTitle}>
-                <span className="mask"><span data-line="">Five people,</span></span>
-                <span className="mask"><span data-line="" className={`accent ${s.acc}`}>one help desk.</span></span>
-              </h5>
-              <div className={s.comp} aria-label={`${BACKEND} backend and ${HD.team.length - BACKEND} frontend members`}>
-                {HD.team.map((m, i) => (
-                  <span key={m.name} data-side={m.side} data-active={active === i ? "" : undefined} className={`${s.seg} mono11`}>{pad(i + 1)}</span>
-                ))}
-              </div>
-              <div className={`${s.legend} mono11`}>
-                <span><i data-side="Backend" />Backend · {BACKEND}</span>
-                <span><i data-side="Frontend" />Frontend · {HD.team.length - BACKEND}</span>
-              </div>
-              <p className={`${s.teamNote} serif`}>One shared product, five clearly owned parts.</p>
-            </aside>
-            <ol data-roster="" className={s.roster}>
-              {HD.team.map((m, i) => (
-                <li key={m.name} data-member="" data-active={active === i ? "" : undefined} data-lead={m.lead ? "" : undefined}
-                  className={s.member} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)}>
-                  <div className={s.mRow}>
-                    <span className={`${s.marker} mono`} aria-hidden="true">{pad(i + 1)}</span>
-                    <button type="button" className={`btn ${s.mName}`} onClick={() => setActive(i)} aria-expanded={active === i} aria-controls={`mem-${i}`}>
-                      <span className={s.mNameText}>{m.name}</span>
-                      <span className={`${s.mRole} serif`}>{m.role}</span>
-                    </button>
-                    <span className={s.mActs}>
-                      {m.lead && <span className={`${s.leadChip} mono11`}>Team leader</span>}
-                      <span className={`${s.sideChip} mono11`} data-side={m.side}>{m.side}</span>
-                      <a href={m.github} {...ext} className={`${s.gh} mono`} aria-label={`${m.name} on GitHub (opens in a new tab)`}>GitHub ↗</a>
-                    </span>
-                  </div>
-                  <div id={`mem-${i}`} className={s.mMore}>
-                    <div className={s.mInner}><ul className={s.mPoints}>{m.points.map((p) => <li key={p}>{p}</li>)}</ul></div>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <Team />
         </section>
       </div>
 
@@ -333,6 +302,63 @@ export default function WeIntern() {
       </p>
     </div>
   );
+}
+
+/** Team roster with its own hover state, so highlighting a member re-renders only this list. Names are
+ *  plain headings (not buttons): every contribution list is always in the accessibility tree; the
+ *  open/closed rows are a visual aid for pointer users, highlighted on hover or when a member's
+ *  GitHub link takes keyboard focus. Touch screens show every row open. */
+function Team() {
+  const [active, setActive] = useState(0);
+  return (
+    <div className={s.team}>
+      <aside className={s.teamSide}>
+        <span className={`${s.teamLabel} mono`}>The team · {HD.team.length} members</span>
+        <h5 data-lines="" className={s.teamTitle}>
+          <span className="mask"><span data-line="">Five people,</span></span>
+          <span className="mask"><span data-line="" className={`accent ${s.acc}`}>one help desk.</span></span>
+        </h5>
+        <div className={s.comp} role="img" aria-label={`${BACKEND} backend and ${HD.team.length - BACKEND} frontend members`}>
+          {HD.team.map((m, i) => (
+            <span key={m.name} data-side={m.side} data-active={active === i ? "" : undefined} className={`${s.seg} mono11`} aria-hidden="true">{pad(i + 1)}</span>
+          ))}
+        </div>
+        <div className={`${s.legend} mono11`}>
+          <span><i data-side="Backend" />Backend · {BACKEND}</span>
+          <span><i data-side="Frontend" />Frontend · {HD.team.length - BACKEND}</span>
+        </div>
+        <p className={`${s.teamNote} serif`}>One shared product, five clearly owned parts.</p>
+      </aside>
+      <ol data-roster="" className={s.roster}>
+        {HD.team.map((m, i) => (
+          <li key={m.name} data-member="" data-active={active === i ? "" : undefined} data-lead={m.lead ? "" : undefined}
+            className={s.member} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)}>
+            <div className={s.mRow}>
+              <span className={`${s.marker} mono`} aria-hidden="true">{pad(i + 1)}</span>
+              <div className={s.mName}>
+                <h6 className={s.mNameText}>{m.name}</h6>
+                <span className={`${s.mRole} serif`}>{m.role}</span>
+              </div>
+              <span className={s.mActs}>
+                {m.lead && <span className={`${s.leadChip} mono11`}>Team leader</span>}
+                <span className={`${s.sideChip} mono11`} data-side={m.side}>{m.side}</span>
+                <a href={m.github} {...ext} className={`${s.gh} mono`} aria-label={`${m.name} on GitHub (opens in a new tab)`}>GitHub ↗</a>
+              </span>
+            </div>
+            <div className={s.mMore}>
+              <div className={s.mInner}><ul className={s.mPoints} aria-label={`${m.name}'s contributions`}>{m.points.map((p) => <li key={p}>{p}</li>)}</ul></div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/** "Employee Management · Flask" → the qualifier set smaller in serif, so same-named projects read apart. */
+function Title({ text }: { text: string }) {
+  const [main, qual] = text.split(" · ");
+  return <>{main}{qual && <span className={`accent ${s.qual}`}> · {qual}</span>}</>;
 }
 
 function StageHead({ n, label, week, title, id, count }: { n: string; label: string; week: string; title: string; id: string; count: number }) {
@@ -364,7 +390,7 @@ function ShipHead() {
       <span className={`${s.node} ${s.shipNode}`} aria-hidden="true" />
       <div className={`${s.shipTop} mono`}>
         <span>Stage 03 · Final minor project</span>
-        <span className={s.shipLive}><i aria-hidden="true" />{HD.status}</span>
+        <span>{HD.title}</span>
       </div>
       <h4 id="wi-ship-h" className={s.shipTitle}>
         <span className={s.shipN}>03</span>Ship <span data-together="" className={`accent ${s.together}`}>together</span>
@@ -378,7 +404,6 @@ function ShipHead() {
       <ul className={`${s.facts} mono11`} aria-label="My part">
         <li data-fact="">Team leader</li>
         <li data-fact="">{HD.team.length}-member team</li>
-        <li data-fact="">Deployed on Vercel</li>
         <li data-fact="">Backend integration · Admin backend · DevOps</li>
       </ul>
     </header>
