@@ -31,7 +31,9 @@ export default function SiteProvider({ children }: { children: React.ReactNode }
   const [motion, setMotion] = useState(true);
   const [loader, setLoader] = useState(true);
   const [fine, setFine] = useState(false);
-  const [time, setTime] = useState(fmtTime);
+  // "--:--" on the server: the page is prerendered at build time, so a real time here would be the
+  // build's clock baked into the HTML. The browser sets the actual IST time before first paint.
+  const [time, setTime] = useState("--:--");
   const [dialog, setDialog] = useState(-1);
   const [navOpen, setNavOpen] = useState(false);
   const lastFocus = useRef<HTMLElement | null>(null);
@@ -47,11 +49,20 @@ export default function SiteProvider({ children }: { children: React.ReactNode }
     return () => mq.removeEventListener("change", onMq);
   }, []);
 
-  // Live IST clock, refreshed every 20s.
-  useEffect(() => {
-    const first = setTimeout(() => setTime(fmtTime()), 0);
-    const id = setInterval(() => setTime(fmtTime()), 20000);
-    return () => { clearTimeout(first); clearInterval(id); };
+  // Live IST clock: set before first paint, then ticks exactly on each minute boundary (IST is
+  // UTC+5:30, so its minutes turn with UTC's). Re-syncs when the tab comes back into view, since
+  // browsers throttle timers in background tabs.
+  useIsoLayoutEffect(() => {
+    let id: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      setTime(fmtTime());
+      clearTimeout(id);
+      id = setTimeout(tick, 60000 - (Date.now() % 60000) + 50);
+    };
+    const onVis = () => { if (document.visibilityState === "visible") tick(); };
+    tick();
+    document.addEventListener("visibilitychange", onVis);
+    return () => { clearTimeout(id); document.removeEventListener("visibilitychange", onVis); };
   }, []);
 
   // Body scroll lock while the loader, menu or dialog is up.
