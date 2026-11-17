@@ -156,7 +156,7 @@ export default function WeIntern() {
         <ol data-nav="" className={`${s.nav} mono`} aria-label="Internship stages">
           {STAGES.map(([n, label, id], i) => (
             <li key={id} style={{ "--toneText": TONES[i][0], "--tone": TONES[i][1], "--onTone": TONES[i][2] } as React.CSSProperties}>
-              <a href={`#wi-${id}`}><b>{n}</b> / {label}</a>
+              <a href={`#wi-${id}`}><b>{n}</b><span className={s.slash}> / </span>{label}</a>
               {i < STAGES.length - 1 && <span data-arrow="" className={s.arrow} aria-hidden="true" />}
             </li>
           ))}

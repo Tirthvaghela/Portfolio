@@ -305,10 +305,14 @@ html[data-motion="on"] .admin:not([data-on]) { opacity: 0; transform: translateY
   .member[data-lead] .mPoints li::before { background: var(--must); }
 }
 @media (max-width: 599px) {
-  .nav { flex-direction: column; align-items: flex-start; }
-  .nav li { flex-direction: column; align-items: flex-start; }
-  .arrow { width: 1.5px; height: 20px; margin: 4px 0 4px 22px; transform: scaleY(var(--a, 1)); transform-origin: 50% 0; }
-  .arrow::after { right: auto; top: auto; left: -2.75px; bottom: 0; transform: rotate(135deg); }
+  /* stage path stays one horizontal row (same left-to-right arrow draw as desktop): tighter pills,
+     no slash, arrows stretch to fill the gaps */
+  .nav { flex-wrap: nowrap; }
+  .nav li { flex: 1 1 auto; min-width: 0; }
+  .nav li:last-child { flex: none; }
+  .nav a { flex: none; padding: 0 12px; gap: 6px; font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
+  .slash { display: none; }
+  .arrow { flex: 1 1 auto; width: auto; min-width: 12px; margin: 0 6px; }
   .actions { grid-template-columns: minmax(0, 1fr); }
   .stubTop { padding-right: 76px; }
   .stamp { width: 66px; height: 66px; font-size: 12px; }
