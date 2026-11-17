@@ -1,9 +1,10 @@
 "use client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useGSAP } from "@gsap/react";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger, useGSAP);
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
 
 /** Mobile = narrower than 900px or shorter than 680px (same split as the reference's gsap.matchMedia). */
 export const DESKTOP_MQ = "(min-width: 900px) and (min-height: 680px)";

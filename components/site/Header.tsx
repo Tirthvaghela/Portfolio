@@ -52,15 +52,37 @@ export default function Header() {
   // Close = the opening in reverse: links sink behind their masks, then the circle shrinks
   // back into the top-right corner. Without motion it closes instantly.
   const closing = useRef(false);
-  const closeMenu = () => {
+  const closeMenu = (after?: () => void) => {
     const el = panelRef.current;
-    if (!motion || !el) { setNavOpen(false); return; }
+    const done = () => { setNavOpen(false); if (after) requestAnimationFrame(() => requestAnimationFrame(after)); };
+    if (!motion || !el) { done(); return; }
     if (closing.current) return;
     closing.current = true;
     gsap.killTweensOf([el, ...el.querySelectorAll("[data-nav-link]")]);
-    const tl = gsap.timeline({ onComplete: () => { closing.current = false; setNavOpen(false); } });
+    const tl = gsap.timeline({ onComplete: () => { closing.current = false; done(); } });
     tl.to(el.querySelectorAll("[data-nav-link]"), { yPercent: 110, duration: .4, ease: "power3.in", stagger: { each: .035, from: "end" } });
     tl.to(el, { clipPath: "circle(0% at 100% 0%)", duration: .6, ease: "expo.inOut" }, "-=.15");
+  };
+  // A menu link. The page is scroll-locked while the menu is open, so the browser's own jump would be
+  // blocked or abrupt, and gliding across the whole page (past the pinned sections) drops frames.
+  // Instead: while the full-screen menu still covers everything, jump to just above the section; then
+  // the menu closes (its circle is the transition) and the page glides the last half-screen into place.
+  const goTo = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    if (!target) { closeMenu(); return; }
+    const html = document.documentElement;
+    const topOf = () => target.getBoundingClientRect().top + scrollY;
+    if (motion) {
+      html.style.scrollBehavior = "auto";
+      scrollTo({ top: Math.max(0, topOf() - innerHeight * .5), behavior: "instant" });
+    }
+    closeMenu(() => {
+      history.replaceState(null, "", `#${id}`);
+      if (!motion) { scrollTo({ top: topOf(), behavior: "auto" }); return; }
+      const restore = () => { html.style.scrollBehavior = ""; };
+      gsap.to(window, { scrollTo: { y: topOf(), autoKill: false }, duration: .9, ease: "power3.out", onComplete: restore, onInterrupt: restore });
+    });
   };
   const closeRef = useRef(closeMenu);
   useEffect(() => { closeRef.current = closeMenu; });
@@ -112,11 +134,11 @@ export default function Header() {
         <div ref={panelRef} role="dialog" aria-modal="true" aria-label="Menu" className={s.panel}>
           <div className={s.panelTop}>
             <span className={s.mark}>TV.</span>
-            <button type="button" onClick={closeMenu} aria-label="Close menu" className={`btn ${s.close} mono`}>Close ✕</button>
+            <button type="button" onClick={() => closeMenu()} aria-label="Close menu" className={`btn ${s.close} mono`}>Close ✕</button>
           </div>
           <nav aria-label="Mobile" className={s.mnav}>
             {items.map((n) => (
-              <a key={n.id} href={`#${n.id}`} onClick={closeMenu} aria-current={n.current ? "true" : undefined} className={s.mlink}>
+              <a key={n.id} href={`#${n.id}`} onClick={(e) => goTo(e, n.id)} aria-current={n.current ? "true" : undefined} className={s.mlink}>
                 <span data-nav-link="" className={s.mlinkIn}><span className={s.mlabel}>{n.label}</span><span className={`${s.mnum} serif`}>{n.num}</span></span>
               </a>
             ))}
