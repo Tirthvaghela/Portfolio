@@ -86,7 +86,13 @@ export default function Work() {
         ScrollTrigger.create({
           // sinks from the moment the next sheet enters until it settles at the top
           trigger: next, start: "top bottom", end: () => `top ${next.hasAttribute("data-panel") ? Math.max(0, stickTop(next)) : 0}px`, scrub: true, invalidateOnRefresh: true,
-          onUpdate: (self) => { state[i].sink = self.progress; render(i); },
+          onUpdate: (self) => {
+            state[i].sink = self.progress; render(i);
+            // The panel two below is now fully buried under this one: fade it out and hide it
+            // (visibility: hidden) so the phone only composites ~3 stacked, scaled panels instead
+            // of every panel scrolled past — a deep stack of layers makes mobile GPUs flicker.
+            if (i > 0) gsap.set(panels[i - 1], { autoAlpha: 1 - self.progress });
+          },
         });
       });
 
