@@ -163,36 +163,82 @@ function Rigs() {
   );
 }
 
-/* 05 FreshVault — catalog grid, cart, wishlist, admin */
+/* 05 FreshVault — the storefront itself: catalog grid (wishlist hearts, add-to-cart), the cart
+   drawer and the admin analytics card. Placeholder bars stand in for prices and figures — no
+   invented numbers. Looping details sit on inner groups so CSS animation never overrides a
+   positioning transform. */
 function FreshVault() {
+  const TILE = "#2e2a24";
   const items: [string, React.ReactNode][] = [
-    ["Apples", <g key="a"><circle cx={0} cy={6} r={30} fill={RED} /><path d="M2 -26 q14 -14 26 -4 q-14 10 -26 4" fill={TEAL} /></g>],
-    ["Carrots", <g key="c"><path d="M-10 -28 L10 -28 L0 38 Z" fill={MUST} /><path d="M-6 -28 l-10 -16 M0 -28 l0 -18 M6 -28 l10 -16" stroke={TEAL} strokeWidth={5} strokeLinecap="round" /></g>],
-    ["Bread", <g key="b"><rect x={-36} y={-18} width={72} height={46} rx={18} fill={MUST} /><path d="M-18 -10 l8 30 M2 -10 l8 30" stroke={INK} strokeWidth={3} opacity={.3} /></g>],
-    ["Milk", <g key="m"><path d="M-20 -14 L0 -32 L20 -14 L20 34 L-20 34 Z" fill={PAPER} stroke={INK} strokeWidth={3} /><rect x={-20} y={4} width={40} height={14} fill={TEAL} /></g>],
-    ["Greens", <g key="g"><circle cx={-12} cy={6} r={20} fill={TEAL} /><circle cx={12} cy={0} r={22} fill={TEAL} opacity={.8} /><circle cx={0} cy={18} r={18} fill={TEAL} opacity={.6} /></g>],
-    ["Eggs", <g key="e"><ellipse cx={-14} cy={6} rx={16} ry={22} fill={PAPER} /><ellipse cx={16} cy={8} rx={16} ry={22} fill={PAPER} opacity={.85} /></g>],
+    ["Apples", <g key="a"><circle cx={0} cy={6} r={26} fill={RED} /><path d="M2 -20 q12 -12 22 -4 q-12 9 -22 4" fill={TEAL} /></g>],
+    ["Carrots", <g key="c"><path d="M-9 -22 L9 -22 L0 34 Z" fill={MUST} /><path d="M-5 -22 l-9 -13 M0 -22 l0 -15 M5 -22 l9 -13" stroke={TEAL} strokeWidth={4.5} strokeLinecap="round" /></g>],
+    ["Bread", <g key="b"><rect x={-32} y={-14} width={64} height={40} rx={16} fill={MUST} /><path d="M-15 -6 l6 24 M3 -6 l6 24" stroke={INK} strokeWidth={3} opacity={.3} /></g>],
+    ["Milk", <g key="m"><path d="M-17 -10 L0 -26 L17 -10 L17 30 L-17 30 Z" fill={PAPER} /><rect x={-17} y={6} width={34} height={12} fill={TEAL} /></g>],
+    ["Greens", <g key="g"><circle cx={-10} cy={6} r={17} fill={TEAL} /><circle cx={10} cy={0} r={19} fill={TEAL} opacity={.8} /><circle cx={0} cy={16} r={15} fill={TEAL} opacity={.6} /></g>],
+    ["Eggs", <g key="e"><ellipse cx={-12} cy={6} rx={14} ry={19} fill={PAPER} /><ellipse cx={14} cy={8} rx={14} ry={19} fill={PAPER} opacity={.85} /></g>],
   ];
+  const heart = "M0 5 C0 0 7 -2 9 3 C11 -2 18 0 18 5 C18 11 9 16 9 16 C9 16 0 11 0 5Z";
+  const cart: [string, string][] = [["Apples", RED], ["Carrots", MUST], ["Milk", PAPER]];
   return (
     <>
+      {/* top bar: wordmark + search */}
+      <text x={32} y={62} fontSize={30} fill={PAPER} style={disp}>FRESH<tspan fill={MUST}>VAULT</tspan></text>
+      <rect x={236} y={38} width={244} height={30} rx={15} fill={TILE} />
+      <circle cx={256} cy={53} r={6} fill="none" stroke={PAPER} strokeWidth={2} opacity={.6} />
+      <path d="M260.5 57.5 l5 5" stroke={PAPER} strokeWidth={2} strokeLinecap="round" opacity={.6} />
+      <rect x={274} y={50} width={120} height={6} rx={3} fill={LINE} />
+
+      {/* catalog: 3 × 2 product tiles */}
       {items.map(([label, art], i) => {
-        const x = 40 + (i % 3) * 170, y = 40 + Math.floor(i / 3) * 210;
+        const x = 32 + (i % 3) * 152, y = 88 + Math.floor(i / 3) * 196;
+        const fav = i === 0, adding = i === 1;
         return (
           <g key={label}>
-            <rect x={x} y={y} width={150} height={190} rx={20} fill={i === 0 ? PAPER : "#2e2a24"} />
-            <g transform={`translate(${x + 75} ${y + 78})`}>{art}</g>
-            <text x={x + 18} y={y + 156} fontSize={12} fill={i === 0 ? INK : PAPER} style={mono}>{label.toUpperCase()}</text>
-            <path transform={`translate(${x + 116} ${y + 16})`} d="M0 5 C0 0 7 -2 9 3 C11 -2 18 0 18 5 C18 11 9 16 9 16 C9 16 0 11 0 5Z" fill={i === 0 ? RED : "rgba(239,233,220,.2)"} />
+            <rect x={x} y={y} width={140} height={182} rx={18} fill={fav ? PAPER : TILE} />
+            <g transform={`translate(${x + 70} ${y + 70})`}>{art}</g>
+            <path transform={`translate(${x + 110} ${y + 14})`} d={heart} fill={fav ? RED : "rgba(239,233,220,.2)"} />
+            <text x={x + 16} y={y + 136} fontSize={11} fill={fav ? INK : PAPER} style={mono}>{label.toUpperCase()}</text>
+            <rect x={x + 16} y={y + 150} width={44} height={7} rx={3.5} fill={fav ? "rgba(20,18,15,.25)" : LINE} />
+            <g transform={`translate(${x + 114} ${y + 154})`}>
+              <g className={adding ? s.pulse : undefined}>
+                <circle r={15} fill={adding ? MUST : fav ? INK : "rgba(239,233,220,.12)"} />
+                <path d="M-6 0 h12 M0 -6 v12" stroke={adding ? INK : PAPER} strokeWidth={2.5} strokeLinecap="round" />
+              </g>
+            </g>
           </g>
         );
       })}
-      <g transform="translate(600 150)" className={s.drift}>
-        <rect width={170} height={200} rx={24} fill={TEAL} />
-        <path d="M36 58 h16 l18 70 h64 l14 -50 h-86" fill="none" stroke={PAPER} strokeWidth={8} strokeLinejoin="round" strokeLinecap="round" />
-        <circle cx={78} cy={146} r={9} fill={PAPER} /><circle cx={124} cy={146} r={9} fill={PAPER} />
-        <circle cx={140} cy={44} r={18} fill={RED} /><text x={140} y={49} textAnchor="middle" fontSize={13} fill={PAPER} style={mono}>+1</text>
-        <text x={85} y={184} textAnchor="middle" fontSize={11} fill={PAPER} style={mono}>CART</text>
-      </g>
+
+      {/* the item on its way to the cart — routed along the gutters, never across a tile */}
+      <path d="M298 270 V277 H478 Q490 277 490 265 V115 Q490 103 498 103" fill="none" stroke={MUST} strokeWidth={2.5} strokeDasharray="5 7" strokeLinecap="round" />
+      <path d="M494 97 l8 6 l-8 6" fill="none" stroke={MUST} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* cart drawer */}
+      <rect x={504} y={28} width={264} height={292} rx={24} fill={TEAL} />
+      <text x={526} y={62} fontSize={11} fill={PAPER} style={mono}>YOUR CART</text>
+      <g transform="translate(742 57)"><g className={s.beat}><circle r={13} fill={RED} /><text y={4.5} textAnchor="middle" fontSize={13} fill={PAPER} style={mono}>3</text></g></g>
+      {cart.map(([name, c], i) => {
+        const y = 80 + i * 56;
+        return (
+          <g key={name}>
+            <rect x={522} y={y} width={228} height={46} rx={14} fill="rgba(20,18,15,.2)" />
+            <circle cx={546} cy={y + 23} r={13} fill={c} />
+            <Lines x={568} y={y + 14} w={[84, 50]} n={2} gap={12} color="rgba(239,233,220,.45)" />
+            <rect x={680} y={y + 12} width={56} height={22} rx={11} fill="none" stroke={PAPER} strokeWidth={1.5} opacity={.7} />
+            <path d={`M690 ${y + 23} h8 M718 ${y + 23} h8 M722 ${y + 19} v8`} stroke={PAPER} strokeWidth={2} strokeLinecap="round" />
+          </g>
+        );
+      })}
+      <rect x={522} y={258} width={228} height={44} rx={22} fill={MUST} />
+      <text x={636} y={284} textAnchor="middle" fontSize={12} fill={INK} style={mono}>CHECKOUT →</text>
+
+      {/* admin analytics */}
+      <rect x={504} y={336} width={264} height={136} rx={22} fill={TILE} />
+      <text x={526} y={364} fontSize={11} fill={MUST} style={mono}>ADMIN · ANALYTICS</text>
+      {[26, 40, 32, 52, 44, 62, 56, 74].map((h, i) => (
+        <rect key={i} x={528 + i * 28} y={452 - h} width={16} height={h} rx={4} fill={i === 7 ? MUST : PAPER} opacity={i === 7 ? 1 : .35} />
+      ))}
+      <path d="M536 418 L564 404 L592 410 L620 392 L648 398 L676 382 L704 388 L732 368" fill="none" stroke={RED} strokeWidth={2.5} strokeLinejoin="round" />
     </>
   );
 }
