@@ -2,28 +2,6 @@
 .h2 { margin: 28px 0 clamp(36px, 5vw, 64px); }
 .l2 { padding-bottom: .08em; }
 .l2 > * { color: var(--red); }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 24px 56px; align-items: start; }
-.card { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 18px; border-radius: 28px; background: var(--red); color: #14120f; padding: clamp(22px, 2.6vw, 36px); }
-@media (max-width: 899px) { .card { position: relative; top: auto; } }
-.cardHead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
-.role { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(40px, 4.2vw, 68px); line-height: .88; letter-spacing: -.02em; text-transform: uppercase; }
-.co { font-size: 26px; }
-.proof { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 6px; }
-.ink, .line { display: flex; align-items: center; height: 46px; padding: 0 18px; border-radius: 99px; }
-.ink { background: #14120f; color: #efe9dc; }
-.line { border: 1.5px solid #14120f; }
-.quote { margin: 8px 0 0; padding: 22px; border-radius: 22px; background: #14120f; color: #efe9dc; display: flex; flex-direction: column; gap: 14px; }
-.quote blockquote { margin: 0; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.12; }
-.quote figcaption { opacity: .8; }
-.tasksCol { display: flex; flex-direction: column; }
-.toggle { align-self: flex-start; display: flex; align-items: center; gap: 10px; height: 44px; }
-.toggleIcon { width: 28px; height: 28px; border-radius: 50%; background: #efe9dc; color: #14120f; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-.tasks { margin: 8px 0 0; padding: 0; list-style: none; }
-.tasks li { display: flex; gap: 20px; padding: 22px 0; border-top: 1px solid rgba(239, 233, 220, .18); }
-.tn { flex: none; width: 52px; font-size: 44px; line-height: .8; color: var(--must); }
-.tBody { display: flex; flex-direction: column; gap: 6px; }
-.tLabel { opacity: .7; }
-.tText { font-size: 17px; line-height: 1.55; text-wrap: pretty; }
 /* Education + courses */
 .block { display: flex; flex-direction: column; margin-top: clamp(56px, 7vw, 100px); }
 .listHead { padding-bottom: 14px; opacity: .75; }

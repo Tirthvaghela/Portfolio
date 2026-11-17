@@ -23,8 +23,6 @@ export const LEAD = "I'm in Semester 9 of the integrated MSc IT programme at GLS
 
 export const STATS = [{ n: 8, label: 'Projects shipped' }, { n: 5, label: 'Tech stacks' }, { n: 1, label: 'Internship' }, { n: 4, label: 'Years building' }];
 
-export const TASKS = ['Built a production-ready enterprise authentication system using Django REST Framework and React with JWT, 2FA (TOTP), session management, audit logging, and role-based access control.','Developed a full-featured MERN stack Employee Management System with JWT auth, profile picture upload, advanced search/filtering, CSV/PDF export, and a professional Electrox Design System UI.','Created a PHP + MySQL e-commerce platform (Local Pantry) with product catalog, shopping cart, wishlist, order tracking, admin dashboard, and inventory analytics.','Built Vois, a full-stack social media platform using React, FastAPI, and MongoDB with JWT auth, post/like/comment system, follow system, trending analytics, and responsive glassmorphism UI.'];
-
 /** Key projects — VoiceForm copy from the v8 reference; FileFlow AI and ProjectMindAI
  * descriptions, features, stacks and statuses as supplied by Tirth (2026-11-07). */
 export type KeyProject = {
@@ -100,6 +98,132 @@ export const KEY_CLAIMS: [string, string][] = [
   ['sorts your files on autopilot', 'fileflow'],
   ['turns ideas into projects', 'projectmind'],
 ];
+
+/** WeIntern internship: two weeks of assignments, then the team minor project. Every line is taken
+ *  from the linked READMEs; the fictional businesses are labelled as such (`note`). No dates given. */
+export type BuildTask = {
+  title: string;
+  /** One-line summary. */
+  desc: string;
+  /** Short label for demo content, e.g. "Fictional studio". */
+  note?: string;
+  points: string[];
+  tech: string[];
+  readme: string;
+  live?: string;
+  shot?: Shot;
+};
+export type BuildStage = { id: string; n: string; label: string; week: string; title: string; tasks: BuildTask[] };
+
+const W1 = 'https://github.com/Tirthvaghela/week1-assignments/blob/master';
+const W2 = 'https://github.com/Tirthvaghela/week2-assignment/blob/main';
+
+export const WEINTERN = {
+  company: 'WeIntern',
+  role: 'Full-stack web development intern',
+  status: 'Current',
+  headline: ['Every build', 'started with', 'a task.'],
+  lede: 'Two weeks of assignments, six builds, and one team project taken live.',
+  stages: [
+    {
+      id: 'learn', n: '01', label: 'Learn', week: 'Week 01', title: 'Frontend foundations',
+      tasks: [
+        { title: 'Personal portfolio', desc: 'A responsive six-page portfolio: Home, About, Projects, Skills, Resume and Contact.',
+          points: ['Semantic HTML structure', 'Projects with a category filter', 'Responsive navigation', 'Contact form validation', 'Dark and light theme switch', 'Accessibility and reduced-motion support'],
+          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W1}/portfolio-website/README.md` },
+        { title: 'AURA Studio', note: 'Fictional studio', desc: 'Landing page for an invented architecture and interior design studio.',
+          points: ['Editorial, architecture-inspired layout', 'CSS Grid and Flexbox', 'Interactive services accordion', 'Stacked project panels and viewer', 'Scroll word reveal and number counters', 'Validated contact form'],
+          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W1}/business-landing-page/README.md` },
+        { title: 'Nimbus', note: 'Static demo data', desc: 'A fictional analytics product site, built to show CSS layout and animation.',
+          points: ['Flexbox and CSS Grid', 'Responsive dashboard layout', 'Transitions and transforms', 'Keyframe animation', 'Semantic, accessible markup'],
+          tech: ['HTML5', 'CSS3'], readme: `${W1}/css-challenge/README.md` },
+      ],
+    },
+    {
+      id: 'build', n: '02', label: 'Build', week: 'Week 02', title: 'Functional applications',
+      tasks: [
+        { title: 'Larkfield Systems', note: 'Fictional company', desc: 'A four-page website for an invented managed IT support provider.',
+          points: ['Home, About, Services and Contact', 'Responsive navigation and mobile menu', 'Six numbered features, four-step onboarding', 'Service cards and plans', 'Client-side form validation'],
+          tech: ['HTML5', 'CSS3', 'JavaScript'], readme: `${W2}/task-1-company-website/README.md` },
+        { title: 'Employee Management', desc: 'A full-stack CRUD app: a React frontend on a Flask REST API, with records stored in MongoDB.',
+          points: ['Create, edit and delete employees', 'Department filter, search, sort and pages', 'Headcount and payroll summaries', 'Validation in the API and the database'],
+          tech: ['React 19', 'Vite', 'Flask 3', 'MongoDB', 'PyMongo', 'pytest'], readme: `${W2}/task-2-employee-management/README.md`,
+          live: 'https://employee-management-app-theta-ivory.vercel.app',
+          shot: { src: '/weintern/employee-management-dashboard.png', w: 1440, h: 900, caption: 'Employee Management dashboard (demo records)' } },
+        { title: 'Harbor Auth', desc: 'Registration and login with a protected dashboard and expiring sessions.',
+          points: ['Log in with email or username', 'bcrypt password hashing', 'JWT in an HttpOnly cookie', 'Protected dashboard, logout and session expiry', 'Validation, sanitization, password strength meter'],
+          tech: ['React 19', 'React Router', 'Flask 3', 'MongoDB', 'bcrypt', 'PyJWT'], readme: `${W2}/task-3-authentication-system/README.md`,
+          live: 'https://harbor-auth-system.vercel.app',
+          shot: { src: '/weintern/harbor-dashboard.png', w: 1440, h: 900, caption: 'Harbor protected dashboard (demo account)' } },
+      ],
+    },
+  ] as BuildStage[],
+};
+
+/** WeIntern minor project (Team 01). Status follows the README: live, with deployment QA still open.
+ *  Only two public actions: the live app and the repository (no API links). */
+export const HELP_DESK = {
+  title: 'Help Desk',
+  sub: 'Customer support ticket system',
+  kicker: 'Final minor project · Team 01 · MERN',
+  status: 'Live on Vercel',
+  statusNote: 'Deployment QA in progress',
+  desc: 'A MERN app where customers raise support tickets and follow them, agents work a shared queue, and admins run users, categories and ticket volume.',
+  live: 'https://help-desk-web-app.vercel.app/',
+  repo: 'https://github.com/Tirthvaghela/help-desk',
+  shot: { src: '/weintern/helpdesk-landing.png', w: 1440, h: 900, caption: 'Public landing page of the live app' } as Shot,
+  role: 'Team leader · Backend integration, admin backend & DevOps',
+  stack: [['Frontend', 'React 19 · Vite · React Router · Tailwind CSS'], ['Backend', 'Node.js · Express 5 · Mongoose · JWT'], ['Data', 'MongoDB · MongoDB Atlas'], ['DevOps', 'GitHub Actions · Vercel · Resend']] as [string, string][],
+  /** How it works: one ticket's path. Each stage pairs a lifecycle status with who acts on it. */
+  flow: [
+    { status: 'Open', n: '01', who: 'Customer', title: 'Create a support request',
+      steps: ['Signs in and creates a ticket', 'Picks a category, describes the issue', 'Tracks its status and the conversation'] },
+    { status: 'In progress', n: '02', who: 'Support agent', title: 'Claim it and reply',
+      steps: ['Works the queue with filters and search', 'Claims the ticket, sets its priority', 'Replies to the customer in the thread'] },
+    { status: 'Resolved', n: '02', who: 'Support agent', title: 'Close the loop',
+      steps: ['Moves the status forward to Resolved', 'Customer is notified in the app and by email', 'Every change stays in the status history'] },
+  ],
+  admin: { n: '03', who: 'Admin', title: 'Run the support system', steps: ['Manages users: roles and activation', 'Manages ticket categories', 'Reviews ticket volume, statistics and reports'] },
+  team: [
+    { name: 'Tirth Vaghela', lead: true, side: 'Backend', role: 'Backend integration, admin backend & DevOps', github: 'https://github.com/Tirthvaghela',
+      points: ['Backend architecture and API integration', 'Admin backend APIs', 'Shared database and API coordination', 'Integration across customer, agent and admin modules', 'Integration testing and deployment coordination'] },
+    { name: 'Mimansa Narendra Patle', side: 'Frontend', role: 'Customer frontend & landing page', github: 'https://github.com/MimansaPatle',
+      points: ['Landing page', 'Sign-up and login', 'Customer dashboard', 'Create-ticket form and ticket history', 'Loading, validation and error states'] },
+    { name: 'Swatismita', side: 'Backend', role: 'Tickets & authentication', github: 'https://github.com/Swatismita05',
+      points: ['Authentication and JWT', 'User, Ticket and Category models', 'Ticket creation', 'Customer ticket history', 'Ticket ownership and access checks'] },
+    { name: 'Shwetaleena Kundu', side: 'Frontend', role: 'Agent / admin frontend', github: 'https://github.com/Shwetaleena-Kundu',
+      points: ['Agent dashboard', 'Ticket filters and replies', 'Ticket assignment and status updates', 'Admin user and category screens'] },
+    { name: 'Ayushi Rathi', side: 'Backend', role: 'Agent workflow & conversations', github: 'https://github.com/Ayushiiiii13',
+      points: ['Agent ticket queue', 'Search and filters', 'Ticket assignment and status transitions', 'Replies and conversations', 'Ticket history and admin summaries'] },
+  ] as { name: string; lead?: boolean; side: string; role: string; github: string; points: string[] }[],
+};
+
+/** Prodigy InfoTech internship — dates, certificate, LOR and quote unchanged from the previous card;
+ *  the four builds come from each repository's README. Repositories only: none has a live demo. */
+export const PRODIGY = {
+  company: 'Prodigy InfoTech',
+  role: 'Full-stack web development intern',
+  where: 'Remote',
+  dates: 'Feb 2026 – Mar 2026',
+  certificate: '/Certificate.pdf',
+  lor: '/lor.pdf',
+  quote: 'His attention to detail, creativity, and willingness to go the extra mile set him apart from his peers.',
+  quoteBy: 'Deven Chopra, Software Engineering Manager at Prodigy InfoTech',
+  projects: [
+    { title: 'Prodigy Auth', kind: 'Authentication', desc: 'An authentication and user-management system built with Django REST Framework and React.',
+      points: ['JWT auth and TOTP two-factor with QR and backup codes', 'Session management, account locking and audit logs', 'Role-based access control and an admin dashboard'],
+      tech: ['Django 5.1', 'DRF', 'SimpleJWT', 'PyOTP', 'SQLite', 'React'], repo: 'https://github.com/Tirthvaghela/PRODIGY_FS_TASK01' },
+    { title: 'Employee Management', kind: 'HR system', desc: 'A MERN employee management app with Admin and HR roles.',
+      points: ['Employee CRUD with profile picture uploads', 'Search, filters and CSV / PDF export', 'Dashboard statistics and department analytics'],
+      tech: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT', 'React'], repo: 'https://github.com/Tirthvaghela/PRODIGY-FS-TASK02' },
+    { title: 'FreshValut — Local Pantry', kind: 'E-commerce', desc: 'A PHP e-commerce platform for local grocery stores and small businesses.',
+      points: ['Catalog, search, cart, wishlist and order tracking', 'Product, inventory and order management', 'Admin dashboard with sales analytics and reports'],
+      tech: ['PHP', 'MySQL', 'Tailwind CSS', 'AJAX'], repo: 'https://github.com/Tirthvaghela/FreshValut' },
+    { title: 'Vois', kind: 'Social platform', desc: 'A full-stack social media app with posts, stories and direct messages.',
+      points: ['Posts with media carousels, 24-hour stories', 'Nested comments, messaging and notifications', 'Follow system, hashtags, search and explore'],
+      tech: ['React 18', 'Vite', 'Tailwind CSS', 'FastAPI', 'MongoDB', 'PyJWT'], repo: 'https://github.com/Tirthvaghela/Vois' },
+  ],
+};
 
 export const EDUCATION = [
   { years: '2025 – 2027', status: 'Pursuing', chipBg: MUST, degree: 'Master of Science in Information Technology (MSc IT)', note: "Integrated Master's — Currently in Semester 9", cgpa: '' },

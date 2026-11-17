@@ -1,0 +1,55 @@
+/* 02 · Prodigy InfoTech — same language as the WeIntern story (red band, condensed display, serif
+   accents, mono labels), but an editorial index instead of cards so the two never read alike. */
+.pi { margin-top: clamp(96px, 12vw, 180px); }
+.acc { color: var(--red); }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(239, 233, 220, .18); }
+
+.head { margin-top: clamp(24px, 3vw, 40px); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px clamp(24px, 3vw, 48px); align-items: stretch; padding: clamp(22px, 3vw, 44px); border-radius: 32px; background: var(--red); color: #14120f; }
+.headMain { display: flex; flex-direction: column; gap: 14px; }
+.company { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(52px, 7.4vw, 132px); line-height: .84; letter-spacing: -.03em; text-transform: uppercase; }
+.role { margin: 0; font-size: clamp(22px, 2vw, 30px); line-height: 1.1; }
+.proof { margin-top: auto; padding-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+.ink, .line { display: inline-flex; align-items: center; height: 48px; padding: 0 20px; border-radius: 99px; transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease); }
+.ink { background: #14120f; color: #efe9dc; }
+.ink:hover { opacity: 1; background: #efe9dc; color: #14120f; }
+.line { border: 1.5px solid #14120f; }
+.line:hover { opacity: 1; background: #14120f; color: #efe9dc; }
+.quote { margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: clamp(20px, 2.4vw, 32px); border-radius: 24px; background: #14120f; color: #efe9dc; }
+.quote blockquote { margin: 0; font-size: clamp(24px, 2.3vw, 36px); line-height: 1.1; }
+.quote figcaption { opacity: .8; line-height: 1.6; }
+
+.title { margin: clamp(56px, 7vw, 100px) 0 clamp(20px, 3vw, 36px); font-weight: 800; font-stretch: 75%; font-size: clamp(44px, 6.4vw, 116px); line-height: .86; letter-spacing: -.03em; text-transform: uppercase; }
+
+/* Editorial index: number · name + one-liner · three features · stack + repo */
+.index { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid rgba(239, 233, 220, .18); }
+.row { --d: 1; position: relative; display: grid; grid-template-columns: clamp(64px, 8vw, 120px) minmax(0, 1.15fr) minmax(0, 1.1fr) minmax(170px, .55fr); gap: 16px clamp(18px, 2.4vw, 36px); align-items: start; padding: clamp(24px, 2.6vw, 36px) 0; transition: background-color var(--dur-hover) var(--ease); }
+.row::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: rgba(239, 233, 220, .35); transform: scaleX(var(--d)); transform-origin: 0 50%; }
+.num { font-size: clamp(52px, 6vw, 100px); line-height: .8; color: var(--red); transition: color var(--dur-hover) var(--ease); }
+.row:hover .num { color: var(--must); }
+.main { display: flex; flex-direction: column; gap: 10px; }
+.kind { opacity: .7; }
+.name { margin: 0; font-weight: 800; font-stretch: 75%; font-size: clamp(32px, 3.2vw, 56px); line-height: .9; letter-spacing: -.02em; text-transform: uppercase; transition: transform .5s var(--ease); }
+.row:hover .name { transform: translateX(6px); }
+.desc { margin: 0; max-width: 42ch; font-size: 16px; line-height: 1.5; opacity: .88; text-wrap: pretty; }
+.feats { list-style: none; margin: 0; padding: 4px 0 0; display: flex; flex-direction: column; gap: 9px; font-size: 15px; line-height: 1.4; }
+.feats li { display: flex; gap: 10px; }
+.feats li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: .48em; border-radius: 50%; background: var(--red); }
+.side { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 4px; }
+.tech { opacity: .72; line-height: 1.7; }
+.repo { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 99px; border: 1.5px solid rgba(239, 233, 220, .45); transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease); }
+.repo:hover { opacity: 1; background: #efe9dc; color: #14120f; border-color: #efe9dc; }
+
+@media (max-width: 1099px) {
+  .row { grid-template-columns: clamp(56px, 8vw, 96px) minmax(0, 1fr) minmax(0, 1fr); }
+  .side { grid-column: 2 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+}
+@media (max-width: 899px) {
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .row { grid-template-columns: 52px minmax(0, 1fr); }
+  .feats, .side { grid-column: 2; }
+}
+@media (max-width: 479px) {
+  .row { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .feats, .side { grid-column: 1; }
+  .num { font-size: 44px; }
+}
