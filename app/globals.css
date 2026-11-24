@@ -32,7 +32,7 @@ body {
 *, *::before, *::after { box-sizing: border-box; }
 a { color: inherit; text-decoration: none; }
 a { transition: opacity var(--dur-hover) var(--ease); }
-a:hover { color: inherit; opacity: .85; }
+a:hover { opacity: .85; } /* no color here: it would override styled buttons' own text colour (dark-on-dark on hover) */
 /* Content swapped in place (form result, error line): short rise + fade, motion on only. */
 @keyframes swapIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 html[data-motion="on"] .swapIn { animation: swapIn var(--dur-swap) var(--ease) both; }
