@@ -10,6 +10,11 @@ const NAME = ["T", "I", "R", "T", "H", null, "V", "A", "G", "H", "E", "L", "A"] 
 const VF0 = { fontVariationSettings: "'wght' 300, 'wdth' 75" };
 type VF = HTMLSpanElement & { _f?: number };
 
+/** Short visitor count: 1,008 → "1.01k", 12,345 → "12.3k", 1,250,000 → "1.25m"; under 1,000 stays exact.
+ *  Two decimals below 10k so the number visibly moves as visits come in. */
+const compact = (n: number) =>
+  new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: n < 10_000 || (n >= 1e6 && n < 1e7) ? 2 : 1 }).format(n).toLowerCase();
+
 export default function Footer() {
   const { motion, fine, time } = useSite();
   const ref = useRef<HTMLElement>(null);
@@ -105,7 +110,7 @@ export default function Footer() {
           ? <span key={i} className={s.gap} />
           : <span key={i} data-fl="" className={s.ch}><span data-vf="" className={s.ch} style={VF0}>{ch}</span></span>)}
       </div>
-      <div className={`${s.legal} mono11`}><span suppressHydrationWarning>© {new Date().getFullYear()} Tirth Vaghela — Ahmedabad, India</span>{visitors !== null && <span>Visitor #{visitors.toLocaleString("en-IN")}</span>}<span>Designed &amp; built by Tirth</span></div>
+      <div className={`${s.legal} mono11`}><span suppressHydrationWarning>© {new Date().getFullYear()} Tirth Vaghela — Ahmedabad, India</span>{visitors !== null && <span title={`Visitor #${visitors.toLocaleString("en-IN")}`}>Visitor #{compact(visitors)}</span>}<span>Designed &amp; built by Tirth</span></div>
     </footer>
   );
 }
